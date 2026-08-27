@@ -90,6 +90,8 @@ pkg/
 # --- Logs & Runtime ---
 logs/
 *.log
+*.logs
+vercel.logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
