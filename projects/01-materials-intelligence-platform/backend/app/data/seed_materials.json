@@ -1,0 +1,377 @@
+[
+  {
+    "id": "MAT-PC-101",
+    "trade_name": "Makroblend Polycarb High-Flow",
+    "polymer_family": "Polycarbonate (PC)",
+    "filler_type": "Unfilled",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.20,
+    "mechanical": {
+      "tensile_modulus_mpa": 2400.0,
+      "tensile_strength_mpa": 66.0,
+      "elongation_at_break_pct": 115.0,
+      "charpy_impact_kj_m2": 75.0,
+      "shore_hardness_d": 85
+    },
+    "thermal": {
+      "melt_temperature_c": 285.0,
+      "hdt_a_c": 132.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Automotive Lighting", "EV Battery Housings", "Medical Diagnostics"],
+    "created_by": "R&D Scientist Dr. Müller",
+    "version": 1
+  },
+  {
+    "id": "MAT-PC-102",
+    "trade_name": "Makroblend FR Impact-Modified",
+    "polymer_family": "Polycarbonate (PC)",
+    "filler_type": "Flame Retardant Mineral",
+    "filler_percentage": 10.0,
+    "density_g_cm3": 1.25,
+    "mechanical": {
+      "tensile_modulus_mpa": 2850.0,
+      "tensile_strength_mpa": 72.0,
+      "elongation_at_break_pct": 85.0,
+      "charpy_impact_kj_m2": 60.0,
+      "shore_hardness_d": 86
+    },
+    "thermal": {
+      "melt_temperature_c": 290.0,
+      "hdt_a_c": 138.0,
+      "flammability_ul94": "5VA"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["High-Voltage Enclosures", "Rail Interior Panels", "Smart Metering"],
+    "created_by": "Senior Materials Engineer",
+    "version": 2
+  },
+  {
+    "id": "MAT-PA66-204",
+    "trade_name": "Durethan High-Strength GF30",
+    "polymer_family": "Polyamide 66 (PA66)",
+    "filler_type": "Glass Fiber",
+    "filler_percentage": 30.0,
+    "density_g_cm3": 1.36,
+    "mechanical": {
+      "tensile_modulus_mpa": 9500.0,
+      "tensile_strength_mpa": 175.0,
+      "elongation_at_break_pct": 3.8,
+      "charpy_impact_kj_m2": 11.0,
+      "shore_hardness_d": 90
+    },
+    "thermal": {
+      "melt_temperature_c": 260.0,
+      "hdt_a_c": 235.0,
+      "flammability_ul94": "HB"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Under-the-Hood Structural", "Gear Housings", "Industrial Valves"],
+    "created_by": "Senior Materials Engineer",
+    "version": 2
+  },
+  {
+    "id": "MAT-PA66-205",
+    "trade_name": "Durethan Ultra-Rigid GF50",
+    "polymer_family": "Polyamide 66 (PA66)",
+    "filler_type": "Glass Fiber",
+    "filler_percentage": 50.0,
+    "density_g_cm3": 1.58,
+    "mechanical": {
+      "tensile_modulus_mpa": 16200.0,
+      "tensile_strength_mpa": 230.0,
+      "elongation_at_break_pct": 2.1,
+      "charpy_impact_kj_m2": 14.5,
+      "shore_hardness_d": 94
+    },
+    "thermal": {
+      "melt_temperature_c": 265.0,
+      "hdt_a_c": 250.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Metal Replacement Brackets", "Pump Impellers", "Heavy Machinery Levers"],
+    "created_by": "Advanced Composites Lead",
+    "version": 1
+  },
+  {
+    "id": "MAT-TPU-309",
+    "trade_name": "Desmopan Bio-Circular Thermoplastic",
+    "polymer_family": "Thermoplastic Polyurethane (TPU)",
+    "filler_type": "Bio-based Carbon",
+    "filler_percentage": 15.0,
+    "density_g_cm3": 1.18,
+    "mechanical": {
+      "tensile_modulus_mpa": 650.0,
+      "tensile_strength_mpa": 42.0,
+      "elongation_at_break_pct": 480.0,
+      "charpy_impact_kj_m2": 120.0,
+      "shore_hardness_d": 55
+    },
+    "thermal": {
+      "melt_temperature_c": 210.0,
+      "hdt_a_c": 78.0,
+      "flammability_ul94": "V-2"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Flexible Wearables", "Industrial Sealings", "Athletic Footwear"],
+    "created_by": "Sustainability Lab Lead",
+    "version": 1
+  },
+  {
+    "id": "MAT-TPU-310",
+    "trade_name": "Desmopan High-Abrasion Hydrolysis-Resistant",
+    "polymer_family": "Thermoplastic Polyurethane (TPU)",
+    "filler_type": "Unfilled Ether-Grade",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.15,
+    "mechanical": {
+      "tensile_modulus_mpa": 420.0,
+      "tensile_strength_mpa": 50.0,
+      "elongation_at_break_pct": 550.0,
+      "charpy_impact_kj_m2": 140.0,
+      "shore_hardness_d": 48
+    },
+    "thermal": {
+      "melt_temperature_c": 205.0,
+      "hdt_a_c": 65.0,
+      "flammability_ul94": "HB"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Subsea Umbilicals", "Hydraulic Hose Sheathing", "Conveyor Belts"],
+    "created_by": "Polymer Physics Specialist",
+    "version": 1
+  },
+  {
+    "id": "MAT-PEEK-401",
+    "trade_name": "ThermaPeak Aerospace Grade",
+    "polymer_family": "Polyetheretherketone (PEEK)",
+    "filler_type": "Unfilled Virgin",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.30,
+    "mechanical": {
+      "tensile_modulus_mpa": 3800.0,
+      "tensile_strength_mpa": 100.0,
+      "elongation_at_break_pct": 45.0,
+      "charpy_impact_kj_m2": 8.0,
+      "shore_hardness_d": 88
+    },
+    "thermal": {
+      "melt_temperature_c": 343.0,
+      "hdt_a_c": 160.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Aerospace Structural Clips", "Semiconductor Wafer Carriers", "Spinal Fusion Cages"],
+    "created_by": "High-Temp Polymer Specialist",
+    "version": 1
+  },
+  {
+    "id": "MAT-PEEK-402",
+    "trade_name": "ThermaPeak Carbon Reinforced CF30",
+    "polymer_family": "Polyetheretherketone (PEEK)",
+    "filler_type": "Carbon Fiber",
+    "filler_percentage": 30.0,
+    "density_g_cm3": 1.41,
+    "mechanical": {
+      "tensile_modulus_mpa": 13000.0,
+      "tensile_strength_mpa": 225.0,
+      "elongation_at_break_pct": 2.5,
+      "charpy_impact_kj_m2": 9.5,
+      "shore_hardness_d": 92
+    },
+    "thermal": {
+      "melt_temperature_c": 345.0,
+      "hdt_a_c": 315.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Downhole Oil & Gas Bushings", "Formula 1 Air Ducts", "Orthopedic Screws"],
+    "created_by": "Advanced Composites Lead",
+    "version": 2
+  },
+  {
+    "id": "MAT-POM-501",
+    "trade_name": "Ultraform High-Precision Polyacetal",
+    "polymer_family": "Polyoxymethylene (POM)",
+    "filler_type": "Low Friction PTFE Lubricated",
+    "filler_percentage": 5.0,
+    "density_g_cm3": 1.44,
+    "mechanical": {
+      "tensile_modulus_mpa": 2900.0,
+      "tensile_strength_mpa": 65.0,
+      "elongation_at_break_pct": 25.0,
+      "charpy_impact_kj_m2": 6.5,
+      "shore_hardness_d": 82
+    },
+    "thermal": {
+      "melt_temperature_c": 168.0,
+      "hdt_a_c": 110.0,
+      "flammability_ul94": "HB"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Precision Watch Gears", "Fuel Delivery Flanges", "Medical Inhaler Actuators"],
+    "created_by": "Tribology & Wear Scientist",
+    "version": 1
+  },
+  {
+    "id": "MAT-PBT-601",
+    "trade_name": "Pocan Electrical High-Tracking GF20",
+    "polymer_family": "Polybutylene Terephthalate (PBT)",
+    "filler_type": "Glass Fiber",
+    "filler_percentage": 20.0,
+    "density_g_cm3": 1.45,
+    "mechanical": {
+      "tensile_modulus_mpa": 6800.0,
+      "tensile_strength_mpa": 115.0,
+      "elongation_at_break_pct": 4.2,
+      "charpy_impact_kj_m2": 7.5,
+      "shore_hardness_d": 87
+    },
+    "thermal": {
+      "melt_temperature_c": 225.0,
+      "hdt_a_c": 200.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["EV Power Inverter Housings", "Automotive Relay Sockets", "Solar Inverter Terminals"],
+    "created_by": "Electrical E/E Team",
+    "version": 1
+  },
+  {
+    "id": "MAT-ABS-701",
+    "trade_name": "Novodur High-Gloss Automotive ABS",
+    "polymer_family": "Acrylonitrile Butadiene Styrene (ABS)",
+    "filler_type": "Unfilled",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.05,
+    "mechanical": {
+      "tensile_modulus_mpa": 2300.0,
+      "tensile_strength_mpa": 48.0,
+      "elongation_at_break_pct": 20.0,
+      "charpy_impact_kj_m2": 22.0,
+      "shore_hardness_d": 78
+    },
+    "thermal": {
+      "melt_temperature_c": 230.0,
+      "hdt_a_c": 96.0,
+      "flammability_ul94": "HB"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Vehicle Interior Trim", "Consumer Electronics Enclosures", "3D Printing Prototyping"],
+    "created_by": "Styling & Aesthetic Materials Lead",
+    "version": 1
+  },
+  {
+    "id": "MAT-PPS-801",
+    "trade_name": "Fortron Super-Chemical Resistant GF40",
+    "polymer_family": "Polyphenylene Sulfide (PPS)",
+    "filler_type": "Glass Fiber",
+    "filler_percentage": 40.0,
+    "density_g_cm3": 1.65,
+    "mechanical": {
+      "tensile_modulus_mpa": 14500.0,
+      "tensile_strength_mpa": 190.0,
+      "elongation_at_break_pct": 1.8,
+      "charpy_impact_kj_m2": 8.0,
+      "shore_hardness_d": 93
+    },
+    "thermal": {
+      "melt_temperature_c": 285.0,
+      "hdt_a_c": 265.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Coolant Circulation Pumps", "Exhaust Gas Sensors", "Chemical Flowmeters"],
+    "created_by": "Aggressive Media Chemist",
+    "version": 1
+  },
+  {
+    "id": "MAT-PPSU-802",
+    "trade_name": "Radel High-Steam Sterilization Polyphenylene",
+    "polymer_family": "Polyphenylsulfone (PPSU)",
+    "filler_type": "Unfilled",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.29,
+    "mechanical": {
+      "tensile_modulus_mpa": 2350.0,
+      "tensile_strength_mpa": 70.0,
+      "elongation_at_break_pct": 60.0,
+      "charpy_impact_kj_m2": 65.0,
+      "shore_hardness_d": 84
+    },
+    "thermal": {
+      "melt_temperature_c": 360.0,
+      "hdt_a_c": 207.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Autoclave Medical Trays", "Surgical Tool Handles", "Dental Instrument Cassettes"],
+    "created_by": "Biocompatible R&D",
+    "version": 1
+  },
+  {
+    "id": "MAT-PTFE-901",
+    "trade_name": "FluoroPure Chem-Inert Fluoropolymer",
+    "polymer_family": "Polytetrafluoroethylene (PTFE)",
+    "filler_type": "Unfilled Virgin",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 2.18,
+    "mechanical": {
+      "tensile_modulus_mpa": 550.0,
+      "tensile_strength_mpa": 28.0,
+      "elongation_at_break_pct": 320.0,
+      "charpy_impact_kj_m2": 16.0,
+      "shore_hardness_d": 58
+    },
+    "thermal": {
+      "melt_temperature_c": 327.0,
+      "hdt_a_c": 55.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Semiconductor Chemical Piping", "Cryogenic Gaskets", "Non-Stick Sensor Coatings"],
+    "created_by": "Fluoropolymer Scientist",
+    "version": 1
+  },
+  {
+    "id": "MAT-PEI-902",
+    "trade_name": "Ultem High-Dielectric Polyetherimide",
+    "polymer_family": "Polyetherimide (PEI)",
+    "filler_type": "Unfilled",
+    "filler_percentage": 0.0,
+    "density_g_cm3": 1.27,
+    "mechanical": {
+      "tensile_modulus_mpa": 3300.0,
+      "tensile_strength_mpa": 105.0,
+      "elongation_at_break_pct": 60.0,
+      "charpy_impact_kj_m2": 5.5,
+      "shore_hardness_d": 89
+    },
+    "thermal": {
+      "melt_temperature_c": 350.0,
+      "hdt_a_c": 200.0,
+      "flammability_ul94": "V-0"
+    },
+    "reach_compliant": true,
+    "rohs_compliant": true,
+    "applications": ["Aircraft Galley Structures", "High-Frequency 5G Radomes", "Circuit Breakers"],
+    "created_by": "Aerospace & Defense Lead",
+    "version": 1
+  }
+]

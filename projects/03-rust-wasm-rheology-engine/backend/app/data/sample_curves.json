@@ -1,0 +1,72 @@
+[
+  {
+    "grade_id": "PC-MAKROLON-2805",
+    "polymer_grade": "Makrolon 2805 High-Flow Polycarbonate",
+    "family": "Polycarbonate (PC)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 1.0, 2.0, 3.5, 5.0, 7.5, 10.0, 15.0, 20.0, 30.0],
+    "stress_mpa": [0.0, 1.2, 2.4, 3.6, 4.8, 6.0, 11.5, 21.8, 38.2, 52.0, 62.5, 66.0, 64.2, 61.0, 58.0, 55.0]
+  },
+  {
+    "grade_id": "PA66-DURETHAN-GF30",
+    "polymer_grade": "Durethan High-Strength GF30",
+    "family": "Polyamide 66 (PA66)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 1.0, 1.5, 2.0, 2.5, 3.0, 3.8],
+    "stress_mpa": [0.0, 4.75, 9.50, 14.25, 19.0, 23.75, 47.0, 89.0, 125.0, 152.0, 168.0, 173.0, 175.0]
+  },
+  {
+    "grade_id": "TPU-DESMOPAN-95A",
+    "polymer_grade": "Desmopan 95A Bio-Circular TPU",
+    "family": "Thermoplastic Polyurethane (TPU)",
+    "strain_pct": [0.0, 0.05, 0.15, 0.25, 1.0, 5.0, 15.0, 50.0, 100.0, 200.0, 350.0, 480.0],
+    "stress_mpa": [0.0, 0.32, 0.98, 1.62, 4.2, 8.5, 14.0, 20.5, 26.0, 32.5, 38.0, 42.0]
+  },
+  {
+    "grade_id": "PEEK-THERMAPEEK-CF30",
+    "polymer_grade": "ThermaPeak Carbon Reinforced CF30",
+    "family": "Polyetheretherketone (PEEK)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 1.0, 1.5, 2.0, 2.5],
+    "stress_mpa": [0.0, 6.5, 13.0, 19.5, 26.0, 32.5, 64.0, 122.0, 170.0, 205.0, 225.0]
+  },
+  {
+    "grade_id": "POM-ULTRAFORM-H2320",
+    "polymer_grade": "Ultraform High-Precision Polyacetal",
+    "family": "Polyoxymethylene (POM)",
+    "strain_pct": [0.0, 0.05, 0.15, 0.25, 0.50, 1.0, 2.0, 4.0, 8.0, 12.0, 18.0, 25.0],
+    "stress_mpa": [0.0, 1.45, 4.35, 7.25, 14.2, 26.5, 44.0, 58.0, 64.5, 65.0, 62.0, 58.0]
+  },
+  {
+    "grade_id": "PBT-POCAN-GF20",
+    "polymer_grade": "Pocan Electrical High-Tracking GF20",
+    "family": "Polybutylene Terephthalate (PBT)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 1.0, 2.0, 3.0, 4.2],
+    "stress_mpa": [0.0, 3.4, 6.8, 10.2, 13.6, 17.0, 33.5, 62.0, 94.0, 110.0, 115.0]
+  },
+  {
+    "grade_id": "ABS-NOVODUR-P2H",
+    "polymer_grade": "Novodur High-Gloss Automotive ABS",
+    "family": "Acrylonitrile Butadiene Styrene (ABS)",
+    "strain_pct": [0.0, 0.05, 0.15, 0.25, 0.50, 1.0, 2.0, 3.0, 5.0, 8.0, 12.0, 20.0],
+    "stress_mpa": [0.0, 1.15, 3.45, 5.75, 11.2, 21.0, 35.0, 43.5, 48.0, 46.5, 44.0, 42.0]
+  },
+  {
+    "grade_id": "PPS-FORTRON-GF40",
+    "polymer_grade": "Fortron Super-Chemical Resistant GF40",
+    "family": "Polyphenylene Sulfide (PPS)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 0.80, 1.20, 1.50, 1.80],
+    "stress_mpa": [0.0, 7.25, 14.5, 21.75, 29.0, 36.25, 71.0, 110.0, 152.0, 178.0, 190.0]
+  },
+  {
+    "grade_id": "PPSU-RADEL-R5000",
+    "polymer_grade": "Radel High-Steam Sterilization Polyphenylsulfone",
+    "family": "Polyphenylsulfone (PPSU)",
+    "strain_pct": [0.0, 0.05, 0.15, 0.25, 0.50, 1.0, 2.0, 4.0, 7.0, 15.0, 35.0, 60.0],
+    "stress_mpa": [0.0, 1.17, 3.52, 5.87, 11.5, 22.2, 40.0, 58.0, 69.5, 70.0, 65.0, 60.0]
+  },
+  {
+    "grade_id": "PEI-ULTEM-1000",
+    "polymer_grade": "Ultem High-Dielectric Polyetherimide",
+    "family": "Polyetherimide (PEI)",
+    "strain_pct": [0.0, 0.05, 0.10, 0.15, 0.20, 0.25, 0.50, 1.0, 2.0, 4.0, 7.0, 15.0, 30.0, 60.0],
+    "stress_mpa": [0.0, 1.65, 3.3, 4.95, 6.6, 8.25, 16.0, 31.0, 58.0, 88.0, 105.0, 102.0, 95.0, 88.0]
+  }
+]

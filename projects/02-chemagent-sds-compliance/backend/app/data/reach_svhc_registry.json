@@ -1,0 +1,100 @@
+[
+  {
+    "cas_number": "117-81-7",
+    "substance_name": "Bis(2-ethylhexyl) phthalate (DEHP)",
+    "hazard_category": "Toxic for reproduction (Article 57c)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "84-74-2",
+    "substance_name": "Dibutyl phthalate (DBP)",
+    "hazard_category": "Toxic for reproduction (Article 57c)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "85-68-7",
+    "substance_name": "Benzyl butyl phthalate (BBP)",
+    "hazard_category": "Toxic for reproduction (Article 57c)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "28553-12-0",
+    "substance_name": "Diisononyl phthalate (DINP)",
+    "hazard_category": "Endocrine disrupting properties (human health)",
+    "threshold_pct": 0.1,
+    "annex_xiv": false
+  },
+  {
+    "cas_number": "1163-19-5",
+    "substance_name": "Decabromodiphenyl ether (DecaBDE)",
+    "hazard_category": "PBT (Article 57d) / POP Regulation",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "540-97-6",
+    "substance_name": "Dodecamethylcyclohexasiloxane (D6)",
+    "hazard_category": "vPvB (Article 57e)",
+    "threshold_pct": 0.1,
+    "annex_xiv": false
+  },
+  {
+    "cas_number": "541-02-6",
+    "substance_name": "Decamethylcyclopentasiloxane (D5)",
+    "hazard_category": "PBT / vPvB (Article 57d/e)",
+    "threshold_pct": 0.1,
+    "annex_xiv": false
+  },
+  {
+    "cas_number": "556-67-2",
+    "substance_name": "Octamethylcyclotetrasiloxane (D4)",
+    "hazard_category": "Toxic for reproduction / PBT",
+    "threshold_pct": 0.1,
+    "annex_xiv": false
+  },
+  {
+    "cas_number": "1303-28-2",
+    "substance_name": "Arsenic pentoxide",
+    "hazard_category": "Carcinogenic (Article 57a)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "7789-06-2",
+    "substance_name": "Strontium chromate",
+    "hazard_category": "Carcinogenic (Article 57a)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "131-18-0",
+    "substance_name": "Dipentyl phthalate (DPP)",
+    "hazard_category": "Toxic for reproduction (Article 57c)",
+    "threshold_pct": 0.1,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "120-82-1",
+    "substance_name": "1,2,4-Trichlorobenzene",
+    "hazard_category": "Specific Target Organ Toxicity (STOT RE)",
+    "threshold_pct": 0.1,
+    "annex_xiv": false
+  },
+  {
+    "cas_number": "335-67-1",
+    "substance_name": "Perfluorooctanoic acid (PFOA)",
+    "hazard_category": "Toxic for reproduction / PBT",
+    "threshold_pct": 0.0025,
+    "annex_xiv": true
+  },
+  {
+    "cas_number": "10043-35-3",
+    "substance_name": "Boric acid",
+    "hazard_category": "Toxic for reproduction (Article 57c)",
+    "threshold_pct": 0.3,
+    "annex_xiv": false
+  }
+]

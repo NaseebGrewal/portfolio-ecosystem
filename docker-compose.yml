@@ -1,0 +1,139 @@
+# ==============================================================================
+# Portfolio Ecosystem - Unified Monorepo Docker Compose
+# ==============================================================================
+# Starts all 5 applications with a single command:
+#
+#   docker compose up --build
+#
+# Services Exposed:
+#   - Executive Portfolio Web:           http://localhost:3000
+#   - Project 01 (Materials Frontend):   http://localhost:3001
+#   - Project 01 (Materials API):        http://localhost:8000/docs
+#   - Project 02 (ChemAgent API):        http://localhost:8001/docs
+#   - Project 03 (Rheology Engine API):  http://localhost:8002/docs
+#   - Project 04 (AI Gateway & FinOps):  http://localhost:8003/docs
+#   - Shared Redis Cache:                localhost:6379
+# ==============================================================================
+
+services:
+  # ----------------------------------------------------------------------------
+  # Shared In-Memory Redis Cache (Optional for fast caching)
+  # ----------------------------------------------------------------------------
+  shared_redis:
+    image: redis:7.2-alpine
+    container_name: shared_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+
+  # ----------------------------------------------------------------------------
+  # Project 01: Materials Intelligence Platform (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  materials_backend:
+    build:
+      context: ./projects/01-materials-intelligence-platform/backend
+      dockerfile: Dockerfile
+    container_name: materials_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8000
+      - ENVIRONMENT=development
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./projects/01-materials-intelligence-platform/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Project 01: Materials Intelligence Platform (Next.js Frontend)
+  # ----------------------------------------------------------------------------
+  materials_frontend:
+    build:
+      context: ./projects/01-materials-intelligence-platform/frontend
+      dockerfile: Dockerfile
+    container_name: materials_frontend
+    restart: unless-stopped
+    environment:
+      - PORT=3000
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - materials_backend
+
+  # ----------------------------------------------------------------------------
+  # Project 02: ChemAgent SDS & REACH Compliance Auditor (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  chemagent_backend:
+    build:
+      context: ./projects/02-chemagent-sds-compliance/backend
+      dockerfile: Dockerfile
+    container_name: chemagent_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8001
+      - ENVIRONMENT=development
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./projects/02-chemagent-sds-compliance/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Project 03: Ultra-Fast Lab Rheology & Mechanics Engine (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  rheology_backend:
+    build:
+      context: ./projects/03-rust-wasm-rheology-engine/backend
+      dockerfile: Dockerfile
+    container_name: rheology_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8002
+      - ENVIRONMENT=development
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./projects/03-rust-wasm-rheology-engine/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Project 04: Enterprise AI Gateway & FinOps Controller (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  gateway_backend:
+    build:
+      context: ./projects/04-enterprise-ai-gateway-finops/backend
+      dockerfile: Dockerfile
+    container_name: gateway_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8003
+      - REDIS_URI=redis://shared_redis:6379/0
+      - ENVIRONMENT=development
+    ports:
+      - "8003:8003"
+    depends_on:
+      - shared_redis
+    volumes:
+      - ./projects/04-enterprise-ai-gateway-finops/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Executive AI Portfolio Website (Next.js 15 Main Application)
+  # ----------------------------------------------------------------------------
+  portfolio_website:
+    build:
+      context: ./portfolio-website
+      dockerfile: Dockerfile
+    container_name: portfolio_website
+    restart: unless-stopped
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_MATERIALS_API_URL=http://localhost:8000
+      - NEXT_PUBLIC_CHEMAGENT_API_URL=http://localhost:8001
+      - NEXT_PUBLIC_RHEOLOGY_API_URL=http://localhost:8002
+      - NEXT_PUBLIC_GATEWAY_API_URL=http://localhost:8003
+    ports:
+      - "3000:3000"
+    depends_on:
+      - materials_backend
+      - chemagent_backend
+      - rheology_backend
+      - gateway_backend

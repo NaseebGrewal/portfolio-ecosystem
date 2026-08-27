@@ -1,0 +1,37 @@
+# ==============================================================================
+# Project 02: ChemAgent-Gov (SDS & REACH Auditor) - Docker Compose
+# ==============================================================================
+#
+# HOW TO RUN THIS COMPOSE FILE:
+#
+# 1. Without -f flag (from this directory):
+#    cd portfolio-ecosystem/projects/02-chemagent-sds-compliance
+#    docker compose up --build
+#
+# 2. With -f flag (from the workspace root):
+#    docker compose -f portfolio-ecosystem/projects/02-chemagent-sds-compliance/docker-compose.yml up --build
+#
+# 3. In detached background mode:
+#    docker compose -f portfolio-ecosystem/projects/02-chemagent-sds-compliance/docker-compose.yml up -d --build
+#
+# 4. View real-time container logs:
+#    docker compose -f portfolio-ecosystem/projects/02-chemagent-sds-compliance/docker-compose.yml logs -f
+#
+# 5. Stop containers:
+#    docker compose -f portfolio-ecosystem/projects/02-chemagent-sds-compliance/docker-compose.yml down
+#
+# ==============================================================================
+
+services:
+  chemagent_backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: chemagent_backend
+    environment:
+      - PORT=8001
+      - ENVIRONMENT=development
+    ports:
+      - "8001:8001"
+    volumes:
+      - ./backend:/app

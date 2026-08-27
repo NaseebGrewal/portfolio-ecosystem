@@ -1,0 +1,192 @@
+[
+  {
+    "sds_id": "SDS-2026-POLY-01",
+    "product_name": "UltraFlex TPU Masterbatch 400",
+    "supplier": "Covestro Specialties",
+    "ghs_hazard_statements": ["H317: May cause allergic skin reaction"],
+    "composition": [
+      {
+        "chemical_name": "Thermoplastic Polyurethane Resin",
+        "cas_number": "9018-04-6",
+        "weight_percentage": 98.5
+      },
+      {
+        "chemical_name": "Silica, amorphous",
+        "cas_number": "7631-86-9",
+        "weight_percentage": 1.5
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-PLAST-99",
+    "product_name": "Plasticizer Compound Sample X",
+    "supplier": "Third-Party Chemical Broker",
+    "ghs_hazard_statements": ["H360FD: May damage fertility. May damage the unborn child", "H315: Causes skin irritation"],
+    "composition": [
+      {
+        "chemical_name": "Bis(2-ethylhexyl) phthalate (DEHP)",
+        "cas_number": "117-81-7",
+        "weight_percentage": 8.5
+      },
+      {
+        "chemical_name": "Carrier Polymer",
+        "cas_number": "9002-86-2",
+        "weight_percentage": 91.5
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-PC-03",
+    "product_name": "Makrolon Optical Grade Polycarbonate",
+    "supplier": "Covestro AG Leverkusen",
+    "ghs_hazard_statements": [],
+    "composition": [
+      {
+        "chemical_name": "Poly(bisphenol A carbonate)",
+        "cas_number": "25037-45-0",
+        "weight_percentage": 99.8
+      },
+      {
+        "chemical_name": "UV Stabilizer Octabenzone",
+        "cas_number": "1843-05-6",
+        "weight_percentage": 0.2
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-FR-12",
+    "product_name": "FlameRetard Masterbatch Eco-FR",
+    "supplier": "EuroAdditives GmbH",
+    "ghs_hazard_statements": ["H319: Causes serious eye irritation"],
+    "composition": [
+      {
+        "chemical_name": "Polycarbonate Carrier",
+        "cas_number": "25037-45-0",
+        "weight_percentage": 75.0
+      },
+      {
+        "chemical_name": "Aluminum diethylphosphinate",
+        "cas_number": "225789-38-8",
+        "weight_percentage": 25.0
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-RESTRICT-07",
+    "product_name": "Legacy Adhesive Primer Yellow-B",
+    "supplier": "Overseas Import Trade Co.",
+    "ghs_hazard_statements": ["H350: May cause cancer", "H340: May cause genetic defects"],
+    "composition": [
+      {
+        "chemical_name": "Strontium chromate",
+        "cas_number": "7789-06-2",
+        "weight_percentage": 3.2
+      },
+      {
+        "chemical_name": "Ethyl acetate",
+        "cas_number": "141-78-6",
+        "weight_percentage": 96.8
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-PA-05",
+    "product_name": "Durethan Impact Polyamide Blend",
+    "supplier": "Envalior Engineering Materials",
+    "ghs_hazard_statements": [],
+    "composition": [
+      {
+        "chemical_name": "Polyamide 66",
+        "cas_number": "32131-17-2",
+        "weight_percentage": 68.5
+      },
+      {
+        "chemical_name": "Glass Fiber Reinforcement",
+        "cas_number": "65997-17-3",
+        "weight_percentage": 30.0
+      },
+      {
+        "chemical_name": "Hindered Phenol Antioxidant",
+        "cas_number": "6683-19-8",
+        "weight_percentage": 1.5
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-SIL-11",
+    "product_name": "High-Temp Silicone Fluid Surfactant",
+    "supplier": "Apex Silicone Technologies",
+    "ghs_hazard_statements": ["H226: Flammable liquid and vapour"],
+    "composition": [
+      {
+        "chemical_name": "Polydimethylsiloxane",
+        "cas_number": "63148-62-9",
+        "weight_percentage": 97.0
+      },
+      {
+        "chemical_name": "Dodecamethylcyclohexasiloxane (D6)",
+        "cas_number": "540-97-6",
+        "weight_percentage": 2.5
+      },
+      {
+        "chemical_name": "Decamethylcyclopentasiloxane (D5)",
+        "cas_number": "541-02-6",
+        "weight_percentage": 0.5
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-BIO-22",
+    "product_name": "Bio-Based Plasticizer Succinate Ester",
+    "supplier": "GreenChemistry Innovations",
+    "ghs_hazard_statements": [],
+    "composition": [
+      {
+        "chemical_name": "Diisoamyl succinate (Bio)",
+        "cas_number": "818-04-2",
+        "weight_percentage": 99.5
+      },
+      {
+        "chemical_name": "Alpha-Tocopherol (Vitamin E)",
+        "cas_number": "59-02-9",
+        "weight_percentage": 0.5
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-PFAS-88",
+    "product_name": "Fluorinated Mold Release Agent XP",
+    "supplier": "Global Coating Solutions",
+    "ghs_hazard_statements": ["H372: Causes damage to organs through prolonged or repeated exposure"],
+    "composition": [
+      {
+        "chemical_name": "Isopropanol solvent",
+        "cas_number": "67-63-0",
+        "weight_percentage": 99.98
+      },
+      {
+        "chemical_name": "Perfluorooctanoic acid (PFOA)",
+        "cas_number": "335-67-1",
+        "weight_percentage": 0.02
+      }
+    ]
+  },
+  {
+    "sds_id": "SDS-2026-COLOR-15",
+    "product_name": "Carbon Black UV Masterbatch",
+    "supplier": "Orion Engineered Carbons",
+    "ghs_hazard_statements": [],
+    "composition": [
+      {
+        "chemical_name": "Polyethylene carrier",
+        "cas_number": "9002-88-4",
+        "weight_percentage": 60.0
+      },
+      {
+        "chemical_name": "High Surface Area Carbon Black",
+        "cas_number": "1333-86-4",
+        "weight_percentage": 40.0
+      }
+    ]
+  }
+]

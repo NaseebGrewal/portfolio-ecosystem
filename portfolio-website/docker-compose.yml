@@ -1,0 +1,36 @@
+# ==============================================================================
+# Executive AI Portfolio Website - Docker Compose Configuration
+# ==============================================================================
+#
+# HOW TO RUN THIS COMPOSE FILE:
+#
+# 1. Without -f flag (from this directory):
+#    cd portfolio-ecosystem/portfolio-website
+#    docker compose up --build
+#
+# 2. With -f flag (from the workspace root):
+#    docker compose -f portfolio-ecosystem/portfolio-website/docker-compose.yml up --build
+#
+# 3. In detached background mode:
+#    docker compose -f portfolio-ecosystem/portfolio-website/docker-compose.yml up -d --build
+#
+# 4. View real-time container logs:
+#    docker compose -f portfolio-ecosystem/portfolio-website/docker-compose.yml logs -f
+#
+# 5. Stop containers:
+#    docker compose -f portfolio-ecosystem/portfolio-website/docker-compose.yml down
+#
+# ==============================================================================
+
+services:
+  portfolio_website:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: executive_portfolio_web
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+

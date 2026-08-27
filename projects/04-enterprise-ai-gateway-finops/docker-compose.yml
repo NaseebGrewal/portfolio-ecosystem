@@ -1,0 +1,46 @@
+# ==============================================================================
+# Project 04: Enterprise AI Gateway & FinOps - Docker Compose
+# ==============================================================================
+#
+# HOW TO RUN THIS COMPOSE FILE:
+#
+# 1. Without -f flag (from this directory):
+#    cd portfolio-ecosystem/projects/04-enterprise-ai-gateway-finops
+#    docker compose up --build
+#
+# 2. With -f flag (from the workspace root):
+#    docker compose -f portfolio-ecosystem/projects/04-enterprise-ai-gateway-finops/docker-compose.yml up --build
+#
+# 3. In detached background mode:
+#    docker compose -f portfolio-ecosystem/projects/04-enterprise-ai-gateway-finops/docker-compose.yml up -d --build
+#
+# 4. View real-time container logs:
+#    docker compose -f portfolio-ecosystem/projects/04-enterprise-ai-gateway-finops/docker-compose.yml logs -f
+#
+# 5. Stop containers:
+#    docker compose -f portfolio-ecosystem/projects/04-enterprise-ai-gateway-finops/docker-compose.yml down
+#
+# ==============================================================================
+
+services:
+  redis:
+    image: redis:7.2-alpine
+    container_name: gateway_redis
+    ports:
+      - "6380:6379"
+
+  ai_gateway:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: enterprise_ai_gateway
+    environment:
+      - PORT=8003
+      - REDIS_URI=redis://redis:6379/0
+      - ENVIRONMENT=development
+    ports:
+      - "8003:8003"
+    depends_on:
+      - redis
+    volumes:
+      - ./backend:/app

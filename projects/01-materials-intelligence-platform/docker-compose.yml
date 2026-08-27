@@ -1,0 +1,40 @@
+# ==============================================================================
+# Project 01: Materials Intelligence Platform - Docker Compose
+# ==============================================================================
+#
+# Standalone execution:
+#    cd projects/01-materials-intelligence-platform
+#    docker compose up --build
+#
+# ==============================================================================
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: materials_backend
+    environment:
+      - ENVIRONMENT=development
+      - PORT=8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: materials_frontend
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+    ports:
+      - "3001:3000"
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+  mongo_data:

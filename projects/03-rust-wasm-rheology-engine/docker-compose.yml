@@ -1,0 +1,37 @@
+# ==============================================================================
+# Project 03: Ultra-Fast Lab Rheology Engine - Docker Compose
+# ==============================================================================
+#
+# HOW TO RUN THIS COMPOSE FILE:
+#
+# 1. Without -f flag (from this directory):
+#    cd portfolio-ecosystem/projects/03-rust-wasm-rheology-engine
+#    docker compose up --build
+#
+# 2. With -f flag (from the workspace root):
+#    docker compose -f portfolio-ecosystem/projects/03-rust-wasm-rheology-engine/docker-compose.yml up --build
+#
+# 3. In detached background mode:
+#    docker compose -f portfolio-ecosystem/projects/03-rust-wasm-rheology-engine/docker-compose.yml up -d --build
+#
+# 4. View real-time container logs:
+#    docker compose -f portfolio-ecosystem/projects/03-rust-wasm-rheology-engine/docker-compose.yml logs -f
+#
+# 5. Stop containers:
+#    docker compose -f portfolio-ecosystem/projects/03-rust-wasm-rheology-engine/docker-compose.yml down
+#
+# ==============================================================================
+
+services:
+  rheology_engine:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: rheology_engine
+    environment:
+      - PORT=8002
+      - ENVIRONMENT=development
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./backend:/app
