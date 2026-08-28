@@ -74,7 +74,7 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(leadRole?.highlights.some((h) => h.includes("€1,200,000"))).toBe(true);
   });
 
-  it("should configure verified Gemini 3.x model catalog without deprecated endpoints", () => {
+  it("should configure verified Gemini 3.x and Vercel AI Gateway free models", () => {
     const modelIds = AVAILABLE_MODELS.map((m) => m.id);
     expect(modelIds).toContain("gemini-3.5-flash-lite");
     expect(modelIds).toContain("gemini-3.1-flash-lite");
@@ -82,16 +82,31 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(modelIds).toContain("gemini-3.7-flash");
     expect(modelIds).toContain("gemini-3.5-flash");
 
-    // Ensure deprecated / nonexistent models are strictly excluded
+    // Verify Vercel AI Gateway Free Models
+    expect(modelIds).toContain("minimax/minimax-m3-free");
+    expect(modelIds).toContain("poolside/laguna-s-2.1-free");
+    expect(modelIds).toContain("inclusionai/ling-3.0-flash-fin-free");
+    expect(modelIds).toContain("minimax/minimax-m2.7-free");
+
+    // Ensure default model is configured as free Google Gemini workhorse
+    expect(DEFAULT_MODEL).toBe("gemini-3.5-flash-lite");
+
+    // Ensure restricted / paid models and deprecated models are strictly excluded
+    expect(modelIds).not.toContain("deepseek/deepseek-v4-flash-0731");
     expect(modelIds).not.toContain("gemini-2.5-flash");
     expect(modelIds).not.toContain("gemini-2.0-flash");
     expect(modelIds).not.toContain("gemini-3-flash");
     expect(modelIds).not.toContain("gemma-4-31b-it");
 
-    // Verify quota parameters
+    // Verify quota & speed parameters
     const liteModel = AVAILABLE_MODELS.find((m) => m.id === "gemini-3.5-flash-lite");
     expect(liteModel?.rpm).toBe(15);
     expect(liteModel?.rpd).toBe(500);
+
+    const minimaxFree = AVAILABLE_MODELS.find((m) => m.id === "minimax/minimax-m3-free");
+    expect(minimaxFree?.provider).toBe("vercel-ai-gateway");
+    expect(minimaxFree?.speed).toContain("154 tps");
+    expect(minimaxFree?.contextWindow).toContain("1,000,000");
 
     const flagship = AVAILABLE_MODELS.find((m) => m.id === "gemini-3.7-flash");
     expect(flagship?.rpm).toBe(5);
@@ -101,6 +116,7 @@ describe("Portfolio Data & Flagship Projects", () => {
   it("should define stable fallback cascade chain and default workhorse model", () => {
     expect(DEFAULT_MODEL).toBe("gemini-3.5-flash-lite");
     expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.5-flash-lite");
+    expect(STABLE_CASCADE_CHAIN).toContain("minimax/minimax-m3-free");
     expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.1-flash-lite");
     expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.6-flash");
     expect(STABLE_CASCADE_CHAIN.length).toBeGreaterThanOrEqual(4);

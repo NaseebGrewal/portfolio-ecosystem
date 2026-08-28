@@ -266,44 +266,102 @@ export default function GenAiArchitectCopilot() {
 
     setLoading(true);
     setTtftWarning(false);
-    setResponse(null);
+    setResponse("");
     setFallbackInfo(null);
 
     const ttftTimer = setTimeout(() => {
       setTtftWarning(true);
-    }, 8000);
+    }, 12000);
 
     try {
       const res = await fetch("/api/genai-assistant", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "text/event-stream"
+        },
         signal: controller.signal,
         body: JSON.stringify({
           prompt: textToSend,
           domain: domainContext || "Executive AI Systems Architecture",
-          model: selectedModel
+          model: selectedModel,
+          stream: true
         })
       });
 
-      clearTimeout(ttftTimer);
-      setTtftWarning(false);
+      const contentType = res.headers.get("content-type") || "";
 
-      const data = await res.json();
-      if (res.ok && data.reply) {
-        setResponse(data.reply);
-        setEngine(data.engine || `Google Gemini (${selectedModel})`);
-        if (data.fallbackTriggered) {
-          setFallbackInfo({
-            triggered: true,
-            originalModel: data.originalModel,
-            modelId: data.modelId,
-            reason: data.fallbackReason
-          });
-        } else {
-          setFallbackInfo(null);
+      if (contentType.includes("text/event-stream") && res.body) {
+        const reader = res.body.getReader();
+        const decoder = new TextDecoder("utf-8");
+        let buffer = "";
+        let accumulatedText = "";
+        let activeEngine = `${activeSpec.providerLabel} (${selectedModel}) • Live Stream`;
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          clearTimeout(ttftTimer);
+          setTtftWarning(false);
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split("\n");
+          buffer = lines.pop() || "";
+
+          for (const line of lines) {
+            const trimmed = line.trim();
+            if (!trimmed || !trimmed.startsWith("data:")) continue;
+            const jsonStr = trimmed.slice(5).trim();
+
+            try {
+              const eventData = JSON.parse(jsonStr);
+
+              if (eventData.type === "meta") {
+                activeEngine = eventData.engine || activeEngine;
+                setEngine(activeEngine);
+                if (eventData.isFallback) {
+                  setFallbackInfo({
+                    triggered: true,
+                    originalModel: eventData.originalModel,
+                    modelId: eventData.modelId,
+                    reason: eventData.fallbackReason
+                  });
+                }
+              } else if (eventData.type === "delta" && eventData.text) {
+                accumulatedText += eventData.text;
+                setResponse(accumulatedText);
+              }
+            } catch {
+              // skip unparseable SSE line
+            }
+          }
+        }
+
+        if (!accumulatedText) {
+          setResponse("No response received from streaming endpoint.");
         }
       } else {
-        setResponse(data.error || "Failed to generate architecture response.");
+        clearTimeout(ttftTimer);
+        setTtftWarning(false);
+
+        const data = await res.json();
+        if (res.ok && data.reply) {
+          setResponse(data.reply);
+          setEngine(data.engine || `${activeSpec.providerLabel} (${selectedModel})`);
+          if (data.fallbackTriggered) {
+            setFallbackInfo({
+              triggered: true,
+              originalModel: data.originalModel,
+              modelId: data.modelId,
+              reason: data.fallbackReason
+            });
+          } else {
+            setFallbackInfo(null);
+          }
+        } else {
+          setResponse(data.error || "Failed to generate architecture response.");
+        }
       }
     } catch (err: any) {
       clearTimeout(ttftTimer);
@@ -372,32 +430,45 @@ export default function GenAiArchitectCopilot() {
                 value={selectedModel}
                 onChange={(e) => setSelectedModel(e.target.value)}
                 className="bg-transparent text-xs font-mono font-semibold text-slate-900 dark:text-gray-100 focus:outline-none cursor-pointer"
-                title="Select Google Gemini Model"
+                title="Select AI Model"
               >
-                {AVAILABLE_MODELS.map((m) => (
-                  <option key={m.id} value={m.id} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-                    {m.name}
-                  </option>
-                ))}
+                <optgroup label="⚡ Google Gemini Tier (Free Default Workhorse)">
+                  {AVAILABLE_MODELS.filter((m) => m.provider === "google-gemini").map((m) => (
+                    <option key={m.id} value={m.id} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                      {m.name}
+                    </option>
+                  ))}
+                </optgroup>
+                <optgroup label="✨ Vercel AI Gateway (Free Tier Models)">
+                  {AVAILABLE_MODELS.filter((m) => m.provider === "vercel-ai-gateway").map((m) => (
+                    <option key={m.id} value={m.id} className="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+                      {m.name}
+                    </option>
+                  ))}
+                </optgroup>
               </select>
             </div>
 
             <div className="flex items-center gap-2 text-xs font-mono text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-3 py-2 rounded-2xl shadow-xs">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Live Inference Ready</span>
+              <span>{activeSpec.providerLabel} Ready</span>
             </div>
           </div>
         </div>
 
-        {/* Live Quota Governance Banner (RPM & RPD Transparency) */}
+        {/* Live Quota Governance Banner (RPM, RPD & Speed Transparency) */}
         <div className="mb-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2.5 text-slate-700 dark:text-slate-300">
             <Gauge className="w-4 h-4 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
             <div>
-              <strong className="font-bold text-slate-950 dark:text-white">{activeSpec.name.split(" ")[0]} {activeSpec.name.split(" ")[1]} Quota: </strong>
-              <span className="font-mono text-blue-700 dark:text-cyan-300 font-semibold">{activeSpec.rpm} RPM</span> (Requests/Min) •{" "}
-              <span className="font-mono text-emerald-700 dark:text-emerald-400 font-semibold">{activeSpec.rpd.toLocaleString()} RPD</span> (Requests/Day) •{" "}
-              <span className="font-mono text-purple-700 dark:text-purple-300 font-semibold">{activeSpec.tpm}</span>
+              <strong className="font-bold text-slate-950 dark:text-white">
+                {activeSpec.name.split(" ")[0]} {activeSpec.name.split(" ")[1]} ({activeSpec.providerLabel}):
+              </strong>{" "}
+              {activeSpec.speed && <span className="font-mono text-blue-700 dark:text-cyan-300 font-semibold">{activeSpec.speed} • </span>}
+              {activeSpec.contextWindow && <span className="font-mono text-emerald-700 dark:text-emerald-400 font-semibold">{activeSpec.contextWindow} Context • </span>}
+              {activeSpec.rpm && <span className="font-mono text-blue-700 dark:text-cyan-300 font-semibold">{activeSpec.rpm} RPM • </span>}
+              {activeSpec.rpd && <span className="font-mono text-emerald-700 dark:text-emerald-400 font-semibold">{activeSpec.rpd.toLocaleString()} RPD • </span>}
+              <span className="font-mono text-purple-700 dark:text-purple-300 font-semibold">{activeSpec.tpm || activeSpec.badge}</span>
             </div>
           </div>
 

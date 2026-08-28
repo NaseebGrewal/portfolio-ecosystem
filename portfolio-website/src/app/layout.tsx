@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
+import FloatingArchitectCopilot from "@/components/FloatingArchitectCopilot";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="en" className="scroll-smooth">
       <body className="bg-background text-foreground antialiased min-h-screen selection:bg-blue-600 selection:text-white transition-colors duration-200">
         {children}
+        <FloatingArchitectCopilot />
       </body>
     </html>
   );

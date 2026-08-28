@@ -88,9 +88,10 @@ const DETERMINISTIC_KNOWLEDGE: Record<string, string> = {
 };
 
 export async function POST(req: Request) {
+  const startTime = Date.now();
   try {
     const body = await req.json();
-    const { prompt, domain, model: requestedModel, customApiKey } = body;
+    const { prompt, domain, model: requestedModel, customApiKey, stream: wantStream = true } = body;
 
     if (!prompt || typeof prompt !== "string") {
       return NextResponse.json(
@@ -99,121 +100,51 @@ export async function POST(req: Request) {
       );
     }
 
-    // Configurable model ID from request, env var, or default to gemini-3.6-flash
+    // Configurable model ID from request, env var, or default
     const rawModel =
       requestedModel ||
+      process.env.NEXT_PUBLIC_AI_GATEWAY_MODEL_ID ||
       process.env.NEXT_PUBLIC_GOOGLE_AI_MODEL_ID ||
-      process.env.GOOGLE_AI_MODEL_ID ||
       DEFAULT_MODEL;
-    
-    // Strip 'models/' prefix if present for uniform REST API calls
-    const cleanModel = rawModel.replace(/^models\//, "");
 
-    // Discover API Key with high flexibility across common env variable conventions
-    const apiKey =
+    // Discover Vercel AI Gateway API Key
+    const aiGatewayKey =
+      customApiKey ||
+      process.env.AI_GATEWAY_API_KEY ||
+      process.env.VERCEL_AI_GATEWAY_API_KEY ||
+      process.env.NEXT_PUBLIC_AI_GATEWAY_API_KEY ||
+      process.env.AI_GATEWAY_KEY;
+
+    // Discover Google Gemini API Key
+    const geminiApiKey =
       customApiKey ||
       process.env.NEXT_PUBLIC_GEMINI_AI_API_KEY ||
       process.env.GEMINI_API_KEY ||
       process.env.GOOGLE_API_KEY ||
-      process.env.NEXT_PUBLIC_GEMINI_API_KEY ||
       process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY;
 
-    // Resilient Fallback Cascade Chain: prioritize requested model, followed by verified stable models
-    const cascadeModels = [cleanModel, ...STABLE_CASCADE_CHAIN.filter((m) => m !== cleanModel)];
+    // Build the dynamic cascade chain prioritizing requested model
+    const cascadeModels = [
+      rawModel,
+      ...STABLE_CASCADE_CHAIN.filter((m) => m !== rawModel)
+    ];
 
-    if (apiKey) {
-      for (const modelToTry of cascadeModels) {
-        try {
-          // Strict 6-second timeout per upstream model call to prevent infinite hanging
-          const controller = new AbortController();
-          const timeoutId = setTimeout(() => controller.abort(), 6000);
+    // Helper to get deterministic knowledge fallback
+    const getDeterministicFallback = () => {
+      const lower = prompt.toLowerCase();
+      if (lower.includes("dubai") || lower.includes("uae") || lower.includes("burj")) return DETERMINISTIC_KNOWLEDGE.dubai;
+      if (lower.includes("travel") || lower.includes("vacation") || lower.includes("visit") || lower.includes("trip")) return DETERMINISTIC_KNOWLEDGE.travel;
+      if (lower.includes("career") || lower.includes("interview") || lower.includes("lead") || lower.includes("salary") || lower.includes("resume") || lower.includes("advice")) return DETERMINISTIC_KNOWLEDGE.career;
+      if (lower.includes("telemetry") || lower.includes("kinesis") || lower.includes("stream") || lower.includes("sensor") || lower.includes("iot")) return DETERMINISTIC_KNOWLEDGE.telemetry;
+      if (lower.includes("rag") || lower.includes("latency") || lower.includes("hallucination") || lower.includes("search") || lower.includes("vector")) return DETERMINISTIC_KNOWLEDGE.rag;
+      if (lower.includes("cement") || lower.includes("concrete") || lower.includes("strength") || lower.includes("clinker")) return DETERMINISTIC_KNOWLEDGE.cement;
+      if (lower.includes("auto") || lower.includes("plant") || lower.includes("rcfa") || lower.includes("failure") || lower.includes("maintenance")) return DETERMINISTIC_KNOWLEDGE.automotive;
+      if (lower.includes("rust") || lower.includes("wasm") || lower.includes("rheolog") || lower.includes("speed") || lower.includes("tensile") || lower.includes("python")) return DETERMINISTIC_KNOWLEDGE.rust;
+      if (lower.includes("finops") || lower.includes("cache") || lower.includes("cost") || lower.includes("gateway") || lower.includes("quota")) return DETERMINISTIC_KNOWLEDGE.finops;
+      if (lower.includes("sds") || lower.includes("reach") || lower.includes("compliance") || lower.includes("echa")) return DETERMINISTIC_KNOWLEDGE.chemical;
+      if (lower.includes("monolith") || lower.includes("microservice") || lower.includes("migration") || lower.includes("strangler")) return DETERMINISTIC_KNOWLEDGE.microservices;
 
-          const response = await fetch(
-            `https://generativelanguage.googleapis.com/v1beta/models/${modelToTry}:generateContent?key=${apiKey}`,
-            {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              signal: controller.signal,
-              body: JSON.stringify({
-                contents: [
-                  {
-                    role: "user",
-                    parts: [
-                      {
-                        text: `${SYSTEM_ARCHITECT_CONTEXT}\n\nContext/Category: ${domain || "Executive AI Architecture Advisory"}\nUser Inquiry: ${prompt}`
-                      }
-                    ]
-                  }
-                ],
-                generationConfig: {
-                  temperature: 0.4,
-                  maxOutputTokens: 2048,
-                  topP: 0.95
-                }
-              })
-            }
-          );
-
-          clearTimeout(timeoutId);
-
-          if (response.ok) {
-            const data = await response.json();
-            const replyText =
-              data.candidates?.[0]?.content?.parts?.[0]?.text || null;
-            if (replyText) {
-              const wasFallback = modelToTry !== cleanModel;
-              return NextResponse.json({
-                reply: replyText,
-                engine: `Google Gemini (${modelToTry}) • Live Inference`,
-                modelId: modelToTry,
-                fallbackTriggered: wasFallback,
-                originalModel: cleanModel,
-                fallbackReason: wasFallback
-                  ? `Original model (${cleanModel}) unavailable or high demand. Auto-switched to verified model (${modelToTry}).`
-                  : undefined,
-                timestamp: new Date().toISOString()
-              });
-            }
-          } else {
-            const errText = await response.text();
-            console.warn(`Gemini API model ${modelToTry} returned status ${response.status}:`, errText);
-            // 404, 429, 500, 503 -> continue cascade to next model
-          }
-        } catch (geminiError: any) {
-          console.warn(`Gemini API call to ${modelToTry} failed (${geminiError?.name || "Error"}):`, geminiError?.message);
-          // Timeout or network error -> continue cascade to next model
-        }
-      }
-    }
-
-    // Fallback: Context-Aware Intelligent Deterministic Engine
-    const lower = prompt.toLowerCase();
-    let selectedReply: string;
-
-    if (lower.includes("dubai") || lower.includes("uae") || lower.includes("burj")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.dubai;
-    } else if (lower.includes("travel") || lower.includes("vacation") || lower.includes("visit") || lower.includes("trip")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.travel;
-    } else if (lower.includes("career") || lower.includes("interview") || lower.includes("lead") || lower.includes("salary") || lower.includes("resume") || lower.includes("advice")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.career;
-    } else if (lower.includes("telemetry") || lower.includes("kinesis") || lower.includes("stream") || lower.includes("sensor") || lower.includes("iot")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.telemetry;
-    } else if (lower.includes("rag") || lower.includes("latency") || lower.includes("hallucination") || lower.includes("search") || lower.includes("vector")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.rag;
-    } else if (lower.includes("cement") || lower.includes("concrete") || lower.includes("strength") || lower.includes("clinker")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.cement;
-    } else if (lower.includes("auto") || lower.includes("plant") || lower.includes("rcfa") || lower.includes("failure") || lower.includes("maintenance")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.automotive;
-    } else if (lower.includes("rust") || lower.includes("wasm") || lower.includes("rheolog") || lower.includes("speed") || lower.includes("tensile") || lower.includes("python")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.rust;
-    } else if (lower.includes("finops") || lower.includes("cache") || lower.includes("cost") || lower.includes("gateway") || lower.includes("quota")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.finops;
-    } else if (lower.includes("sds") || lower.includes("reach") || lower.includes("compliance") || lower.includes("echa")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.chemical;
-    } else if (lower.includes("monolith") || lower.includes("microservice") || lower.includes("migration") || lower.includes("strangler")) {
-      selectedReply = DETERMINISTIC_KNOWLEDGE.microservices;
-    } else {
-      selectedReply = `### Executive Architectural Advisory: "${prompt.slice(0, 60)}"
+      return `### Executive Architectural Advisory: "${prompt.slice(0, 60)}"
 
 1. **Strategic Architecture Framing**: When tackling this technical domain, decouple high-throughput ingestion from stateful compute using asynchronous message brokers (e.g., AWS Kinesis or Redis Pub/Sub) to isolate traffic spikes.
 2. **Recommended Technology Stack**:
@@ -224,18 +155,260 @@ export async function POST(req: Request) {
    - **Latency SLA**: Sub-45ms P99 API response times with horizontal autoscaling (2–10 worker tasks).
    - **Financial Governance**: Up to 42% reduction in generative AI token burn via departmental FinOps quotas and cached prompt hits.
    - **Availability**: High-availability multi-AZ deployment with automated health check failovers.`;
+    };
+
+    // If client requested non-streaming JSON explicitly
+    if (!wantStream) {
+      return handleNonStreamingRequest({
+        prompt,
+        domain,
+        rawModel,
+        cascadeModels,
+        aiGatewayKey,
+        geminiApiKey,
+        startTime,
+        getDeterministicFallback
+      });
     }
 
-    return NextResponse.json({
-      reply: selectedReply,
-      engine: "Executive AI Systems Copilot (Deterministic Knowledge Engine)",
-      modelId: cleanModel,
-      fallbackTriggered: apiKey ? true : false,
-      originalModel: cleanModel,
-      fallbackReason: apiKey
-        ? `Upstream Google API models reached quota or capacity limits. Served from resilient deterministic engine.`
-        : undefined,
-      timestamp: new Date().toISOString()
+    // --- SSE Streaming Pipeline ---
+    const encoder = new TextEncoder();
+
+    const stream = new ReadableStream({
+      async start(controller) {
+        const sendEvent = (data: any) => {
+          controller.enqueue(encoder.encode(`data: ${JSON.stringify(data)}\n\n`));
+        };
+
+        let streamSucceeded = false;
+
+        for (const modelToTry of cascadeModels) {
+          const isGatewayModel = modelToTry.includes("/") || (!modelToTry.startsWith("gemini-"));
+
+          // 1. Try Vercel AI Gateway (Streaming)
+          if (isGatewayModel && aiGatewayKey) {
+            try {
+              const abortCtrl = new AbortController();
+              const timeoutId = setTimeout(() => abortCtrl.abort(), 20000); // 20s timeout
+
+              const res = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Authorization": `Bearer ${aiGatewayKey}`
+                },
+                signal: abortCtrl.signal,
+                body: JSON.stringify({
+                  model: modelToTry,
+                  messages: [
+                    { role: "system", content: SYSTEM_ARCHITECT_CONTEXT },
+                    { role: "user", content: `Domain / Category: ${domain || "Executive AI Systems Architecture"}\nInquiry: ${prompt}` }
+                  ],
+                  temperature: 0.4,
+                  max_tokens: 2048,
+                  stream: true
+                })
+              });
+
+              clearTimeout(timeoutId);
+
+              if (res.ok && res.body) {
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let buffer = "";
+                let hasSentMeta = false;
+
+                while (true) {
+                  const { done, value } = await reader.read();
+                  if (done) break;
+
+                  buffer += decoder.decode(value, { stream: true });
+                  const lines = buffer.split("\n");
+                  buffer = lines.pop() || "";
+
+                  for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (!trimmed || !trimmed.startsWith("data:")) continue;
+                    const jsonStr = trimmed.slice(5).trim();
+                    if (jsonStr === "[DONE]") continue;
+
+                    try {
+                      const parsed = JSON.parse(jsonStr);
+                      const delta = parsed.choices?.[0]?.delta?.content;
+                      if (delta) {
+                        if (!hasSentMeta) {
+                          sendEvent({
+                            type: "meta",
+                            engine: `Vercel AI Gateway (${modelToTry}) • Live Stream`,
+                            modelId: modelToTry,
+                            provider: "vercel-ai-gateway",
+                            isFallback: modelToTry !== rawModel,
+                            originalModel: rawModel
+                          });
+                          hasSentMeta = true;
+                          streamSucceeded = true;
+                        }
+                        sendEvent({ type: "delta", text: delta });
+                      }
+                    } catch {
+                      // skip malformed chunk
+                    }
+                  }
+                }
+
+                if (hasSentMeta) {
+                  sendEvent({
+                    type: "done",
+                    latencyMs: Date.now() - startTime,
+                    modelId: modelToTry
+                  });
+                  controller.close();
+                  return;
+                }
+              } else {
+                const errText = await res.text();
+                console.warn(`Vercel AI Gateway stream for ${modelToTry} returned status ${res.status}:`, errText);
+              }
+            } catch (err: any) {
+              console.warn(`Vercel AI Gateway streaming error for ${modelToTry}:`, err?.message);
+            }
+          }
+
+          // 2. Try Google Gemini (Streaming)
+          if (!isGatewayModel && geminiApiKey) {
+            try {
+              const cleanModel = modelToTry.replace(/^models\//, "");
+              const abortCtrl = new AbortController();
+              const timeoutId = setTimeout(() => abortCtrl.abort(), 20000); // 20s timeout
+
+              const res = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:streamGenerateContent?alt=sse&key=${geminiApiKey}`,
+                {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  signal: abortCtrl.signal,
+                  body: JSON.stringify({
+                    contents: [
+                      {
+                        role: "user",
+                        parts: [
+                          {
+                            text: `${SYSTEM_ARCHITECT_CONTEXT}\n\nContext/Category: ${domain || "Executive AI Architecture Advisory"}\nUser Inquiry: ${prompt}`
+                          }
+                        ]
+                      }
+                    ],
+                    generationConfig: {
+                      temperature: 0.4,
+                      maxOutputTokens: 2048,
+                      topP: 0.95
+                    }
+                  })
+                }
+              );
+
+              clearTimeout(timeoutId);
+
+              if (res.ok && res.body) {
+                const reader = res.body.getReader();
+                const decoder = new TextDecoder("utf-8");
+                let buffer = "";
+                let hasSentMeta = false;
+
+                while (true) {
+                  const { done, value } = await reader.read();
+                  if (done) break;
+
+                  buffer += decoder.decode(value, { stream: true });
+                  const lines = buffer.split("\n");
+                  buffer = lines.pop() || "";
+
+                  for (const line of lines) {
+                    const trimmed = line.trim();
+                    if (!trimmed || !trimmed.startsWith("data:")) continue;
+                    const jsonStr = trimmed.slice(5).trim();
+
+                    try {
+                      const parsed = JSON.parse(jsonStr);
+                      const delta = parsed.candidates?.[0]?.content?.parts?.[0]?.text;
+                      if (delta) {
+                        if (!hasSentMeta) {
+                          sendEvent({
+                            type: "meta",
+                            engine: `Google Gemini (${modelToTry}) • Live Stream`,
+                            modelId: modelToTry,
+                            provider: "google-gemini",
+                            isFallback: modelToTry !== rawModel,
+                            originalModel: rawModel
+                          });
+                          hasSentMeta = true;
+                          streamSucceeded = true;
+                        }
+                        sendEvent({ type: "delta", text: delta });
+                      }
+                    } catch {
+                      // skip malformed chunk
+                    }
+                  }
+                }
+
+                if (hasSentMeta) {
+                  sendEvent({
+                    type: "done",
+                    latencyMs: Date.now() - startTime,
+                    modelId: modelToTry
+                  });
+                  controller.close();
+                  return;
+                }
+              } else {
+                const errText = await res.text();
+                console.warn(`Gemini stream for ${modelToTry} returned status ${res.status}:`, errText);
+              }
+            } catch (err: any) {
+              console.warn(`Gemini streaming error for ${modelToTry}:`, err?.message);
+            }
+          }
+        }
+
+        // 3. Fallback to Deterministic Stream
+        const fallbackText = getDeterministicFallback();
+        const hasAnyKey = Boolean(aiGatewayKey || geminiApiKey);
+
+        sendEvent({
+          type: "meta",
+          engine: "Executive Knowledge Engine • Instant Stream",
+          modelId: rawModel,
+          provider: "in-memory-engine",
+          isFallback: hasAnyKey,
+          originalModel: rawModel,
+          fallbackReason: hasAnyKey
+            ? "Upstream cloud endpoints were unavailable or reached capacity. Streamed from high-precision architectural knowledge engine."
+            : undefined
+        });
+
+        // Emit text in rapid smooth chunks
+        const chunkSize = 40;
+        for (let i = 0; i < fallbackText.length; i += chunkSize) {
+          sendEvent({ type: "delta", text: fallbackText.slice(i, i + chunkSize) });
+        }
+
+        sendEvent({
+          type: "done",
+          latencyMs: Date.now() - startTime,
+          modelId: rawModel
+        });
+
+        controller.close();
+      }
+    });
+
+    return new Response(stream, {
+      headers: {
+        "Content-Type": "text/event-stream; charset=utf-8",
+        "Cache-Control": "no-cache, no-transform",
+        "Connection": "keep-alive"
+      }
     });
   } catch (err: any) {
     return NextResponse.json(
@@ -243,4 +416,127 @@ export async function POST(req: Request) {
       { status: 500 }
     );
   }
+}
+
+// Non-streaming handler for backwards compatibility & automated testing
+async function handleNonStreamingRequest({
+  prompt,
+  domain,
+  rawModel,
+  cascadeModels,
+  aiGatewayKey,
+  geminiApiKey,
+  startTime,
+  getDeterministicFallback
+}: any) {
+  for (const modelToTry of cascadeModels) {
+    const isGatewayModel = modelToTry.includes("/") || (!modelToTry.startsWith("gemini-"));
+
+    if (isGatewayModel && aiGatewayKey) {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 20000);
+        const response = await fetch("https://ai-gateway.vercel.sh/v1/chat/completions", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${aiGatewayKey}`
+          },
+          signal: controller.signal,
+          body: JSON.stringify({
+            model: modelToTry,
+            messages: [
+              { role: "system", content: SYSTEM_ARCHITECT_CONTEXT },
+              { role: "user", content: `Domain / Focus: ${domain || "Executive AI Architecture & Systems Strategy"}\n\nInquiry: ${prompt}` }
+            ],
+            temperature: 0.4,
+            max_tokens: 2048
+          })
+        });
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          const content = data.choices?.[0]?.message?.content;
+          if (content && typeof content === "string") {
+            const wasFallback = modelToTry !== rawModel;
+            return NextResponse.json({
+              reply: content.trim(),
+              engine: `Vercel AI Gateway (${modelToTry}) • Live Inference`,
+              modelId: modelToTry,
+              provider: "vercel-ai-gateway",
+              latencyMs: Date.now() - startTime,
+              fallbackTriggered: wasFallback,
+              originalModel: rawModel,
+              timestamp: new Date().toISOString()
+            });
+          }
+        }
+      } catch (err: any) {
+        console.warn(`Vercel Gateway non-stream for ${modelToTry} failed:`, err?.message);
+      }
+    } else if (!isGatewayModel && geminiApiKey) {
+      try {
+        const cleanModel = modelToTry.replace(/^models\//, "");
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 20000);
+
+        const response = await fetch(
+          `https://generativelanguage.googleapis.com/v1beta/models/${cleanModel}:generateContent?key=${geminiApiKey}`,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            signal: controller.signal,
+            body: JSON.stringify({
+              contents: [
+                {
+                  role: "user",
+                  parts: [{ text: `${SYSTEM_ARCHITECT_CONTEXT}\n\nContext/Category: ${domain || "Executive AI Architecture Advisory"}\nUser Inquiry: ${prompt}` }]
+                }
+              ],
+              generationConfig: {
+                temperature: 0.4,
+                maxOutputTokens: 2048,
+                topP: 0.95
+              }
+            })
+          }
+        );
+        clearTimeout(timeoutId);
+
+        if (response.ok) {
+          const data = await response.json();
+          const replyText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+          if (replyText && typeof replyText === "string") {
+            const wasFallback = modelToTry !== rawModel;
+            return NextResponse.json({
+              reply: replyText.trim(),
+              engine: `Google Gemini (${modelToTry}) • Live Inference`,
+              modelId: modelToTry,
+              provider: "google-gemini",
+              latencyMs: Date.now() - startTime,
+              fallbackTriggered: wasFallback,
+              originalModel: rawModel,
+              timestamp: new Date().toISOString()
+            });
+          }
+        }
+      } catch (err: any) {
+        console.warn(`Gemini non-stream for ${modelToTry} failed:`, err?.message);
+      }
+    }
+  }
+
+  const selectedReply = getDeterministicFallback();
+  const hasAnyKey = Boolean(aiGatewayKey || geminiApiKey);
+  return NextResponse.json({
+    reply: selectedReply,
+    engine: "Executive Knowledge Engine • Deterministic Intelligence",
+    modelId: rawModel,
+    provider: "in-memory-engine",
+    latencyMs: Date.now() - startTime,
+    fallbackTriggered: hasAnyKey,
+    originalModel: rawModel,
+    timestamp: new Date().toISOString()
+  });
 }
