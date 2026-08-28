@@ -6,6 +6,7 @@ import {
   Send,
   Cpu,
   RefreshCw,
+  RotateCcw,
   Copy,
   Check,
   Bot,
@@ -19,7 +20,8 @@ import {
   Sliders,
   Gauge,
   Square,
-  AlertTriangle
+  AlertTriangle,
+  Trash2
 } from "lucide-react";
 import { AVAILABLE_MODELS, DEFAULT_MODEL, ModelSpec } from "@/config/models";
 
@@ -323,6 +325,20 @@ export default function GenAiArchitectCopilot() {
     handleAsk(s.query, s.domain);
   };
 
+  const handleClear = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setLoading(false);
+    setTtftWarning(false);
+    setResponse(null);
+    setEngine(null);
+    setFallbackInfo(null);
+    setActiveScenario("");
+    setQuery("");
+  };
+
   const handleCopy = () => {
     if (!response) return;
     navigator.clipboard.writeText(response);
@@ -531,23 +547,33 @@ export default function GenAiArchitectCopilot() {
                   </span>
                 )}
               </div>
-              <button
-                onClick={handleCopy}
-                className="px-3 py-1.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-800 dark:text-gray-300 text-xs font-mono flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-gray-700 shadow-xs cursor-pointer"
-                title="Copy response text"
-              >
-                {copied ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span className="text-emerald-700 dark:text-emerald-300 text-[11px] font-bold">Copied</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5" />
-                    <span className="text-[11px]">Copy</span>
-                  </>
-                )}
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={handleClear}
+                  className="px-3 py-1.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-800 dark:text-gray-300 text-xs font-mono flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-gray-700 shadow-xs cursor-pointer"
+                  title="Clear response & reset prompt without reloading"
+                >
+                  <RotateCcw className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                  <span className="text-[11px]">Clear / Reset</span>
+                </button>
+                <button
+                  onClick={handleCopy}
+                  className="px-3 py-1.5 rounded-xl bg-white dark:bg-gray-800 hover:bg-slate-100 dark:hover:bg-gray-700 text-slate-800 dark:text-gray-300 text-xs font-mono flex items-center gap-1.5 transition-colors border border-slate-200 dark:border-gray-700 shadow-xs cursor-pointer"
+                  title="Copy response text"
+                >
+                  {copied ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-emerald-700 dark:text-emerald-300 text-[11px] font-bold">Copied</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span className="text-[11px]">Copy</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
             {/* Formatted Markdown Output without raw asterisks */}
