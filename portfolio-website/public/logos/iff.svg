@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 44" fill="none" className="h-8 w-auto">
+  <!-- IFF Icon & Wordmark -->
+  <circle cx="8" cy="8" r="4" fill="#6B21A8"/>
+  <rect x="4" y="15" width="8" height="25" rx="2" fill="#6B21A8"/>
+  
+  <path d="M22 21V15C22 10.5817 25.5817 7 30 7H36V15H30C29.4477 15 29 15.4477 29 16V21H36V28H29V40H21V28H16V21H22Z" fill="#1E1B4B"/>
+  <path d="M38 21V15C38 10.5817 41.5817 7 46 7H52V15H46C45.4477 15 45 15.4477 45 16V21H52V28H45V40H37V28H32V21H38Z" fill="#6B21A8"/>
+  
+  <text x="60" y="24" fill="currentColor" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="14" font-weight="800" letter-spacing="-0.2">IFF Pharma</text>
+  <text x="60" y="37" fill="#6B21A8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="10" font-weight="600" letter-spacing="0.4">Pharma Solutions</text>
+</svg>

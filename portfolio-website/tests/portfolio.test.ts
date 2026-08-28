@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
-import { FLAGSHIP_PROJECTS, CANDIDATE_PROFILE } from "../src/data/portfolio_data";
+import { FLAGSHIP_PROJECTS, ENTERPRISE_SYSTEMS_CATALOG, ENTERPRISE_PEDIGREE, CANDIDATE_PROFILE } from "../src/data/portfolio_data";
+import { AVAILABLE_MODELS, DEFAULT_MODEL, STABLE_CASCADE_CHAIN } from "../src/config/models";
 
 describe("Portfolio Data & Flagship Projects", () => {
   it("should contain candidate name and executive profile metadata", () => {
@@ -10,6 +11,15 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(CANDIDATE_PROFILE.languages).toHaveLength(2);
   });
 
+  it("should contain enterprise pedigree with 7 verified organizations", () => {
+    expect(ENTERPRISE_PEDIGREE).toHaveLength(7);
+    const companyNames = ENTERPRISE_PEDIGREE.map((c) => c.name);
+    expect(companyNames).toContain("Heidelberg Materials");
+    expect(companyNames).toContain("Continental");
+    expect(companyNames).toContain("SAP");
+    expect(companyNames).toContain("IIT Roorkee");
+  });
+
   it("should contain all 4 flagship projects with complete metadata", () => {
     expect(FLAGSHIP_PROJECTS).toHaveLength(4);
     const titles = FLAGSHIP_PROJECTS.map((p) => p.title);
@@ -17,6 +27,15 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(titles).toContain("ChemAgent-Gov: Multi-Agent REACH Auditor");
     expect(titles).toContain("Ultra-Fast Lab Rheology & Mechanics Engine");
     expect(titles).toContain("Enterprise AI Gateway & FinOps Controller");
+  });
+
+  it("should contain the expanded enterprise systems catalog with 14 projects", () => {
+    expect(ENTERPRISE_SYSTEMS_CATALOG.length).toBeGreaterThanOrEqual(12);
+    const catalogTitles = ENTERPRISE_SYSTEMS_CATALOG.map((p) => p.title);
+    expect(catalogTitles).toContain("Enterprise Material Database & R&D OS");
+    expect(catalogTitles).toContain("Industrial Plant Root Cause Failure Analysis (RCFA) GenAI");
+    expect(catalogTitles).toContain("Multi-Modal RAG Data Assistant & Code Quality Reviewer");
+    expect(catalogTitles).toContain("R&D Data Registry (RDDR) & ODIS Ontology Search");
   });
 
   it("should highlight €1.2M+ vendor cost savings in candidate profile", () => {
@@ -53,5 +72,37 @@ describe("Portfolio Data & Flagship Projects", () => {
     const leadRole = CANDIDATE_PROFILE.experiences.find((e) => e.role.includes("Lead Digital Process"));
     expect(leadRole).toBeDefined();
     expect(leadRole?.highlights.some((h) => h.includes("€1,200,000"))).toBe(true);
+  });
+
+  it("should configure verified Gemini 3.x model catalog without deprecated endpoints", () => {
+    const modelIds = AVAILABLE_MODELS.map((m) => m.id);
+    expect(modelIds).toContain("gemini-3.5-flash-lite");
+    expect(modelIds).toContain("gemini-3.1-flash-lite");
+    expect(modelIds).toContain("gemini-3.6-flash");
+    expect(modelIds).toContain("gemini-3.7-flash");
+    expect(modelIds).toContain("gemini-3.5-flash");
+
+    // Ensure deprecated / nonexistent models are strictly excluded
+    expect(modelIds).not.toContain("gemini-2.5-flash");
+    expect(modelIds).not.toContain("gemini-2.0-flash");
+    expect(modelIds).not.toContain("gemini-3-flash");
+    expect(modelIds).not.toContain("gemma-4-31b-it");
+
+    // Verify quota parameters
+    const liteModel = AVAILABLE_MODELS.find((m) => m.id === "gemini-3.5-flash-lite");
+    expect(liteModel?.rpm).toBe(15);
+    expect(liteModel?.rpd).toBe(500);
+
+    const flagship = AVAILABLE_MODELS.find((m) => m.id === "gemini-3.7-flash");
+    expect(flagship?.rpm).toBe(5);
+    expect(flagship?.rpd).toBe(20);
+  });
+
+  it("should define stable fallback cascade chain and default workhorse model", () => {
+    expect(DEFAULT_MODEL).toBe("gemini-3.5-flash-lite");
+    expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.5-flash-lite");
+    expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.1-flash-lite");
+    expect(STABLE_CASCADE_CHAIN).toContain("gemini-3.6-flash");
+    expect(STABLE_CASCADE_CHAIN.length).toBeGreaterThanOrEqual(4);
   });
 });
