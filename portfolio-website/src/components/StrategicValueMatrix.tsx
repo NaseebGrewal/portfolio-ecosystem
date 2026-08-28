@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
 import { Sparkles, Check, X, ShieldAlert, Cpu, FlaskConical, DollarSign, Award, Users2 } from "lucide-react";
 
 export default function StrategicValueMatrix() {
@@ -9,31 +10,31 @@ export default function StrategicValueMatrix() {
       capability: "Cross-Industry Domain Science (Chemicals, Auto, Cement, Pharma)",
       typicalDev: "No physical domain context (treats chemical/mechanical telemetry as generic text)",
       typicalChemist: "Deep domain silo, but reliant on manual desktop spreadsheets and legacy tools",
-      naseeb: "B.Tech in Polymer/Chemical Engineering + M.Sc. in CS; models physical & chemical systems natively"
+      candidateAdvantage: "B.Tech in Polymer/Chemical Engineering + M.Sc. in CS; models physical & chemical systems natively"
     },
     {
       capability: "Zero-Hallucination Regulatory & Compliance Guardrails",
       typicalDev: "Prone to LLM hallucinations on strict legal substance & safety thresholds",
       typicalChemist: "Manual review taking 3+ hours per supplier SDS or compliance consignment",
-      naseeb: "Architects deterministic multi-agent guardrails (LangGraph) with 0% hallucination on SVHC limits"
+      candidateAdvantage: "Architects deterministic multi-agent guardrails (LangGraph) with 0% hallucination on SVHC limits"
     },
     {
       capability: "Production Cloud Microservices & High-Throughput APIs",
       typicalDev: "Strong generic web skills, but lacks physical testing and plant telemetry alignment",
       typicalChemist: "No distributed cloud architecture or containerized microservice experience",
-      naseeb: "Next.js 15 + FastAPI + Rust/WASM on AWS ECS Fargate with sub-45ms P99 latency & 99.95% SLA"
+      candidateAdvantage: "Next.js 15 + FastAPI + Rust/WASM on AWS ECS Fargate with sub-45ms P99 latency & 99.95% SLA"
     },
     {
       capability: "FinOps Cost Optimization & In-House Architecture",
       typicalDev: "Often defaults to expensive proprietary third-party SaaS subscriptions",
       typicalChemist: "Locked into legacy commercial vendor database licenses costing €100k+/year",
-      naseeb: "Eliminated €1.2M+ in recurring vendor fees by engineering in-house R&D Operating Systems"
+      candidateAdvantage: "Eliminated €1.2M+ in recurring vendor fees by engineering in-house R&D Operating Systems"
     },
     {
       capability: "Team Upskilling & Engineering Mentorship",
       typicalDev: "Works in developer isolation without coaching scientific laboratory teams",
       typicalChemist: "Lacks formal training in modern software engineering (TDD, clean Git)",
-      naseeb: "Conducts regular hands-on workshops in clean code, TDD, and Git flow, doubling team velocity"
+      candidateAdvantage: "Conducts regular hands-on workshops in clean code, TDD, and Git flow, doubling team velocity"
     }
   ];
 
@@ -115,7 +116,7 @@ export default function StrategicValueMatrix() {
               <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Standard Web Developer</th>
               <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Traditional Laboratory Scientist</th>
               <th className="p-4 sm:p-5 bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 font-bold border-l border-blue-200 dark:border-blue-900/50">
-                Naseeb Grewal (AI Solutions Architect)
+                {CANDIDATE_PROFILE.name} (AI Solutions Architect)
               </th>
             </tr>
           </thead>
@@ -140,7 +141,7 @@ export default function StrategicValueMatrix() {
                 <td className="p-4 sm:p-5 bg-blue-50/40 dark:bg-blue-950/20 border-l border-blue-200 dark:border-blue-900/40 text-blue-950 dark:text-blue-200 font-medium">
                   <div className="flex items-start gap-1.5">
                     <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
-                    <span>{row.naseeb}</span>
+                    <span>{row.candidateAdvantage}</span>
                   </div>
                 </td>
               </tr>

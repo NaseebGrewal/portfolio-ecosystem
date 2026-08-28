@@ -147,24 +147,25 @@ export const ENTERPRISE_PEDIGREE: EnterpriseCompany[] = [
 ];
 
 export const CANDIDATE_PROFILE = {
-  name: process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Naseeb Grewal, M.Sc.",
+  name: process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Firstname Lastname, M.Sc.",
   title: process.env.NEXT_PUBLIC_CANDIDATE_TITLE || "Senior AI Solutions Architect | R&D Digitalization & Full-Stack Lead",
   headline: "Senior AI Solutions Architect & Lead Systems Engineer",
   tagline: "Enterprise AI Architecture • Industrial R&D Digitalization • Multi-Agent Systems",
   executiveSummary:
-    "Cross-industry Senior AI Solutions Architect with 7+ years of experience leading digitalization across Specialty Chemicals, Automotive Tier-1 Plants, Cement & Building Materials, and Life Sciences. Proven record of eliminating €1.2M+ in recurring third-party vendor licensing by architecting customized in-house R&D Operating Systems, multi-agent compliance swarms (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
+    "Cross-industry Senior AI Solutions Architect with 7+ years of experience leading digitalization across E-Commerce (Meesho), Enterprise IT (SAP), AI & Cloud Consulting (WONGDOODY / Infosys), Specialty Chemicals (Continental, IFF Pharma), and Industrial Plants (Heidelberg Materials). Proven record of eliminating €1.2M+ in recurring third-party vendor licensing by architecting customized in-house R&D Operating Systems, multi-agent compliance swarms (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
   location: process.env.NEXT_PUBLIC_CANDIDATE_LOCATION || "Germany (Open to Hybrid & Remote Worldwide)",
   email: process.env.NEXT_PUBLIC_CANDIDATE_EMAIL || "contact@yourdomain.com",
   phone: process.env.NEXT_PUBLIC_CANDIDATE_PHONE || "+49 XXXXXXXXXX",
-  githubUrl: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/NaseebGrewal",
-  linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/naseeb-grewal",
+  githubUrl: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/your-username",
+  linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/your-profile",
   portfolioUrl: process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://yourportfolio.dev",
   status: "Available for Senior AI & Solutions Architecture Leadership Roles",
   experienceYears: "7+",
   targetIndustries: [
     "Specialty Chemicals & Advanced Materials",
     "Automotive Tier-1 & Plant Manufacturing",
-    "Cement & Building Materials Digitalization",
+    "E-Commerce & High-Scale Data Platforms",
+    "Enterprise IT, Cloud & Consultancy",
     "Life Sciences & Pharma Laboratory AI"
   ],
   languages: [
@@ -261,7 +262,7 @@ export const CANDIDATE_PROFILE = {
   experiences: [
     {
       role: "Lead Digital Process & Cloud Infrastructure Engineer",
-      company: "Enterprise Specialty Materials & Chemicals Leader",
+      company: "Enterprise Specialty Materials Leader (Continental / Partner)",
       location: "Germany",
       period: "Jul 2025 – Present",
       badge: "Current Leadership Role",
@@ -277,7 +278,7 @@ export const CANDIDATE_PROFILE = {
     },
     {
       role: "Digital Scientist II / AI Product Owner",
-      company: "Global Life Sciences & Pharma Corporation",
+      company: "IFF Pharma (now Roquette) - Life Sciences & Pharma",
       location: "Germany",
       period: "Oct 2024 – Mar 2025",
       badge: "Product & Data Leadership",
@@ -290,39 +291,43 @@ export const CANDIDATE_PROFILE = {
       technologies: ["AWS (S3, Glue, Athena, Lambda)", "Python", "Semantic Search", "NLP", "Agile/Scrum", "FastAPI"]
     },
     {
-      role: "Data Science & AI Development Specialist",
-      company: "Enterprise AI Solutions Consultancy",
+      role: "Senior Generative AI & Cloud Infrastructure Consultant",
+      company: "WONGDOODY (An Infosys Company) - AI & Cloud Consulting",
       location: "Global / Remote",
       period: "Jan 2023 – Present",
+      badge: "Consultancy & Enterprise AI",
       highlights: [
-        "Built personalized enterprise customer support systems using LLMs, Microsoft Copilot Studio, and knowledge graphs (Neo4j).",
-        "Engineered OCR pipeline for handwriting and document digitizing using OpenCV and TensorFlow, achieving >96% extraction accuracy.",
-        "Designed and deployed predictive maintenance and fraud detection ML pipelines using GANs and Random Forest models."
+        "Built enterprise GenAI bots including real-time MS Teams meeting transcription & automated summarization bots using LLMs, Microsoft Copilot Studio, and knowledge graphs (Neo4j).",
+        "Managed on-premise Linux server infrastructure, automated security patching, and deployed high-performance image generation pipelines (Fooocus, ComfyUI, vLLM).",
+        "Engineered intelligent OCR document digitizing using OpenCV and TensorFlow, achieving >96% extraction accuracy for enterprise clients."
       ],
-      technologies: ["LLMs", "Copilot Studio", "Neo4j", "OpenCV", "TensorFlow", "Scikit-Learn"]
-    },
-    {
-      role: "AI Engineer",
-      company: "Industrial Technology & Automation Group",
-      location: "Germany",
-      period: "Aug 2024 – Sep 2024",
-      highlights: [
-        "Created multi-modal conversational AI agents using LangChain, AWS, and modern image/document models.",
-        "Optimized model inference pipelines (Fooocus, ComfyUI, vLLM), increasing system uptime by 25%."
-      ],
-      technologies: ["LangChain", "AWS", "vLLM", "Python", "FastAPI"]
+      technologies: ["LLMs", "Copilot Studio", "Neo4j", "Linux SysAdmin", "Fooocus/ComfyUI", "FastAPI", "TensorFlow"]
     },
     {
       role: "Generative AI & Software Engineer (Specialist / Working Student)",
-      company: "Global Enterprise Cloud Systems",
+      company: "SAP - Global Enterprise Cloud Software",
       location: "Germany",
       period: "May 2023 – Apr 2024",
+      badge: "Enterprise IT & Cloud",
       highlights: [
-        "Lead developer for Generative AI-driven internal support and predictive maintenance use cases.",
+        "Served as Business Content Associate on openSAP MOOC platform, auditing and optimizing technical course architectures for global developer ecosystems.",
         "Built multilingual RAG applications on Azure Cloud (Azure OpenAI, AI Search, Azure Functions), improving internal query response speed by 100%.",
         "Managed Azure cloud infrastructure and token optimization strategies, reducing operational expenses by 50%."
       ],
-      technologies: ["Azure OpenAI", "Azure AI Search", "Azure Functions", "RAG", "Python", "FinOps"]
+      technologies: ["Azure OpenAI", "Azure AI Search", "Azure Functions", "openSAP MOOC", "Python", "FinOps"]
+    },
+    {
+      role: "Data & Sales Intelligence Specialist",
+      company: "Meesho - High-Scale E-Commerce Platform",
+      location: "Bangalore, India",
+      period: "Jan 2021 – Dec 2021",
+      badge: "E-Commerce & High-Scale Data",
+      highlights: [
+        "Empowered sales leadership and category managers with deep buyer requirement clustering and sales intelligence analytics over millions of transaction records.",
+        "Engineered predictive catalog analysis to detect and eliminate duplicate listings, boosting high-growth product pipeline conversion by 25%.",
+        "Collaborated with engineering teams to design dynamic pricing models and real-time inventory insights across high-volume supplier catalogs."
+      ],
+      technologies: ["Python", "Pandas", "SQL", "Dynamic Pricing", "Distributed Data", "E-Commerce Analytics"]
     }
   ] as Experience[],
   degrees: [
@@ -383,7 +388,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     businessImpact: "Replaced high-cost third-party vendor platforms with an in-house R&D Operating System, saving €1.2M+ in recurring licenses for 150+ researchers across global plants.",
     vendorCostSaved: "€1.2M+",
     stack: ["FastAPI", "Next.js 15", "MongoDB", "Redis", "AWS ECS Fargate", "Docker", "GitHub Actions"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/01-materials-intelligence-platform` : "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform"),
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/01-materials-intelligence-platform` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform"),
     liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_1_DEMO_URL || undefined,
     architectureHighlights: [
       "Full Recipe & Formulation Lifecycle: multi-ingredient stoichiometry, batch versioning & parent-child trees",
@@ -403,7 +408,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Autonomous Agentic SDS Parsing, ECHA SVHC Cross-Referencing & OESL Auditing",
     businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier SDS with zero hallucination rate on regulated limits.",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/02-chemagent-sds-compliance` : "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance"),
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/02-chemagent-sds-compliance` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance"),
     liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_2_DEMO_URL || undefined,
     architectureHighlights: [
       "Supervisor-Worker multi-agent LangGraph workflow with deterministic verification",
@@ -423,7 +428,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Sub-Millisecond Tensile Curve-Fitting & Mechanical Invariant Calculation",
     businessImpact: "Achieved significant computation speedups over legacy laboratory desktop tooling with instant client-side WebAssembly execution.",
     stack: ["Rust", "WebAssembly (WASM)", "Axum", "FastAPI", "Next.js 15", "Plotly"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/03-rust-wasm-rheology-engine` : "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine"),
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/03-rust-wasm-rheology-engine` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine"),
     liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_3_DEMO_URL || undefined,
     architectureHighlights: [
       "Zero-latency client-side polynomial regression via compiled WebAssembly",
@@ -443,7 +448,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Semantic Caching, Departmental Token Quotas & Multi-Cloud Fallback",
     businessImpact: "Reduced enterprise LLM operational costs by 42% through semantic caching while enforcing strict data privacy and EU AI Act guardrails.",
     stack: ["FastAPI", "Redis", "LiteLLM", "OpenTelemetry", "Docker", "Prometheus"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/04-enterprise-ai-gateway-finops` : "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops"),
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/04-enterprise-ai-gateway-finops` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops"),
     liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_4_DEMO_URL || undefined,
     architectureHighlights: [
       "Sub-5ms semantic prompt cache hits using Redis SHA256 and exact prompt indexing",
@@ -475,7 +480,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "€1.2M+ direct vendor costs saved; adopted by 150+ researchers & plant technicians across global facilities.",
     stack: ["Next.js 15", "FastAPI", "MongoDB", "Redis", "AWS ECS", "ALB", "Docker", "GitHub Actions"],
     sourcePath: "projects/01-materials-intelligence-platform",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
     isInteractive: true
   },
   {
@@ -493,7 +498,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Reduced SDS auditing cycle time from 3 hours to 11.4ms with 100% regulatory boundary accuracy.",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
     sourcePath: "projects/02-chemagent-sds-compliance",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
     isInteractive: true
   },
   {
@@ -511,7 +516,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Sub-millisecond mathematical execution directly in the browser; eliminates local desktop installation overhead.",
     stack: ["Rust", "WebAssembly (WASM)", "Axum", "FastAPI", "Next.js 15", "Plotly"],
     sourcePath: "projects/03-rust-wasm-rheology-engine",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
     isInteractive: true
   },
   {
@@ -529,7 +534,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Reduced enterprise AI API operational expenditure by 42% while enforcing EU AI Act governance.",
     stack: ["FastAPI", "Redis", "LiteLLM", "Docker", "Prometheus", "OpenTelemetry"],
     sourcePath: "projects/04-enterprise-ai-gateway-finops",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
+    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
     isInteractive: true
   },
   {

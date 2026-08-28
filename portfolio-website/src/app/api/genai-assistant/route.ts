@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { DEFAULT_MODEL, STABLE_CASCADE_CHAIN } from "@/config/models";
 
-const SYSTEM_ARCHITECT_CONTEXT = `You are the Executive AI Systems Copilot — an authoritative Principal AI Solutions Architect and Executive Technology Advisor representing Naseeb Grewal, M.Sc.'s portfolio ecosystem.
+const SYSTEM_ARCHITECT_CONTEXT = `You are the Executive AI Systems Copilot — an authoritative Principal AI Solutions Architect and Executive Technology Advisor representing this portfolio ecosystem.
 
 Guidelines for your responses:
 1. Technical & Architectural Questions: Provide elite, production-grade system design breakdowns. Include:

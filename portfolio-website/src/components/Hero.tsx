@@ -72,7 +72,7 @@ export default function Hero() {
       {/* Fresh Executive Narrative (Value Focused) */}
       <div className="max-w-3xl mb-8 space-y-3 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed font-light">
         <p>
-          I architect enterprise AI systems, high-throughput microservices, and R&D Operating Systems across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Automotive Plants, Cement, and Life Sciences</strong>. Over 7+ years of leading technical teams and digital transformation, I specialize in eliminating legacy friction and building high-ROI software platforms.
+          I architect enterprise AI systems, high-throughput microservices, and R&D Operating Systems across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, SAP, Meesho, and WONGDOODY</strong>), I specialize in eliminating legacy friction and engineering high-ROI systems.
         </p>
         <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300">
           Core Focus: In-house R&D Operating Systems (<strong className="text-emerald-800 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), zero-hallucination agentic compliance swarms (LangGraph / REACH SDS), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.

@@ -17,7 +17,7 @@ import {
   MessageSquare,
   ShieldCheck
 } from "lucide-react";
-import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
+import { CANDIDATE_PROFILE, FLAGSHIP_PROJECTS } from "@/data/portfolio_data";
 
 interface ChallengeScenario {
   id: string;
@@ -42,7 +42,7 @@ const SCENARIOS: ChallengeScenario[] = [
     projectedRoi: "Eliminates 100% of 3rd-party vendor SaaS licensing (€1.2M+ cumulative savings) with sub-45ms P99 query latency.",
     architectureBlueprint: "AWS ECS Fargate autoscale cluster behind ALB with OIDC authentication and optimistic formulation versioning.",
     matchingProject: "Enterprise Materials Intelligence Platform",
-    projectGithub: "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
+    projectGithub: FLAGSHIP_PROJECTS[0]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
     architecturalPillar: "Optimistic concurrency control and schema migration pipelines for 150+ chemical researchers across global manufacturing plants."
   },
   {
@@ -54,7 +54,7 @@ const SCENARIOS: ChallengeScenario[] = [
     projectedRoi: "Accelerates compliance verification from 2 hours to 11.4 ms per SDS with a mathematically guaranteed 0% hallucination rate.",
     architectureBlueprint: "Supervisor-worker LangGraph pipeline with CAS normalizer, deterministic rule engine, and Human-in-the-Loop CMR escalation.",
     matchingProject: "ChemAgent-Gov: Multi-Agent REACH Auditor",
-    projectGithub: "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
+    projectGithub: FLAGSHIP_PROJECTS[1]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
     architecturalPillar: "Deterministic verification boundary ensuring 0% hallucinations when evaluating strict EU REACH Annex XVII thresholds."
   },
   {
@@ -66,7 +66,7 @@ const SCENARIOS: ChallengeScenario[] = [
     projectedRoi: "Sub-2ms client-side execution for 100,000+ data points without server roundtrip latency or cloud compute bills.",
     architectureBlueprint: "Compiled WASM binary executing directly in browser V8 engine for instant ISO 527 Young's Modulus and yield stress regression.",
     matchingProject: "Ultra-Fast Lab Rheology & Mechanics Engine",
-    projectGithub: "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
+    projectGithub: FLAGSHIP_PROJECTS[2]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
     architecturalPillar: "Rust/WASM client-side compilation for zero-cloud latency and instant offline laboratory analytics."
   },
   {
@@ -78,7 +78,7 @@ const SCENARIOS: ChallengeScenario[] = [
     projectedRoi: "Reduces enterprise LLM operational costs by 42% via exact & semantic prompt caching while enforcing departmental euro budgets.",
     architectureBlueprint: "Reverse-proxy gateway with Redis in-memory cache, automated rate limiter, PII scrubber, and multi-cloud transparent fallback.",
     matchingProject: "Enterprise AI Gateway & FinOps Controller",
-    projectGithub: "https://github.com/NaseebGrewal/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
+    projectGithub: FLAGSHIP_PROJECTS[3]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
     architecturalPillar: "Redis semantic prompt hashing and multi-cloud failover routing guaranteeing 99.99% model uptime."
   }
 ];

@@ -118,7 +118,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 transition-all shadow-xs"
-                title="GitHub Monorepo & Projects"
+                title="GitHub Profile & Projects"
               >
                 <Github className="w-4 h-4" />
               </a>
@@ -286,7 +286,7 @@ export default function Home() {
                 className="px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
               >
                 <Github className="w-4 h-4 text-slate-900 dark:text-white" />
-                <span>GitHub Monorepo</span>
+                <span>GitHub</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
               </a>
             )}

@@ -12,14 +12,14 @@ const THEME_OPTIONS: { id: Theme; label: string; icon: React.ReactNode }[] = [
 ];
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setMounted(true);
-    const savedTheme = (localStorage.getItem("portfolio-theme") as Theme) || "dark";
+    const savedTheme = (localStorage.getItem("portfolio-theme") as Theme) || "light";
     setTheme(savedTheme);
     applyTheme(savedTheme);
 
@@ -62,7 +62,7 @@ export function ThemeToggle() {
     );
   }
 
-  const currentOption = THEME_OPTIONS.find((o) => o.id === theme) || THEME_OPTIONS[1];
+  const currentOption = THEME_OPTIONS.find((o) => o.id === theme) || THEME_OPTIONS[0];
 
   return (
     <div className="relative" ref={dropdownRef}>
