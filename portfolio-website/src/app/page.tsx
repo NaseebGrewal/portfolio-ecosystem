@@ -6,6 +6,8 @@ import StrategicValueMatrix from "@/components/StrategicValueMatrix";
 import InteractiveDemoSuite from "@/components/InteractiveDemoSuite";
 import AiSolutionMatchmaker from "@/components/AiSolutionMatchmaker";
 import ProjectCard from "@/components/ProjectCard";
+import SkillsMatrix from "@/components/SkillsMatrix";
+import ExperienceTimeline from "@/components/ExperienceTimeline";
 import ArchitectureViewer from "@/components/ArchitectureViewer";
 import ExecutiveCredentialsBar from "@/components/ExecutiveCredentialsBar";
 import { FLAGSHIP_PROJECTS, CANDIDATE_PROFILE } from "@/data/portfolio_data";
@@ -51,6 +53,8 @@ export default function Home() {
             <a href="#interactive-demo" className="hover:text-white transition-colors">Live Demos</a>
             <a href="#ai-advisor" className="hover:text-white transition-colors">AI Matchmaker</a>
             <a href="#projects" className="hover:text-white transition-colors">Flagship Projects</a>
+            <a href="#skills" className="hover:text-white transition-colors">Skills</a>
+            <a href="#experience" className="hover:text-white transition-colors">Experience</a>
             <a href="#architecture" className="hover:text-white transition-colors">Architecture</a>
             <a href="#credentials" className="hover:text-white transition-colors">Credentials</a>
             <a href="#contact" className="hover:text-white transition-colors">Contact</a>
@@ -125,6 +129,12 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* Technical Architecture & Skills Matrix */}
+      <SkillsMatrix />
+
+      {/* Professional Leadership & Experience Timeline */}
+      <ExperienceTimeline />
 
       {/* Architecture Viewer */}
       <ArchitectureViewer />
