@@ -112,7 +112,7 @@ export const ENTERPRISE_PEDIGREE: EnterpriseCompany[] = [
     badge: "ODIS & RDDR Scientific Search",
     shortCode: "IFF",
     logoPath: "/logos/iff.png",
-    impactHighlight: "Delivered the enterprise R&D Data Registry (RDDR) and ODIS Ontology Search platforms, structuring high-throughput pharmaceutical formulations and compliance verification across global research teams."
+    impactHighlight: "Led core maintenance, feature enhancements, and system optimization for enterprise R&D platforms (RDDR & ODIS Ontology Search), structuring high-throughput pharmaceutical formulations and compliance verification across global research teams."
   },
   {
     id: "meesho",
