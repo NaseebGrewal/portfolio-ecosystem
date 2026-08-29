@@ -123,6 +123,11 @@ services:
       dockerfile: Dockerfile
     container_name: portfolio_website
     restart: unless-stopped
+    env_file:
+      - path: ./portfolio-website/.env.local
+        required: false
+      - path: ./portfolio-website/.env
+        required: false
     environment:
       - NODE_ENV=production
       - PORT=3000

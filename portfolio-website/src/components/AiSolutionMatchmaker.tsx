@@ -83,8 +83,24 @@ const SCENARIOS: ChallengeScenario[] = [
   }
 ];
 
-export default function AiSolutionMatchmaker() {
+export interface AiSolutionMatchmakerProps {
+  onOpenContactModal?: (topic?: string) => void;
+}
+
+export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionMatchmakerProps) {
   const [selectedScenario, setSelectedScenario] = useState<ChallengeScenario>(SCENARIOS[0]);
+
+  const handleDiscussClick = () => {
+    const topicLabel = `${selectedScenario.industry}: ${selectedScenario.recommendedPattern.split("(")[0].trim()}`;
+    if (onOpenContactModal) {
+      onOpenContactModal(topicLabel);
+    } else {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   return (
     <section id="ai-advisor" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
@@ -218,13 +234,15 @@ export default function AiSolutionMatchmaker() {
                 <ExternalLink className="w-3 h-3 text-gray-400" />
               </a>
 
-              <a
-                href={`mailto:${CANDIDATE_PROFILE.email}?subject=Discussion:%20${encodeURIComponent(selectedScenario.recommendedPattern)}`}
-                className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-medium flex items-center gap-1.5 transition-all shadow"
+              <button
+                type="button"
+                onClick={handleDiscussClick}
+                className="px-4 py-2 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 transition-all shadow-md cursor-pointer ring-1 ring-white/10"
               >
-                <span>Let's Discuss</span>
+                <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
+                <span>Get in Touch</span>
                 <ArrowRight className="w-3.5 h-3.5" />
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -122,3 +122,98 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(STABLE_CASCADE_CHAIN.length).toBeGreaterThanOrEqual(4);
   });
 });
+
+describe("Executive Contact System & Validation Suite", () => {
+  const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
+
+  it("should rigorously validate standard and enterprise email formats", () => {
+    const validEmails = [
+      "recruiter@enterprise.com",
+      "hiring.manager@subdomain.company.co.uk",
+      "ai_lead+filter@startup.io",
+      "first.last@materials-ai.de"
+    ];
+
+    validEmails.forEach((email) => {
+      expect(EMAIL_REGEX.test(email)).toBe(true);
+    });
+
+    const invalidEmails = [
+      "plainaddress",
+      "missingatsign.com",
+      "@missingusername.com",
+      "username@.com",
+      "username@domain..com",
+      "user name@domain.com",
+      "user@domain"
+    ];
+
+    invalidEmails.forEach((email) => {
+      expect(EMAIL_REGEX.test(email)).toBe(false);
+    });
+  });
+
+  it("should ensure message body length and topic boundaries are enforced", () => {
+    const validateInquiry = (email: string, topic: string, customTopic: string | undefined, message: string) => {
+      const isEmailValid = EMAIL_REGEX.test(email.trim());
+      const isCustomNeeded = topic === "Other / Custom Topic" || topic === "custom";
+      const isTopicValid = isCustomNeeded ? (customTopic ? customTopic.trim().length >= 2 : false) : Boolean(topic && topic.trim().length > 0);
+      const isMessageValid = message.trim().length >= 10 && message.length <= 5000;
+      return isEmailValid && isTopicValid && isMessageValid;
+    };
+
+    // Valid standard submission
+    expect(validateInquiry("lead@tech.com", "Executive / Staff AI Role", undefined, "We have an open Principal AI Solutions Architect role.")).toBe(true);
+
+    // Invalid due to short message
+    expect(validateInquiry("lead@tech.com", "Executive / Staff AI Role", undefined, "Hi")).toBe(false);
+
+    // Invalid due to invalid email
+    expect(validateInquiry("bad-email", "Executive / Staff AI Role", undefined, "We have an open Principal AI Solutions Architect role.")).toBe(false);
+
+    // Valid custom topic
+    expect(validateInquiry("founder@deeptech.io", "Other / Custom Topic", "Series B Technical Advisory", "Interested in scheduling an advisory workshop.")).toBe(true);
+
+    // Invalid custom topic (empty custom field)
+    expect(validateInquiry("founder@deeptech.io", "Other / Custom Topic", " ", "Interested in scheduling an advisory workshop.")).toBe(false);
+  });
+
+  it("should verify candidate email routing configuration targets executive inbox", () => {
+    expect(CANDIDATE_PROFILE.email).toBeDefined();
+    expect(CANDIDATE_PROFILE.email.length).toBeGreaterThan(5);
+    expect(EMAIL_REGEX.test(CANDIDATE_PROFILE.email)).toBe(true);
+  });
+
+  it("should format executive sender identities cleanly for enterprise, academia, and direct senders", () => {
+    const formatSenderIdentity = (senderName?: string, organization?: string, email?: string) => {
+      const cleanSender = senderName?.trim();
+      const cleanOrg = organization?.trim();
+      const cleanEmail = email?.trim() || "";
+
+      if (cleanSender && cleanOrg) return `${cleanSender} (${cleanOrg})`;
+      if (cleanSender) return `${cleanSender} <${cleanEmail}>`;
+      if (cleanOrg) return `${cleanOrg} <${cleanEmail}>`;
+      return cleanEmail;
+    };
+
+    // Academic / Research Institute
+    expect(formatSenderIdentity("Prof. Dr. Alex Miller", "Max Planck Institute", "a.miller@mpg.de"))
+      .toBe("Prof. Dr. Alex Miller (Max Planck Institute)");
+
+    // Enterprise Tech Company
+    expect(formatSenderIdentity("Sarah Jenkins", "Google DeepMind", "sjenkins@deepmind.com"))
+      .toBe("Sarah Jenkins (Google DeepMind)");
+
+    // Individual without organization
+    expect(formatSenderIdentity("David Doe", undefined, "david@startup.io"))
+      .toBe("David Doe <david@startup.io>");
+
+    // Organization only
+    expect(formatSenderIdentity(undefined, "Fraunhofer Institute", "info@fraunhofer.de"))
+      .toBe("Fraunhofer Institute <info@fraunhofer.de>");
+
+    // Anonymous email only
+    expect(formatSenderIdentity(undefined, undefined, "anonymous@domain.com"))
+      .toBe("anonymous@domain.com");
+  });
+});

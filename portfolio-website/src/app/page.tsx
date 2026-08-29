@@ -12,12 +12,12 @@ import ProjectCard from "@/components/ProjectCard";
 import SkillsMatrix from "@/components/SkillsMatrix";
 import ArchitectureViewer from "@/components/ArchitectureViewer";
 import ExecutiveCredentialsBar from "@/components/ExecutiveCredentialsBar";
+import ContactModal from "@/components/ContactModal";
+import ContactForm from "@/components/ContactForm";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FLAGSHIP_PROJECTS, CANDIDATE_PROFILE } from "@/data/portfolio_data";
 import {
   Mail,
-  Copy,
-  Check,
   Github,
   Linkedin,
   Sparkles,
@@ -40,13 +40,13 @@ const NAV_ITEMS = [
 ];
 
 export default function Home() {
-  const [copied, setCopied] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("pedigree");
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [contactModalTopic, setContactModalTopic] = useState<string | undefined>(undefined);
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(CANDIDATE_PROFILE.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleOpenContactModal = (topic?: string) => {
+    setContactModalTopic(topic);
+    setIsContactModalOpen(true);
   };
 
   useEffect(() => {
@@ -134,13 +134,16 @@ export default function Home() {
                 <Linkedin className="w-4 h-4" />
               </a>
             )}
-            <a
-              href={`mailto:${CANDIDATE_PROFILE.email}?subject=Inquiry:%20Senior%20AI%20Solutions%20Architect%20Role`}
-              className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5"
+            <button
+              type="button"
+              onClick={() => handleOpenContactModal()}
+              className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5 cursor-pointer ring-1 ring-white/15 hover:scale-[1.02]"
+              title="Open Executive Contact Portal"
             >
-              <Mail className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Let's Discuss</span>
-            </a>
+              <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
+              <span className="hidden sm:inline">Get in Touch</span>
+              <span className="sm:hidden">Contact</span>
+            </button>
           </div>
         </div>
 
@@ -170,7 +173,7 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <Hero />
+      <Hero onOpenContactModal={handleOpenContactModal} />
 
       {/* Moving Companies & Institutes Experience Marquee Strip */}
       <div id="pedigree">
@@ -189,7 +192,7 @@ export default function Home() {
       <GenAiArchitectCopilot />
 
       {/* Interactive AI Architecture Matchmaker */}
-      <AiSolutionMatchmaker />
+      <AiSolutionMatchmaker onOpenContactModal={handleOpenContactModal} />
 
       {/* Core Production Microservices */}
       <section id="core-systems" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
@@ -226,54 +229,36 @@ export default function Home() {
       <ExecutiveCredentialsBar />
 
       {/* Executive Contact & CTA Footer */}
-      <footer id="contact" className="py-16 px-6 bg-slate-100 dark:bg-[#0c1220] border-t border-slate-200 dark:border-surfaceBorder text-center transition-colors">
-        <div className="max-w-3xl mx-auto">
-          <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300 text-xs font-mono mb-4 shadow-xs">
-            <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-            Direct Collaboration & Leadership
+      <footer id="contact" className="py-16 px-6 bg-slate-100 dark:bg-[#0c1220] border-t border-slate-200 dark:border-surfaceBorder transition-colors">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300 text-xs font-mono mb-4 shadow-xs">
+              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+              Direct Executive Communication
+            </div>
+            <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mb-2 tracking-tight">
+              Contact Me:
+            </h3>
+            <p className="text-slate-700 dark:text-slate-300 text-sm max-w-xl mx-auto font-light leading-relaxed">
+              Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Technical Product Ownership leadership roles across Germany, EU, and Remote worldwide.
+            </p>
           </div>
-          <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mb-3 tracking-tight">
-            Let's Discuss
-          </h3>
-          <p className="text-slate-700 dark:text-slate-300 text-sm mb-8 font-light leading-relaxed max-w-xl mx-auto">
-            Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Technical Product Ownership leadership roles across Germany, EU, and Remote worldwide.
-          </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
-            <a
-              href={`mailto:${CANDIDATE_PROFILE.email}?subject=Opportunity:%20Senior%20AI%20Solutions%20Architect%20/%20R%26D%20Lead`}
-              className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs flex items-center gap-2 shadow-lg shadow-blue-600/25 transition-all"
-            >
-              <Mail className="w-4 h-4" />
-              <span>Send Email</span>
-            </a>
+          {/* Inline Always-Visible Contact Box (No popup required in footer) */}
+          <div className="bg-white dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl mb-10 ring-1 ring-slate-900/5 dark:ring-white/5">
+            <ContactForm isModal={false} />
+          </div>
 
-            <button
-              onClick={handleCopyEmail}
-              className="px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-mono font-medium flex items-center gap-2 transition-all shadow-xs"
-            >
-              {copied ? (
-                <>
-                  <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                  <span className="text-emerald-700 dark:text-emerald-300 font-bold">Email Copied to Clipboard</span>
-                </>
-              ) : (
-                <>
-                  <Copy className="w-4 h-4 text-slate-500 dark:text-slate-400" />
-                  <span>Copy Email Address</span>
-                </>
-              )}
-            </button>
-
+          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
             {CANDIDATE_PROFILE.linkedinUrl && (
               <a
                 href={CANDIDATE_PROFILE.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
+                className="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
               >
                 <Linkedin className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                <span>LinkedIn</span>
+                <span>LinkedIn Profile</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
               </a>
             )}
@@ -283,20 +268,27 @@ export default function Home() {
                 href={CANDIDATE_PROFILE.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-5 py-3.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
+                className="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
               >
                 <Github className="w-4 h-4 text-slate-900 dark:text-white" />
-                <span>GitHub</span>
+                <span>GitHub Repositories</span>
                 <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
               </a>
             )}
           </div>
 
-          <div className="text-xs text-slate-600 dark:text-slate-400 font-mono">
+          <div className="text-center text-xs text-slate-600 dark:text-slate-400 font-mono">
             © {new Date().getFullYear()} {CANDIDATE_PROFILE.name} • Built with Next.js 15, TypeScript & Tailwind CSS
           </div>
         </div>
       </footer>
+
+      {/* Unicorn-Grade Executive Contact Popup Modal */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+        initialTopic={contactModalTopic}
+      />
     </main>
   );
 }

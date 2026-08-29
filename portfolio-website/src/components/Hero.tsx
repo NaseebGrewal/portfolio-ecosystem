@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
 import {
   Cpu,
@@ -8,21 +8,26 @@ import {
   Mail,
   CheckCircle,
   Sparkles,
-  Copy,
-  Check,
   Compass,
   ArrowRight,
   Layers,
   Award
 } from "lucide-react";
 
-export default function Hero() {
-  const [copied, setCopied] = useState(false);
+export interface HeroProps {
+  onOpenContactModal?: () => void;
+}
 
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText(CANDIDATE_PROFILE.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+export default function Hero({ onOpenContactModal }: HeroProps) {
+  const handleContactClick = () => {
+    if (onOpenContactModal) {
+      onOpenContactModal();
+    } else {
+      const contactSection = document.getElementById("contact");
+      if (contactSection) {
+        contactSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }
   };
 
   return (
@@ -125,23 +130,15 @@ export default function Hero() {
           <span>Full Systems Catalog (14)</span>
         </a>
 
-        {/* Copy Email Button */}
+        {/* Unicorn-Grade Get in Touch Button */}
         <button
-          onClick={handleCopyEmail}
-          className="px-4 py-3.5 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800 text-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-700 text-xs font-mono flex items-center gap-2 transition-all"
-          title="Copy Email Address"
+          onClick={handleContactClick}
+          className="px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-600/20 cursor-pointer ring-1 ring-white/20 hover:scale-[1.02]"
+          title="Get in Touch with Principal AI Architect"
         >
-          {copied ? (
-            <>
-              <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span className="text-emerald-700 dark:text-emerald-300 font-sans">Copied!</span>
-            </>
-          ) : (
-            <>
-              <Copy className="w-4 h-4 text-gray-500" />
-              <span>Copy Email</span>
-            </>
-          )}
+          <Mail className="w-4 h-4" />
+          <span>Get in Touch</span>
+          <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
         </button>
       </div>
     </section>
