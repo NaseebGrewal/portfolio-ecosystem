@@ -20,12 +20,17 @@ This monorepo is an Executive-grade AI & R&D Digitalization portfolio containing
      - `Custom input from user`
   3. The agent MUST NOT proceed with editing files, running heavy investigations, or implementing changes until the user approves the plan.
 
-### 2. Docker-Only Testing Rule
+### 2. Docker-Only Testing & Fresh Build Rule
 - **All tests MUST be run exclusively inside Docker containers.**
-- Do NOT run tests in the host environment. Always bring up services via Docker Compose:
+- **Fresh Build Guarantee**: Always build services via Docker Compose to ensure code changes are compiled and reflected in the running image:
   ```bash
-  docker compose up -d
+  docker compose up -d --build
   ```
+- **Error Gate Invariant**: If there is ANY build error, compilation error, or startup failure when running `docker compose up -d --build` or starting any container:
+  1. The agent MUST immediately inspect the build/container logs.
+  2. The agent MUST resolve the underlying syntax, configuration, or dependency issue.
+  3. The agent MUST re-run `docker compose up -d --build` to confirm clean exit code 0.
+  4. The agent is STRICTLY FORBIDDEN from presenting a final sign-off or claiming completion while any Docker build, container startup, or test has failed.
 - Run tests across all services inside their respective containers:
   - `docker compose exec -T materials_backend pytest`
   - `docker compose exec -T chemagent_backend pytest`
@@ -35,12 +40,17 @@ This monorepo is an Executive-grade AI & R&D Digitalization portfolio containing
 - Alternatively, run `./scripts/docker-test-all.sh`.
 - All 5 test suites must pass 100% with zero failures.
 
-### 3. Browser Visual Verification Rule
-- Once all Docker tests pass, the agent MUST use local browser tools (`open_browser_page`, `read_page`, `screenshot_page`) to inspect `http://localhost:3000` (and `http://localhost:3001` if materials frontend was altered).
+### 3. Browser Visual, Responsive Form Factors & Live Update Verification Rule
+- Once all Docker builds and tests pass, the agent MUST verify that the live application at `http://localhost:3000` (and `http://localhost:3001` if materials frontend was altered) displays the newly implemented updates (not a stale prior build).
+- **Mandatory 3-Device Responsive Testing**:
+  1. **Mobile Viewport (375px–430px)**: Verify navigation ribbon/drawer, stacked vertical layout, full-bleed images, touch target sizing, and zero horizontal overflow.
+  2. **Laptop Viewport (1024px–1440px)**: Verify desktop top navigation, 2-column balanced Hero grid, 2-column project cards, and clean typography.
+  3. **Large Monitors / Ultra-Wide Viewport (1440px–2560px+)**: Verify that content is elegantly constrained by maximum content width (`max-w-[1440px] mx-auto`) with balanced gutters, ensuring cards and text never stretch excessively or look distorted on 4K/retina monitors.
+- Use local browser inspection tools to inspect `http://localhost:3000`.
 - Verify interactive widgets, layout responsiveness, contrast, and console health.
 
 ### 4. Post-Execution Summary & Final Sign-Off Rule
-- After completing tasks and validating via Docker tests and browser inspection, present a bulleted summary checklist of all completed work.
+- Only AFTER all Docker builds exit with code 0, all 5 test suites pass 100%, and live updates are verified on `http://localhost:3000`, present a bulleted summary checklist of all completed work.
 - Prompt the user for final sign-off with two explicit options:
   1. `Yes, approve and finalize`
   2. `Custom input from user`

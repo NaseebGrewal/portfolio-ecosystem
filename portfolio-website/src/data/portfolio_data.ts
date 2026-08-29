@@ -159,6 +159,7 @@ export const CANDIDATE_PROFILE = {
   githubUrl: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/your-username",
   linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/your-profile",
   portfolioUrl: process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://yourportfolio.dev",
+  profileImageUrl: process.env.NEXT_PUBLIC_PROFILE_IMAGE_URL || "/profile.png",
   status: "Available for Senior AI & Solutions Architecture Leadership Roles",
   experienceYears: "7+",
   targetIndustries: [

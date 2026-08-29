@@ -14,7 +14,7 @@ import {
 
 export default function ExecutiveCredentialsBar() {
   return (
-    <section id="credentials" className="py-12 px-6 max-w-7xl mx-auto border-t border-slate-200 dark:border-surfaceBorder">
+    <section id="credentials" className="py-12 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-surfaceBorder shadow-md">
         {/* Title Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">

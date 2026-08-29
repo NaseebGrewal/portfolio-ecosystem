@@ -52,11 +52,15 @@ You operate dynamically or explicitly in one of the following structured modes:
   - `portfolio_website` (Main App): `npm run test` (Vitest) in container
   - Any newly added services / projects in the monorepo
 
-### 5. `audit` (Browser Visual & Functional Inspection)
-- **Objective**: Visually verify running web applications using browser automation tools.
+### 5. `audit` (Browser Visual & Functional Inspection Across 3 Device Form Factors)
+- **Objective**: Visually verify running web applications across responsive viewports using browser automation tools.
 - **STRICT MANDATE**: Once all Docker container tests pass, the agent launches/connects to the local browser via browser tools (e.g., `open_browser_page`, `read_page`, `screenshot_page`) at `http://localhost:3000` (and `http://localhost:3001` for materials frontend).
+- **Mandatory 3-Device Responsive Testing Matrix**:
+  1. **Mobile Viewport (375px–430px)**: Verify navigation ribbon/drawer, stacked vertical layout, full-bleed images, touch target sizing, and zero horizontal overflow.
+  2. **Laptop Viewport (1024px–1440px)**: Verify desktop top navigation, 2-column balanced Hero grid, 2-column project cards, and clean typography.
+  3. **Large Monitors / Ultra-Wide Viewport (1440px–2560px+)**: Verify that content is elegantly constrained by maximum content width (`max-w-[1440px] mx-auto`) with balanced gutters, ensuring cards and text never stretch excessively or look distorted on 4K/retina monitors.
 - Verify:
-  - Visual layout, typography, contrast, alignment, and responsiveness.
+  - Visual layout, typography, contrast, alignment, and responsiveness across all 3 viewports.
   - Interactive components: demo suites, filters, live calculators, modal states, tabs.
   - Console clean of errors or unhandled exceptions.
 

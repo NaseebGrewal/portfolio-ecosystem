@@ -27,12 +27,12 @@ Copy the markdown block below into your chat whenever you want the agent to exec
 - Type Safety: Strict TypeScript / Pydantic models (no `any`).
 - Performance: [e.g., Sub-50ms latency / Sub-2ms WASM / Redis semantic caching].
 - Testing: ALL tests must pass inside Docker containers (`./scripts/docker-test-all.sh`).
-- Visual Validation: Agent must inspect running UI at `http://localhost:3000` via browser tools.
+- Visual Validation: Agent must inspect running UI at `http://localhost:3000` via browser tools across 3 device form factors: Mobile (375px–430px), Laptop (1024px–1440px), and Large/Ultra-Wide Monitors (1440px–2560px+) with `max-w-[1440px] mx-auto` constraint.
 
 **7. Mandatory Workflow & Approval Protocol**:
 - 🚨 **Stage 1 (Pre-Execution Approval)**: FIRST present a bulleted action plan and ask: *"Do you approve of this plan?"* with options `[Yes, approve and proceed]` and `[Custom input from user]`. Do NOT mutate code until approved.
 - ⚡ **Stage 2 (Execution & Docker Testing)**: Implement changes and verify 100% pass rate in Docker containers.
-- 👁️ **Stage 3 (Browser Inspection)**: Inspect `http://localhost:3000` with local browser tools.
+- 👁️ **Stage 3 (Browser Inspection across 3 Devices)**: Inspect `http://localhost:3000` with local browser tools across Mobile, Laptop, and Large Monitors.
 - 🏁 **Stage 4 (Final Sign-Off)**: Provide a completed checklist and ask: *"Are all tasks finished and do you approve of this?"* with options `[Yes, approve and finalize]` and `[Custom input from user]`.
 ```
 

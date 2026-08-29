@@ -405,7 +405,7 @@ export default function GenAiArchitectCopilot() {
   };
 
   return (
-    <section id="ai-copilot" className="py-16 px-6 max-w-7xl mx-auto border-t border-slate-200 dark:border-surfaceBorder">
+    <section id="ai-copilot" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
       <div className="rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-surfaceBorder shadow-xl p-6 sm:p-10">
         {/* Section Header */}
         <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-8 pb-6 border-b border-slate-100 dark:border-slate-800">

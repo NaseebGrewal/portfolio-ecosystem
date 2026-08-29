@@ -10,9 +10,9 @@ echo "======================================================================"
 echo "  PORTFOLIO ECOSYSTEM: DOCKER CONTAINER TEST SUITE"
 echo "======================================================================"
 
-# Step 1: Ensure services are up
-echo "--> Ensuring all Docker services are running..."
-docker compose up -d
+# Step 1: Ensure services are up and fresh
+echo "--> Ensuring all Docker services are built and running..."
+docker compose up -d --build
 
 echo ""
 echo "--> 1/5 Running Materials Intelligence Backend Tests (FastAPI)..."

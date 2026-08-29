@@ -80,6 +80,21 @@ const DETERMINISTIC_KNOWLEDGE: Record<string, string> = {
 2. **Event Bus & Data Sync**: Deploy Kafka / RabbitMQ with Transactional Outbox patterns to guarantee eventual consistency between legacy relational stores and new distributed NoSQL stores.
 3. **Resilience & Observability**: Implement OpenTelemetry distributed tracing, circuit breakers (Resilience4j / Tenacity), and sub-50ms P99 health probes with zero downtime.`,
 
+  continental: `### Continental Enterprise Platform: €1.2M+ Vendor Licensing Saved
+
+1. **The Architectural Problem**: Continental relied on expensive, rigid third-party commercial software for materials test order management and lab data tracking across global manufacturing hubs.
+2. **The In-House Solution**: Architected and delivered an in-house enterprise Material Database & Laboratory Test Order Management Platform on AWS ECS Fargate, MongoDB Atlas, and FastAPI.
+3. **Concrete Business Impact**:
+   - **Financial ROI**: Eliminated **€1.2M+** in recurring third-party vendor licensing fees.
+   - **Turnaround Speed**: Accelerated test order scheduling and certificate generation by **60%**.
+   - **Scale & Reliability**: 150+ active lab scientists and engineers supported across multi-site production with 99.95% cloud SLA.`,
+
+  heidelberg: `### Heidelberg Materials: GenAI Customer Support & Plant RCFA Systems
+
+1. **Plant Root Cause Failure Analysis (RCFA)**: Engineered an automated failure diagnosis pipeline ingesting plant telemetry, maintenance logs, and equipment specs via Azure AI Search and multi-agent reasoning.
+2. **Customer Support Automation**: Deployed GenAI conversational assistants with domain embeddings, reducing ticket triage time from 4 hours to under 8 minutes.
+3. **Operational Uptime**: Prevented unplanned industrial kiln/mill downtime, saving an estimated €450k annually in plant productivity losses.`,
+
   career: `### Executive Technology Leadership & AI Career Advisory
 
 1. **T-Shaped Mastery**: Deep domain grounding in systems engineering (distributed cloud, Rust/WASM, high-throughput streaming) combined with broad generative AI orchestration (LangGraph, semantic caching, FinOps).
@@ -134,14 +149,16 @@ export async function POST(req: Request) {
       const lower = prompt.toLowerCase();
       if (lower.includes("dubai") || lower.includes("uae") || lower.includes("burj")) return DETERMINISTIC_KNOWLEDGE.dubai;
       if (lower.includes("travel") || lower.includes("vacation") || lower.includes("visit") || lower.includes("trip")) return DETERMINISTIC_KNOWLEDGE.travel;
-      if (lower.includes("career") || lower.includes("interview") || lower.includes("lead") || lower.includes("salary") || lower.includes("resume") || lower.includes("advice")) return DETERMINISTIC_KNOWLEDGE.career;
+      if (lower.includes("continental") || lower.includes("1.2m") || lower.includes("licens") || lower.includes("vendor cost")) return DETERMINISTIC_KNOWLEDGE.continental;
+      if (lower.includes("heidelberg") || lower.includes("cement") || lower.includes("rcfa") || lower.includes("plant failure")) return DETERMINISTIC_KNOWLEDGE.heidelberg;
+      if (lower.includes("career") || lower.includes("interview") || lower.includes("lead") || lower.includes("salary") || lower.includes("resume") || lower.includes("advice") || lower.includes("spar")) return DETERMINISTIC_KNOWLEDGE.career;
       if (lower.includes("telemetry") || lower.includes("kinesis") || lower.includes("stream") || lower.includes("sensor") || lower.includes("iot")) return DETERMINISTIC_KNOWLEDGE.telemetry;
       if (lower.includes("rag") || lower.includes("latency") || lower.includes("hallucination") || lower.includes("search") || lower.includes("vector")) return DETERMINISTIC_KNOWLEDGE.rag;
-      if (lower.includes("cement") || lower.includes("concrete") || lower.includes("strength") || lower.includes("clinker")) return DETERMINISTIC_KNOWLEDGE.cement;
-      if (lower.includes("auto") || lower.includes("plant") || lower.includes("rcfa") || lower.includes("failure") || lower.includes("maintenance")) return DETERMINISTIC_KNOWLEDGE.automotive;
+      if (lower.includes("concrete") || lower.includes("strength") || lower.includes("clinker")) return DETERMINISTIC_KNOWLEDGE.cement;
+      if (lower.includes("auto") || lower.includes("failure") || lower.includes("maintenance")) return DETERMINISTIC_KNOWLEDGE.automotive;
       if (lower.includes("rust") || lower.includes("wasm") || lower.includes("rheolog") || lower.includes("speed") || lower.includes("tensile") || lower.includes("python")) return DETERMINISTIC_KNOWLEDGE.rust;
       if (lower.includes("finops") || lower.includes("cache") || lower.includes("cost") || lower.includes("gateway") || lower.includes("quota")) return DETERMINISTIC_KNOWLEDGE.finops;
-      if (lower.includes("sds") || lower.includes("reach") || lower.includes("compliance") || lower.includes("echa")) return DETERMINISTIC_KNOWLEDGE.chemical;
+      if (lower.includes("sds") || lower.includes("reach") || lower.includes("compliance") || lower.includes("echa") || lower.includes("svhc")) return DETERMINISTIC_KNOWLEDGE.chemical;
       if (lower.includes("monolith") || lower.includes("microservice") || lower.includes("migration") || lower.includes("strangler")) return DETERMINISTIC_KNOWLEDGE.microservices;
 
       return `### Executive Architectural Advisory: "${prompt.slice(0, 60)}"

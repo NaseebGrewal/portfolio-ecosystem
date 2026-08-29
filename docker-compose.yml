@@ -145,12 +145,9 @@ services:
       - NEXT_PUBLIC_CHEMAGENT_API_URL=http://localhost:8001
       - NEXT_PUBLIC_RHEOLOGY_API_URL=http://localhost:8002
       - NEXT_PUBLIC_GATEWAY_API_URL=http://localhost:8003
+      - NEXT_PUBLIC_PROFILE_IMAGE_URL=${NEXT_PUBLIC_PROFILE_IMAGE_URL:-}
     ports:
       - "3000:3000"
-    volumes:
-      - ./portfolio-website:/app
-      - /app/node_modules
-      - /app/.next
     depends_on:
       - materials_backend
       - chemagent_backend

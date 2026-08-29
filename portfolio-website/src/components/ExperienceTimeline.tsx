@@ -6,7 +6,7 @@ import { Briefcase, Calendar, MapPin, CheckCircle2, Building } from "lucide-reac
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
+    <section id="experience" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-gray-200 dark:border-surfaceBorder">
       <div className="mb-12">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-emerald-50 dark:bg-emerald-950/70 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 mb-3">
           <Briefcase className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />

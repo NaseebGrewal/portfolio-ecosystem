@@ -1510,7 +1510,7 @@ export default function InteractiveDemoSuite() {
   };
 
   return (
-    <section id="interactive-demo" className="py-16 px-6 max-w-7xl mx-auto border-t border-slate-200 dark:border-surfaceBorder">
+    <section id="interactive-demo" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
       {/* Top Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
         <div>
@@ -1825,51 +1825,51 @@ export default function InteractiveDemoSuite() {
 
                 {/* Right: Predicted Mechanical & Thermal Envelope (5 cols) */}
                 <div className="lg:col-span-5 space-y-4 flex flex-col justify-between">
-                  <div className="p-5 rounded-2xl bg-slate-900 border border-slate-800 text-white space-y-4 shadow-sm">
-                    <div className="flex items-center justify-between pb-2 border-b border-slate-800">
-                      <span className="text-xs font-mono font-bold text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Activity className="w-4 h-4 text-cyan-400" />
+                  <div className="p-5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white space-y-4 shadow-sm transition-colors">
+                    <div className="flex items-center justify-between pb-2 border-b border-slate-200 dark:border-slate-800">
+                      <span className="text-xs font-mono font-bold text-blue-700 dark:text-cyan-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Activity className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
                         Predicted Invariants
                       </span>
-                      <span className="text-[10px] font-mono bg-cyan-950 text-cyan-300 px-2 py-0.5 rounded border border-cyan-800">
+                      <span className="text-[10px] font-mono bg-blue-50 dark:bg-cyan-950 text-blue-700 dark:text-cyan-300 px-2 py-0.5 rounded border border-blue-200 dark:border-cyan-800">
                         {predictedFormulation.lotNumber}
                       </span>
                     </div>
 
                     <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-                      <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-                        <div className="text-[10px] text-slate-400">Tensile Modulus (E)</div>
-                        <div className="text-lg font-bold text-cyan-300">{predictedFormulation.predictedModulus} MPa</div>
-                        <div className="text-[9px] text-slate-400 mt-0.5 font-sans">ISO 527 Tensile Stiffness</div>
+                      <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">Tensile Modulus (E)</div>
+                        <div className="text-lg font-bold text-blue-700 dark:text-cyan-300">{predictedFormulation.predictedModulus} MPa</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">ISO 527 Tensile Stiffness</div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-                        <div className="text-[10px] text-slate-400">Tensile Strength (σ)</div>
-                        <div className="text-lg font-bold text-emerald-400">{predictedFormulation.predictedStrength} MPa</div>
-                        <div className="text-[9px] text-slate-400 mt-0.5 font-sans">Peak Yield Failure Stress</div>
+                      <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">Tensile Strength (σ)</div>
+                        <div className="text-lg font-bold text-emerald-700 dark:text-emerald-400">{predictedFormulation.predictedStrength} MPa</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Peak Yield Failure Stress</div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-                        <div className="text-[10px] text-slate-400">Specific Gravity (ρ)</div>
-                        <div className="text-lg font-bold text-purple-300">{predictedFormulation.predictedDensity} g/cm³</div>
-                        <div className="text-[9px] text-slate-400 mt-0.5 font-sans">ISO 1183 Compound Density</div>
+                      <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">Specific Gravity (ρ)</div>
+                        <div className="text-lg font-bold text-purple-700 dark:text-purple-300">{predictedFormulation.predictedDensity} g/cm³</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">ISO 1183 Compound Density</div>
                       </div>
 
-                      <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
-                        <div className="text-[10px] text-slate-400">UL94 Flammability</div>
-                        <div className="text-sm font-bold text-amber-400 mt-1">{predictedFormulation.ul94}</div>
-                        <div className="text-[9px] text-slate-400 mt-0.5 font-sans">Vertical Burning Standard</div>
+                      <div className="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">UL94 Flammability</div>
+                        <div className="text-sm font-bold text-amber-700 dark:text-amber-400 mt-1">{predictedFormulation.ul94}</div>
+                        <div className="text-[9px] text-slate-500 dark:text-slate-400 mt-0.5 font-sans">Vertical Burning Standard</div>
                       </div>
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800 flex justify-between items-center text-xs font-mono">
+                    <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs font-mono">
                       <div>
-                        <div className="text-[10px] text-slate-400">Raw Compound Cost</div>
-                        <div className="font-bold text-emerald-400">€{predictedFormulation.costEur} / kg</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">Raw Compound Cost</div>
+                        <div className="font-bold text-emerald-700 dark:text-emerald-400">€{predictedFormulation.costEur} / kg</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-[10px] text-slate-400">Carbon Footprint</div>
-                        <div className="font-bold text-slate-300">{predictedFormulation.carbonKg} kg CO₂e/kg</div>
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">Carbon Footprint</div>
+                        <div className="font-bold text-slate-700 dark:text-slate-300">{predictedFormulation.carbonKg} kg CO₂e/kg</div>
                       </div>
                     </div>
                   </div>
@@ -1896,40 +1896,40 @@ export default function InteractiveDemoSuite() {
 
               {/* Batch Ticket Modal */}
               {showBatchTicketModal && (
-                <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 text-white font-mono text-xs space-y-3">
-                  <div className="flex justify-between items-center pb-2 border-b border-slate-800">
-                    <div className="flex items-center gap-2 font-bold text-sm text-cyan-400">
+                <div className="p-5 rounded-2xl bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white font-mono text-xs space-y-3 shadow-md">
+                  <div className="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                    <div className="flex items-center gap-2 font-bold text-sm text-blue-700 dark:text-cyan-400">
                       <FileSpreadsheet className="w-4 h-4" />
                       <span>Production Batch Ticket: {predictedFormulation.lotNumber}</span>
                     </div>
                     <button
                       onClick={() => setShowBatchTicketModal(false)}
-                      className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px]"
+                      className="px-2 py-0.5 rounded bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-[10px]"
                     >
                       ✕ Close
                     </button>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[11px] leading-relaxed">
-                    <div className="space-y-1.5 p-3 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-cyan-400 font-bold">1. Material Formulation (per 1,000 kg Batch)</div>
-                      <div>• {predictedFormulation.profile.name}: <span className="text-emerald-400 font-bold">{baseResinPct * 10} kg ({baseResinPct}%)</span></div>
-                      <div>• E-Glass Fiber 65997-17-3: <span className="text-emerald-400 font-bold">{glassFiberPct * 10} kg ({glassFiberPct}%)</span></div>
-                      <div>• Impact Modifier Core-Shell: <span className="text-emerald-400 font-bold">{impactModPct * 10} kg ({impactModPct}%)</span></div>
-                      <div>• Organophosphorus FR 115-86-6: <span className="text-emerald-400 font-bold">{flameRetardPct * 10} kg ({flameRetardPct}%)</span></div>
-                      <div>• Wollastonite Mineral 7631-86-9: <span className="text-emerald-400 font-bold">{mineralFillerPct * 10} kg ({mineralFillerPct}%)</span></div>
+                    <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <div className="text-blue-700 dark:text-cyan-400 font-bold">1. Material Formulation (per 1,000 kg Batch)</div>
+                      <div>• {predictedFormulation.profile.name}: <span className="text-emerald-700 dark:text-emerald-400 font-bold">{baseResinPct * 10} kg ({baseResinPct}%)</span></div>
+                      <div>• E-Glass Fiber 65997-17-3: <span className="text-emerald-700 dark:text-emerald-400 font-bold">{glassFiberPct * 10} kg ({glassFiberPct}%)</span></div>
+                      <div>• Impact Modifier Core-Shell: <span className="text-emerald-700 dark:text-emerald-400 font-bold">{impactModPct * 10} kg ({impactModPct}%)</span></div>
+                      <div>• Organophosphorus FR 115-86-6: <span className="text-emerald-700 dark:text-emerald-400 font-bold">{flameRetardPct * 10} kg ({flameRetardPct}%)</span></div>
+                      <div>• Wollastonite Mineral 7631-86-9: <span className="text-emerald-700 dark:text-emerald-400 font-bold">{mineralFillerPct * 10} kg ({mineralFillerPct}%)</span></div>
                     </div>
 
-                    <div className="space-y-1.5 p-3 rounded-xl bg-slate-900 border border-slate-800">
-                      <div className="text-orange-400 font-bold">2. Twin-Screw Extrusion Thermal Profile (°C)</div>
+                    <div className="space-y-1.5 p-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                      <div className="text-amber-700 dark:text-orange-400 font-bold">2. Twin-Screw Extrusion Thermal Profile (°C)</div>
                       <div className="flex flex-wrap gap-2 text-[10px]">
-                        <span className="px-2 py-1 rounded bg-slate-800">Zone 1 (Feed): {predictedFormulation.profile.extruderZones[0]}°C</span>
-                        <span className="px-2 py-1 rounded bg-slate-800">Zone 2 (Melt): {predictedFormulation.profile.extruderZones[1]}°C</span>
-                        <span className="px-2 py-1 rounded bg-slate-800">Zone 3 (Disperse): {predictedFormulation.profile.extruderZones[2]}°C</span>
-                        <span className="px-2 py-1 rounded bg-slate-800">Zone 4 (Degas): {predictedFormulation.profile.extruderZones[3]}°C</span>
-                        <span className="px-2 py-1 rounded bg-slate-800">Die Head: {predictedFormulation.profile.extruderZones[5]}°C</span>
+                        <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Zone 1 (Feed): {predictedFormulation.profile.extruderZones[0]}°C</span>
+                        <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Zone 2 (Melt): {predictedFormulation.profile.extruderZones[1]}°C</span>
+                        <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Zone 3 (Disperse): {predictedFormulation.profile.extruderZones[2]}°C</span>
+                        <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Zone 4 (Degas): {predictedFormulation.profile.extruderZones[3]}°C</span>
+                        <span className="px-2 py-1 rounded bg-slate-200/80 dark:bg-slate-800 text-slate-800 dark:text-slate-200">Die Head: {predictedFormulation.profile.extruderZones[5]}°C</span>
                       </div>
-                      <div className="text-slate-400 pt-1 text-[10px]">Screw Speed: 380 RPM • Throughput: 450 kg/h • Melt Pressure: 45 bar</div>
+                      <div className="text-slate-600 dark:text-slate-400 pt-1 text-[10px]">Screw Speed: 380 RPM • Throughput: 450 kg/h • Melt Pressure: 45 bar</div>
                     </div>
                   </div>
 

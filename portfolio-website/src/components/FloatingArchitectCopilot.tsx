@@ -32,11 +32,15 @@ interface ChatMessage {
 
 const QUICK_PROMPTS = [
   {
+    label: "€1.2M Continental Savings",
+    query: "How did you architect the in-house enterprise Material Database at Continental to eliminate €1.2M+ in vendor licensing?"
+  },
+  {
     label: "Spar on Architect Role",
     query: "How does your experience leading €1.2M+ R&D cloud migrations and multi-agent platforms position you for a Senior AI Solutions Architect or Product Owner leadership role?"
   },
   {
-    label: "REACH Compliance Pipeline",
+    label: "REACH Multi-Agent Pipeline",
     query: "How does the ChemAgent multi-agent workflow enforce deterministic validation on strict REACH SVHC 0.1% w/w chemical thresholds?"
   },
   {
@@ -48,8 +52,8 @@ const QUICK_PROMPTS = [
     query: "How does the Enterprise AI Gateway use Redis SHA256 semantic caching and departmental token quotas to cut LLM costs by 42%?"
   },
   {
-    label: "Monolith to Microservices",
-    query: "What is your architectural blueprint for migrating a monolithic laboratory system to event-driven FastAPI microservices with zero downtime?"
+    label: "Heidelberg Plant RCFA",
+    query: "How did your GenAI Root Cause Failure Analysis (RCFA) pipeline at Heidelberg Materials accelerate plant incident diagnosis?"
   }
 ];
 

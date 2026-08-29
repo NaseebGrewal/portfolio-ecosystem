@@ -71,7 +71,7 @@ export default function Home() {
     <main className="min-h-screen bg-background text-foreground selection:bg-blue-600 selection:text-white transition-colors duration-200">
       {/* Sticky Executive Top Bar */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 dark:bg-[#090d16]/95 border-b border-slate-200 dark:border-[#1f2937] shadow-xs transition-colors">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-3 flex items-center justify-between gap-4">
           {/* Brand & Title */}
           <a href="#" className="flex items-center gap-2.5 font-mono text-sm tracking-tight text-slate-950 dark:text-white group flex-shrink-0">
             <span className="relative flex h-2.5 w-2.5">
@@ -146,7 +146,7 @@ export default function Home() {
         </div>
 
         {/* Responsive Content Navigation Ribbon for XL and below or quick jump */}
-        <div className="xl:hidden border-t border-slate-200/80 dark:border-slate-800/80 px-4 py-1.5 bg-slate-50/90 dark:bg-[#0c1220]/90 overflow-x-auto no-scrollbar flex items-center gap-1.5">
+        <div className="xl:hidden border-t border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 xl:px-12 py-1.5 bg-slate-50/90 dark:bg-[#0c1220]/90 overflow-x-auto no-scrollbar flex items-center gap-1.5">
           <div className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-blue-700 dark:text-cyan-400 mr-2 flex-shrink-0">
             <Compass className="w-3.5 h-3.5" />
             <span>JUMP:</span>
@@ -179,7 +179,7 @@ export default function Home() {
       </div>
 
       {/* Core Production Microservices (Flagship Projects front and center) */}
-      <section id="core-systems" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
+      <section id="core-systems" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-gray-200 dark:border-surfaceBorder">
         <div className="mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3 shadow-xs">
             <Cpu className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
@@ -221,15 +221,13 @@ export default function Home() {
       <SkillsMatrix />
 
       {/* Architecture Viewer */}
-      <div id="architecture">
-        <ArchitectureViewer />
-      </div>
+      <ArchitectureViewer />
 
       {/* Sleek Executive Credentials & Trust Bar */}
       <ExecutiveCredentialsBar />
 
       {/* Executive Contact & CTA Footer */}
-      <footer id="contact" className="py-16 px-6 bg-slate-100 dark:bg-[#0c1220] border-t border-slate-200 dark:border-surfaceBorder transition-colors">
+      <footer id="contact" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 bg-slate-100 dark:bg-[#0c1220] border-t border-slate-200 dark:border-surfaceBorder transition-colors">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300 text-xs font-mono mb-4 shadow-xs">
