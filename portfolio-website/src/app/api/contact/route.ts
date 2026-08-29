@@ -140,8 +140,17 @@ export async function POST(req: Request) {
     const cleanSenderName = typeof senderName === "string" ? senderName.trim() : undefined;
     const cleanOrg = typeof organization === "string" ? organization.trim() : undefined;
 
-    // Validate topic
-    const finalTopic = (topic === "Other / Custom Topic" && customTopic ? customTopic : topic) || "General Inquiry";
+    // Validate topic & custom subject combination
+    let finalTopic = typeof topic === "string" && topic.trim().length > 0 ? topic.trim() : "General Inquiry";
+    if (topic === "Other / Custom Topic" || topic === "custom") {
+      finalTopic = typeof customTopic === "string" && customTopic.trim().length > 0 ? customTopic.trim() : "Custom Inquiry";
+    } else if (typeof customTopic === "string" && customTopic.trim().length > 0) {
+      const trimmedCustom = customTopic.trim();
+      if (!finalTopic.includes(trimmedCustom)) {
+        finalTopic = `${finalTopic} — ${trimmedCustom}`;
+      }
+    }
+
     if (!finalTopic || typeof finalTopic !== "string" || finalTopic.trim().length === 0) {
       return NextResponse.json(
         { error: "Please select or provide a discussion topic." },

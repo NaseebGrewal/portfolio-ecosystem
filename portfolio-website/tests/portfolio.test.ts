@@ -216,4 +216,33 @@ describe("Executive Contact System & Validation Suite", () => {
     expect(formatSenderIdentity(undefined, undefined, "anonymous@domain.com"))
       .toBe("anonymous@domain.com");
   });
+
+  it("should correctly resolve effective topic and subject preview when combining badge and custom subject", () => {
+    const resolveEffectiveTopic = (selectedTopic: string, customTopic?: string) => {
+      const isCustomNeeded = selectedTopic === "Other / Custom Topic" || selectedTopic === "custom";
+      if (isCustomNeeded) {
+        return customTopic?.trim() || "Custom Inquiry";
+      }
+      if (customTopic && customTopic.trim().length > 0) {
+        return `${selectedTopic} — ${customTopic.trim()}`;
+      }
+      return selectedTopic;
+    };
+
+    // Preset badge with custom subject / project name
+    expect(resolveEffectiveTopic("Staff / Lead AI Role", "Series B AI Lead Architecture"))
+      .toBe("Staff / Lead AI Role — Series B AI Lead Architecture");
+
+    // Preset badge without custom subject
+    expect(resolveEffectiveTopic("Multi-Agent & GenAI Systems", ""))
+      .toBe("Multi-Agent & GenAI Systems");
+
+    // Custom topic badge with custom name
+    expect(resolveEffectiveTopic("Other / Custom Topic", "Polymer Rheology AI Integration"))
+      .toBe("Polymer Rheology AI Integration");
+
+    // Custom topic badge without input (fallback)
+    expect(resolveEffectiveTopic("Other / Custom Topic", ""))
+      .toBe("Custom Inquiry");
+  });
 });

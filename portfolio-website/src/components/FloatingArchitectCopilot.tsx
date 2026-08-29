@@ -397,21 +397,21 @@ Ask me about:
   };
 
   return (
-    <aside aria-label="Executive AI Systems Copilot" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50">
+    <aside aria-label="Executive AI Systems Copilot" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 transform-gpu will-change-transform">
       {/* Collapsed Floating Launcher Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="group relative flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-slate-900/95 dark:bg-[#0c1220]/95 hover:bg-slate-800 dark:hover:bg-blue-950 text-white border border-blue-500/40 dark:border-cyan-500/40 shadow-2xl shadow-blue-600/30 backdrop-blur-xl transition-all duration-300 hover:scale-105 active:scale-95"
+          className="group relative flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-slate-900/95 dark:bg-[#0c1220]/95 hover:bg-slate-800 dark:hover:bg-blue-950 text-white border border-blue-500/40 dark:border-cyan-500/40 shadow-2xl shadow-blue-600/30 backdrop-blur-md transform-gpu will-change-transform transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
           title="Open Executive AI Systems Copilot"
         >
           {/* Animated Glow Halo */}
-          <span className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 opacity-60 blur-xs group-hover:opacity-100 transition duration-300 -z-10 animate-pulse" />
+          <span className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 opacity-60 blur-xs group-hover:opacity-100 transition-opacity duration-300 -z-10 animate-pulse transform-gpu pointer-events-none" />
 
-          <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white shadow-inner flex-shrink-0">
+          <div className="relative flex items-center justify-center w-8 h-8 rounded-full bg-blue-600 text-white shadow-inner flex-shrink-0 transform-gpu">
             <Sparkles className="w-4 h-4 text-white animate-spin-slow" />
-            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-900 animate-ping" />
-            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-slate-900" />
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-slate-900 animate-ping pointer-events-none" />
+            <span className="absolute -top-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-500 ring-2 ring-slate-900 pointer-events-none" />
           </div>
 
           <div className="text-left">
@@ -432,7 +432,7 @@ Ask me about:
       {/* Expanded Floating Chatbot Window */}
       {isOpen && (
         <div
-          className={`flex flex-col bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl transition-all duration-300 overflow-hidden ${
+          className={`flex flex-col bg-white/95 dark:bg-[#090e1a]/95 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl transition-all duration-300 overflow-hidden transform-gpu will-change-transform ${
             isExpanded
               ? "w-[94vw] sm:w-[560px] md:w-[620px] h-[720px] max-h-[90vh]"
               : "w-[94vw] sm:w-[460px] md:w-[480px] h-[580px] max-h-[85vh]"

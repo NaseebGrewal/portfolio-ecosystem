@@ -103,17 +103,17 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
   };
 
   return (
-    <section id="ai-advisor" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-gray-200 dark:border-surfaceBorder">
+    <section id="ai-advisor" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
       {/* Header */}
       <div className="mb-10">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-50 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 mb-3">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-50 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 mb-3 shadow-xs">
           <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
           Architectural Solution Blueprints
         </div>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-3">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
           System Design Blueprints & ROI
         </h2>
-        <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl font-light">
+        <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light">
           Explore production blueprints, projected ROI, and concrete systems engineered to solve real-world industrial and enterprise bottlenecks.
         </p>
       </div>
@@ -121,7 +121,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
         {/* Left: Challenge Selectors */}
         <div className="lg:col-span-5 space-y-3">
-          <div className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider font-semibold">
+          <div className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider font-semibold">
             Select Industrial Context:
           </div>
 
@@ -129,10 +129,10 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
             <button
               key={sc.id}
               onClick={() => setSelectedScenario(sc)}
-              className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all ${
+              className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                 selectedScenario.id === sc.id
-                  ? "bg-blue-50 dark:bg-blue-950/50 border-blue-500 text-gray-900 dark:text-white shadow-md shadow-blue-500/10"
-                  : "bg-white dark:bg-surface border-gray-200 dark:border-surfaceBorder text-gray-700 dark:text-gray-300 hover:border-gray-300 dark:hover:border-gray-700"
+                  ? "bg-blue-50 dark:bg-blue-950/50 border-blue-500 text-slate-950 dark:text-white shadow-md shadow-blue-500/10 ring-1 ring-blue-400/30"
+                  : "bg-white dark:bg-surface border-slate-200 dark:border-surfaceBorder text-slate-800 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-900/60"
               }`}
             >
               <div className="flex items-center justify-between gap-2 mb-1.5">
@@ -143,7 +143,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
                   <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-blue-400 animate-pulse" />
                 )}
               </div>
-              <p className="text-xs text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+              <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed font-light">
                 {sc.bottleneck}
               </p>
             </button>
@@ -151,15 +151,15 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
         </div>
 
         {/* Right: Tailored Architecture Solution */}
-        <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white dark:bg-surface border border-gray-200 dark:border-surfaceBorder shadow-md flex flex-col justify-between">
+        <div className="lg:col-span-7 p-6 sm:p-8 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-surfaceBorder shadow-md flex flex-col justify-between">
           <div>
             {/* Blueprint Header */}
-            <div className="flex items-start justify-between gap-4 mb-6 pb-4 border-b border-gray-100 dark:border-gray-800">
+            <div className="flex items-start justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
               <div>
-                <span className="text-[11px] font-mono text-cyan-600 dark:text-cyan-400 uppercase tracking-wide font-semibold">
+                <span className="text-[11px] font-mono text-cyan-700 dark:text-cyan-400 uppercase tracking-wide font-semibold">
                   Architectural Solution
                 </span>
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white tracking-tight mt-1">
+                <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight mt-1">
                   {selectedScenario.recommendedPattern}
                 </h3>
               </div>
@@ -171,7 +171,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
                 <DollarSign className="w-4 h-4" />
                 <span>Business Impact & ROI:</span>
               </div>
-              <div className="text-xs text-emerald-900 dark:text-emerald-100/90 leading-relaxed font-light">
+              <div className="text-xs text-emerald-950 dark:text-emerald-100/90 leading-relaxed font-light">
                 {selectedScenario.projectedRoi}
               </div>
             </div>
@@ -179,23 +179,23 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
             {/* Architecture Details */}
             <div className="space-y-4 mb-6">
               <div>
-                <div className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-1.5 flex items-center gap-1.5 font-semibold">
+                <div className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-1.5 flex items-center gap-1.5 font-semibold">
                   <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                   <span>System Topology Blueprint:</span>
                 </div>
-                <p className="text-xs text-gray-800 dark:text-gray-300 leading-relaxed font-light bg-gray-50 dark:bg-gray-950 p-3.5 rounded-xl border border-gray-200 dark:border-gray-800 font-mono">
+                <p className="text-xs text-slate-900 dark:text-slate-200 leading-relaxed font-light bg-slate-50 dark:bg-slate-950 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 font-mono">
                   {selectedScenario.architectureBlueprint}
                 </p>
               </div>
 
               {/* Tech Stack Chips */}
               <div>
-                <div className="text-xs font-mono text-gray-500 dark:text-gray-400 mb-2 font-semibold">Production Tech Stack:</div>
+                <div className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-2 font-semibold">Production Tech Stack:</div>
                 <div className="flex flex-wrap gap-1.5">
                   {selectedScenario.techStack.map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-2.5 py-1 rounded-lg text-xs font-mono bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 text-gray-800 dark:text-gray-200"
+                      className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200"
                     >
                       {tech}
                     </span>
@@ -209,7 +209,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
                   <ShieldCheck className="w-3.5 h-3.5" />
                   <span>Key Architectural Pillar:</span>
                 </div>
-                <div className="text-xs text-gray-700 dark:text-gray-300 font-light leading-relaxed">
+                <div className="text-xs text-slate-800 dark:text-slate-300 font-light leading-relaxed">
                   {selectedScenario.architecturalPillar}
                 </div>
               </div>
@@ -217,9 +217,9 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
           </div>
 
           {/* Action Row */}
-          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-gray-100 dark:border-gray-800">
-            <div className="text-xs text-gray-600 dark:text-gray-400">
-              Matching System: <strong className="text-gray-900 dark:text-white font-semibold">{selectedScenario.matchingProject}</strong>
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <div className="text-xs text-slate-700 dark:text-slate-300">
+              Matching System: <strong className="text-slate-950 dark:text-white font-semibold">{selectedScenario.matchingProject}</strong>
             </div>
 
             <div className="flex items-center gap-2">
@@ -227,11 +227,11 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
                 href={selectedScenario.projectGithub}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-3.5 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800 border border-gray-200 dark:border-gray-700 text-gray-800 dark:text-gray-200 text-xs font-medium flex items-center gap-1.5 transition-all"
+                className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium flex items-center gap-1.5 transition-all shadow-xs"
               >
-                <FileCode className="w-3.5 h-3.5 text-gray-500" />
+                <FileCode className="w-3.5 h-3.5 text-slate-500" />
                 <span>Monorepo Subfolder</span>
-                <ExternalLink className="w-3 h-3 text-gray-400" />
+                <ExternalLink className="w-3 h-3 text-slate-400" />
               </a>
 
               <button

@@ -33,8 +33,8 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
   return (
     <section className="relative pt-6 sm:pt-10 pb-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto">
       {/* Background Atmosphere: Sub-Pixel Grid & Sapphire/Cyan Aurora Glow */}
-      <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none -z-20" />
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-r from-blue-600/10 via-cyan-500/10 to-indigo-600/10 dark:from-blue-600/15 dark:via-cyan-400/15 dark:to-indigo-500/15 blur-[140px] rounded-full -z-10 pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(#38bdf8_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none -z-20 transform-gpu" />
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-gradient-to-r from-blue-600/10 via-cyan-500/10 to-indigo-600/10 dark:from-blue-600/15 dark:via-cyan-400/15 dark:to-indigo-500/15 blur-[120px] rounded-full -z-10 pointer-events-none transform-gpu will-change-transform" />
 
       {/* Main 2-Column Responsive Layout with Top Alignment & Full-Height Balance */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-14 items-stretch">
@@ -164,20 +164,20 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
 
         {/* Right Column: Executive Portrait Card - Full Vertical Parity & Minimalist Unicorn Standard (5 cols) */}
         <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-stretch">
-          <div className="relative w-full h-full min-h-[500px] sm:min-h-[560px] lg:min-h-full group flex flex-col">
+          <div className="relative w-full h-full min-h-[500px] sm:min-h-[560px] lg:min-h-full group flex flex-col transform-gpu">
             
             {/* Ambient Background Glow Behind Portrait */}
-            <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-b from-blue-600/20 via-cyan-500/15 to-indigo-600/20 blur-2xl opacity-60 group-hover:opacity-85 transition-opacity duration-700 -z-10" />
+            <div className="absolute -inset-1.5 rounded-3xl bg-gradient-to-b from-blue-600/20 via-cyan-500/15 to-indigo-600/20 blur-2xl opacity-60 group-hover:opacity-85 transition-opacity duration-700 -z-10 transform-gpu will-change-transform pointer-events-none" />
 
             {/* Single Continuous Squircle Glass Frame with Full-Bleed Studio Image */}
-            <div className="relative w-full h-full flex-1 rounded-3xl overflow-hidden bg-slate-900 dark:bg-slate-950 border border-slate-200/80 dark:border-white/10 dark:ring-1 dark:ring-cyan-500/20 shadow-2xl shadow-blue-900/10 dark:shadow-cyan-950/40 backdrop-blur-xl flex flex-col justify-end">
+            <div className="relative w-full h-full flex-1 rounded-3xl overflow-hidden bg-slate-900 dark:bg-slate-950 border border-slate-200/80 dark:border-white/10 dark:ring-1 dark:ring-cyan-500/20 shadow-2xl shadow-blue-900/10 dark:shadow-cyan-950/40 backdrop-blur-md flex flex-col justify-end transform-gpu">
               {!imageError && imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={imageUrl}
                   alt={`${CANDIDATE_PROFILE.name} - Senior AI Solutions Architect`}
                   onError={() => setImageError(true)}
-                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02]"
+                  className="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.02] transform-gpu will-change-transform"
                 />
               ) : (
                 // Sleek Fallback Architectural Avatar

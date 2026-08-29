@@ -69,7 +69,7 @@ export default function ExecutiveCredentialsBar() {
 
           {/* Column 2: Certifications */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-600 dark:text-slate-400 mb-3 uppercase tracking-wider">
               <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Cloud & AI Certifications</span>
             </div>
@@ -80,15 +80,15 @@ export default function ExecutiveCredentialsBar() {
                   href={cert.badgeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="p-2.5 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800 hover:border-emerald-500/50 flex items-center justify-between text-xs text-gray-700 dark:text-gray-300 transition-all group"
+                  className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 hover:border-emerald-500/50 flex items-center justify-between text-xs text-slate-700 dark:text-slate-300 transition-all group"
                 >
                   <div className="flex items-center gap-2.5 min-w-0">
                     <CheckCircle className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
-                    <span className="truncate font-medium text-gray-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
+                    <span className="truncate font-medium text-slate-950 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors">
                       {cert.name}
                     </span>
                   </div>
-                  <ExternalLink className="w-3 h-3 text-gray-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 flex-shrink-0 ml-1.5" />
+                  <ExternalLink className="w-3 h-3 text-slate-400 group-hover:text-emerald-600 dark:group-hover:text-emerald-400 flex-shrink-0 ml-1.5" />
                 </a>
               ))}
             </div>
@@ -96,7 +96,7 @@ export default function ExecutiveCredentialsBar() {
 
           {/* Column 3: Engineering Leadership & Modern Delivery */}
           <div>
-            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-600 dark:text-slate-400 mb-3 uppercase tracking-wider">
               <Users2 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
               <span>Engineering Leadership & Culture</span>
             </div>
@@ -104,12 +104,12 @@ export default function ExecutiveCredentialsBar() {
               {CANDIDATE_PROFILE.leadershipPractices.slice(0, 3).map((lp, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-gray-50 dark:bg-gray-950 border border-gray-200 dark:border-gray-800"
+                  className="p-3 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800"
                 >
-                  <div className="text-xs font-bold text-gray-900 dark:text-white mb-0.5">
+                  <div className="text-xs font-bold text-slate-950 dark:text-white mb-0.5">
                     {lp.title}
                   </div>
-                  <div className="text-[11px] text-gray-600 dark:text-gray-400 font-light leading-relaxed">
+                  <div className="text-[11px] text-slate-600 dark:text-slate-400 font-light leading-relaxed">
                     {lp.description}
                   </div>
                 </div>

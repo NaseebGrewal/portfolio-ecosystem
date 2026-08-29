@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import {
   Send,
   CheckCircle2,
@@ -56,9 +56,34 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
     timestamp: string;
   } | null>(null);
 
-  // Validation
+  useEffect(() => {
+    if (initialTopic) {
+      const matchedBadge = TOPIC_BADGES.find(
+        (b) => b.label.toLowerCase() === initialTopic.toLowerCase() || b.id === initialTopic
+      );
+      if (matchedBadge) {
+        setSelectedTopic(matchedBadge.label);
+      } else {
+        setSelectedTopic("Other / Custom Topic");
+        setCustomTopic(initialTopic);
+      }
+    }
+  }, [initialTopic]);
+
+  // Validation & Effective Topic Calculation
   const isEmailValid = useMemo(() => EMAIL_REGEX.test(email.trim()), [email]);
   const isCustomTopicNeeded = selectedTopic === "Other / Custom Topic" || selectedTopic === "custom";
+  
+  const effectiveTopic = useMemo(() => {
+    if (isCustomTopicNeeded) {
+      return customTopic.trim();
+    }
+    if (customTopic.trim().length > 0) {
+      return `${selectedTopic} — ${customTopic.trim()}`;
+    }
+    return selectedTopic;
+  }, [selectedTopic, customTopic, isCustomTopicNeeded]);
+
   const isTopicValid = useMemo(() => {
     if (isCustomTopicNeeded) {
       return customTopic.trim().length >= 2;
@@ -89,7 +114,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           organization: organization.trim() || undefined,
           email: email.trim(),
           topic: selectedTopic,
-          customTopic: isCustomTopicNeeded ? customTopic.trim() : undefined,
+          customTopic: customTopic.trim() || undefined,
           message: message.trim(),
         }),
       });
@@ -102,7 +127,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
 
       setSubmissionReceipt({
         referenceId: data.referenceId || `INQ-${Date.now().toString(36).toUpperCase()}`,
-        topic: data.topic || selectedTopic,
+        topic: data.topic || effectiveTopic,
         timestamp: data.timestamp || new Date().toISOString(),
       });
       setStatus("success");
@@ -131,41 +156,41 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
 
   if (status === "success" && submissionReceipt) {
     return (
-      <div className="p-6 sm:p-8 rounded-2xl bg-gradient-to-b from-emerald-500/10 via-slate-900/40 to-slate-950 border border-emerald-500/30 text-center animate-in fade-in zoom-in-95 duration-300">
-        <div className="w-14 h-14 rounded-full bg-emerald-500/20 border border-emerald-400/40 mx-auto flex items-center justify-center mb-4 text-emerald-400 shadow-lg shadow-emerald-500/10">
+      <div className="p-6 sm:p-8 rounded-2xl bg-emerald-50/90 dark:bg-slate-900/90 border border-emerald-300 dark:border-emerald-500/30 text-center animate-in fade-in zoom-in-95 duration-300 shadow-xl shadow-emerald-500/5">
+        <div className="w-14 h-14 rounded-full bg-emerald-100 dark:bg-emerald-500/20 border border-emerald-300 dark:border-emerald-400/40 mx-auto flex items-center justify-center mb-4 text-emerald-600 dark:text-emerald-400 shadow-md shadow-emerald-500/10">
           <CheckCircle2 className="w-8 h-8" />
         </div>
 
-        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">
+        <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
           Message Successfully Sent
         </h3>
 
-        <p className="text-slate-300 text-sm max-w-md mx-auto mb-6 leading-relaxed font-light">
+        <p className="text-slate-700 dark:text-slate-200 text-sm max-w-md mx-auto mb-6 leading-relaxed font-normal">
           Thank you for reaching out. Your message has been delivered directly to my inbox and I will follow up within 24 hours.
         </p>
 
-        <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 max-w-sm mx-auto mb-6 text-left font-mono text-xs space-y-2">
-          <div className="flex justify-between items-center text-slate-400">
-            <span>Reference ID:</span>
-            <span className="text-emerald-400 font-bold">{submissionReceipt.referenceId}</span>
+        <div className="bg-white/95 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-4 max-w-sm mx-auto mb-6 text-left font-mono text-xs space-y-2.5 shadow-sm">
+          <div className="flex justify-between items-center text-slate-600 dark:text-slate-400">
+            <span className="font-medium">Reference ID:</span>
+            <span className="text-emerald-700 dark:text-emerald-400 font-bold tracking-wider">{submissionReceipt.referenceId}</span>
           </div>
-          <div className="flex justify-between items-center text-slate-400">
-            <span>Topic:</span>
-            <span className="text-slate-200 truncate max-w-[180px]">{submissionReceipt.topic}</span>
+          <div className="flex justify-between items-center text-slate-600 dark:text-slate-400">
+            <span className="font-medium">Subject / Topic:</span>
+            <span className="text-slate-900 dark:text-slate-100 font-semibold truncate max-w-[190px]" title={submissionReceipt.topic}>{submissionReceipt.topic}</span>
           </div>
-          <div className="flex justify-between items-center text-slate-400">
-            <span>Status:</span>
-            <span className="text-emerald-400 font-semibold flex items-center gap-1">
+          <div className="flex justify-between items-center text-slate-600 dark:text-slate-400">
+            <span className="font-medium">Status:</span>
+            <span className="text-emerald-700 dark:text-emerald-400 font-bold flex items-center gap-1">
               <CheckCircle2 className="w-3.5 h-3.5" /> Delivered to Inbox
             </span>
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-3">
+        <div className="flex flex-wrap items-center justify-center gap-3">
           <button
             type="button"
             onClick={handleReset}
-            className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center gap-2 border border-slate-700 transition-all"
+            className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center gap-2 border border-slate-300 dark:border-slate-700 transition-all shadow-xs cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Send Another Message</span>
@@ -175,7 +200,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             <button
               type="button"
               onClick={onCancel}
-              className="px-5 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md transition-all"
+              className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md transition-all cursor-pointer"
             >
               Close Window
             </button>
@@ -194,7 +219,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
             Select Discussion Topic:
           </span>
-          <span className="text-[11px] text-slate-500 font-normal">Choose preset or custom</span>
+          <span className="text-[11px] text-slate-500 font-normal">Choose preset or customize below</span>
         </label>
 
         <div className="flex flex-wrap gap-2">
@@ -205,7 +230,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
                 key={badge.id}
                 type="button"
                 onClick={() => setSelectedTopic(badge.label)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 border ${
+                className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all flex items-center gap-1.5 border cursor-pointer ${
                   isSelected
                     ? "bg-blue-600 text-white border-blue-500 shadow-md shadow-blue-600/20 font-semibold ring-2 ring-blue-400/30"
                     : "bg-white dark:bg-slate-900/80 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800 hover:border-blue-300 dark:hover:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800"
@@ -219,7 +244,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         </div>
       </div>
 
-      {/* Free-text Topic Field (optional or required if custom) */}
+      {/* Free-text Topic / Subject Field */}
       <div>
         <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
           <span>
@@ -246,6 +271,18 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             }`}
           />
         </div>
+
+        {/* Live Subject Preview when both badge & custom text are active */}
+        {!isCustomTopicNeeded && customTopic.trim().length > 0 && (
+          <div className="mt-2 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-900/60 flex items-center gap-2 text-xs">
+            <span className="text-[11px] font-mono text-blue-700 dark:text-cyan-400 font-semibold uppercase shrink-0">
+              Subject Preview:
+            </span>
+            <span className="text-slate-800 dark:text-slate-200 font-medium truncate">
+              {selectedTopic} <span className="text-blue-500 dark:text-cyan-400">—</span> {customTopic.trim()}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Smart Context Hybrid: Full Name & Organization / Institution (Optional) */}

@@ -84,7 +84,7 @@ export default function EnterpriseProjectCatalog() {
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
           Complete Systems & Engineering Catalog
         </h2>
-        <p className="text-slate-600 dark:text-gray-400 text-sm max-w-3xl font-light">
+        <p className="text-slate-700 dark:text-slate-300 text-sm max-w-3xl font-light">
           A comprehensive catalog of production systems, research breakthroughs, and enterprise tools architected across <strong>Chemicals, Automotive Plants, Cement, and Life Sciences</strong>, categorized with architectural discipline tags.
         </p>
       </div>
@@ -101,10 +101,10 @@ export default function EnterpriseProjectCatalog() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all cursor-pointer ${
                   selectedCategory === cat
                     ? "bg-blue-600 text-white shadow-sm font-semibold"
-                    : "bg-slate-100 dark:bg-gray-900 hover:bg-slate-200 dark:hover:bg-gray-800 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-800"
+                    : "bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-800"
                 }`}
               >
                 {cat}
@@ -114,17 +114,17 @@ export default function EnterpriseProjectCatalog() {
         </div>
 
         {/* Domain Filter + Search */}
-        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-gray-800/80">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 pt-3 border-t border-slate-100 dark:border-slate-800/80">
           <div className="flex flex-wrap items-center gap-1.5">
-            <span className="text-xs text-slate-500 dark:text-gray-400 font-mono mr-1">Domain:</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400 font-mono mr-1 font-medium">Domain:</span>
             {domains.map((dom) => (
               <button
                 key={dom}
                 onClick={() => setSelectedDomain(dom)}
-                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono transition-all ${
+                className={`px-2.5 py-1 rounded-lg text-[11px] font-mono transition-all cursor-pointer ${
                   selectedDomain === dom
                     ? "bg-slate-950 dark:bg-slate-100 text-white dark:text-slate-950 font-bold"
-                    : "bg-transparent text-slate-600 dark:text-gray-400 hover:text-slate-950 dark:hover:text-white"
+                    : "bg-transparent text-slate-600 dark:text-slate-400 hover:text-slate-950 dark:hover:text-white"
                 }`}
               >
                 {dom}
@@ -139,7 +139,7 @@ export default function EnterpriseProjectCatalog() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search tech stack, problem, or title..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-gray-950 border border-slate-200 dark:border-gray-800 text-slate-900 dark:text-gray-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-xs"
+              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-xs"
             />
           </div>
         </div>
@@ -162,7 +162,7 @@ export default function EnterpriseProjectCatalog() {
                 >
                   {project.disciplineBadge}
                 </span>
-                <span className="text-[11px] font-mono text-slate-500 dark:text-gray-400 font-medium">
+                <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 font-medium">
                   {project.domain}
                 </span>
               </div>
@@ -173,17 +173,17 @@ export default function EnterpriseProjectCatalog() {
               </h3>
 
               {/* Problem Solved */}
-              <p className="text-xs text-slate-600 dark:text-gray-300 mb-4 leading-relaxed font-light">
+              <p className="text-xs text-slate-700 dark:text-slate-300 mb-4 leading-relaxed font-light">
                 {project.problemSolved}
               </p>
 
               {/* Architecture Highlights */}
-              <div className="space-y-1.5 mb-5 p-3.5 rounded-2xl bg-slate-50 dark:bg-gray-950 border border-slate-100 dark:border-gray-800">
-                <span className="text-[10px] font-mono uppercase font-bold text-slate-500 dark:text-gray-400 tracking-wider block mb-1">
+              <div className="space-y-1.5 mb-5 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
+                <span className="text-[10px] font-mono uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider block mb-1">
                   Key System Architecture
                 </span>
                 {project.architectureHighlights.map((hl, idx) => (
-                  <div key={idx} className="flex items-start gap-1.5 text-[11px] text-slate-800 dark:text-gray-300">
+                  <div key={idx} className="flex items-start gap-1.5 text-[11px] text-slate-800 dark:text-slate-200">
                     <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400 mt-0.5 flex-shrink-0" />
                     <span>{hl}</span>
                   </div>
@@ -203,7 +203,7 @@ export default function EnterpriseProjectCatalog() {
                 {project.stack.map((t, idx) => (
                   <span
                     key={idx}
-                    className="px-2 py-0.5 text-[10px] font-mono rounded bg-slate-100 dark:bg-gray-800 text-slate-700 dark:text-gray-300 border border-slate-200 dark:border-gray-700 font-medium"
+                    className="px-2 py-0.5 text-[10px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-slate-700 font-medium"
                   >
                     {t}
                   </span>
@@ -211,14 +211,14 @@ export default function EnterpriseProjectCatalog() {
               </div>
 
               {/* Action Links */}
-              <div className="pt-3 border-t border-slate-100 dark:border-gray-800 flex items-center justify-between gap-2">
+              <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between gap-2">
                 {project.sourcePath ? (
-                  <span className="text-[10px] font-mono text-slate-500 dark:text-gray-400 truncate flex items-center gap-1" title={project.sourcePath}>
+                  <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 truncate flex items-center gap-1" title={project.sourcePath}>
                     <FolderGit2 className="w-3 h-3 text-slate-400" />
                     {project.sourcePath}
                   </span>
                 ) : (
-                  <span className="text-[10px] font-mono text-slate-400 dark:text-gray-500 font-medium">Enterprise Solution</span>
+                  <span className="text-[10px] font-mono text-slate-400 dark:text-slate-500 font-medium">Enterprise Solution</span>
                 )}
 
                 <div className="flex items-center gap-1.5 flex-shrink-0">
@@ -236,7 +236,7 @@ export default function EnterpriseProjectCatalog() {
                       href={project.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 rounded-xl bg-slate-100 dark:bg-gray-800 hover:bg-slate-200 dark:hover:bg-gray-700 text-slate-700 dark:text-gray-300 transition-colors border border-slate-200 dark:border-gray-700"
+                      className="p-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700"
                       title="View GitHub Repository / Subdirectory"
                     >
                       <Github className="w-3.5 h-3.5" />

@@ -1373,8 +1373,9 @@ export default function InteractiveDemoSuite() {
     Executive_Suite: { name: "Executive Suite", current: 3200.00, budget: 10000.0, quotaExceeded: false }
   });
 
-  // Real-time ticking TTL countdown timer for Redis keys
+  // Real-time ticking TTL countdown timer for Redis keys (active only when viewing FinOps demo)
   useEffect(() => {
+    if (activeDemo !== "finops") return;
     const timer = setInterval(() => {
       setRedisKeys((prev) =>
         prev.map((item) => ({
@@ -1384,7 +1385,7 @@ export default function InteractiveDemoSuite() {
       );
     }, 1000);
     return () => clearInterval(timer);
-  }, []);
+  }, [activeDemo]);
 
   // Fetch live Redis FinOps summary if microservice is online
   useEffect(() => {

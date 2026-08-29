@@ -48,18 +48,28 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollPos = window.scrollY + 200;
-      for (const item of NAV_ITEMS) {
+    let ticking = false;
+
+    const updateActiveSection = () => {
+      const scrollPos = window.scrollY + 220;
+      for (let i = NAV_ITEMS.length - 1; i >= 0; i--) {
+        const item = NAV_ITEMS[i];
         const el = document.getElementById(item.id);
         if (el) {
           const top = el.offsetTop;
-          const height = el.offsetHeight;
-          if (scrollPos >= top && scrollPos < top + height) {
-            setActiveSection(item.id);
+          if (scrollPos >= top) {
+            setActiveSection((prev) => (prev !== item.id ? item.id : prev));
             break;
           }
         }
+      }
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateActiveSection);
+        ticking = true;
       }
     };
 
@@ -179,16 +189,16 @@ export default function Home() {
       </div>
 
       {/* Core Production Microservices (Flagship Projects front and center) */}
-      <section id="core-systems" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-gray-200 dark:border-surfaceBorder">
+      <section id="core-systems" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
         <div className="mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3 shadow-xs">
             <Cpu className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
             Core Production Microservices & Systems
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-3">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
             Production Microservice Systems
           </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl font-light">
+          <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light">
             Engineered systems demonstrating the union of physical domain science, full-stack microservices, deterministic multi-agent workflows, and containerized cloud DevOps.
           </p>
         </div>
