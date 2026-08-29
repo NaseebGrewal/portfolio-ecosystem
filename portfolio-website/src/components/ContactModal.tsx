@@ -49,8 +49,8 @@ export default function ContactModal({
         <div className="flex items-start justify-between pb-5 border-b border-slate-100 dark:border-slate-800/80 relative z-10">
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-cyan-300 text-xs font-mono mb-2">
-              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Executive Contact Portal
+              <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+              Direct Message
             </div>
             <h2
               id="contact-modal-title"
@@ -59,7 +59,7 @@ export default function ContactModal({
               Get in Touch
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-light mt-1">
-              Direct communication channel for senior engineering roles, R&D AI architecture, and advisory.
+              Direct channel for technical leadership, Staff/Principal AI architecture, and consulting.
             </p>
           </div>
 

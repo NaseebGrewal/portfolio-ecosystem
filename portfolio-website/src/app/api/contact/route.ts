@@ -44,7 +44,7 @@ function generateExecutiveHtmlTemplate({
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Executive Portfolio Inquiry: ${topic}</title>
+  <title>Portfolio Message: ${topic}</title>
   <style>
     body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0c1220; color: #e2e8f0; margin: 0; padding: 24px; }
     .card { max-width: 620px; margin: 0 auto; background: #111827; border: 1px solid #1f2937; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); }
@@ -66,8 +66,8 @@ function generateExecutiveHtmlTemplate({
 <body>
   <div class="card">
     <div class="header">
-      <div class="badge">Direct Executive Portal</div>
-      <h1 class="title">New Direct Inquiry: ${topic}</h1>
+      <div class="badge">Direct Message</div>
+      <h1 class="title">New Message: ${topic}</h1>
     </div>
     <div class="body-content">
       <div class="meta-grid">
@@ -92,23 +92,23 @@ function generateExecutiveHtmlTemplate({
           <span class="meta-value" style="font-family: monospace;">${referenceId}</span>
         </div>
         <div class="meta-row">
-          <span class="meta-label">Transmitted At:</span>
+          <span class="meta-label">Sent At:</span>
           <span class="meta-value" style="font-size: 11px; font-family: monospace;">${formattedDate}</span>
         </div>
       </div>
 
-      <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 8px;">Inquiry Content:</div>
+      <div style="font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8; margin-bottom: 8px;">Message Content:</div>
       <div class="message-box">
         ${escapedMessage}
       </div>
 
       <div style="background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px; padding: 12px; font-size: 12px; color: #86efac; text-align: center;">
-        ⚡ <strong>1-Click Direct Reply Enabled:</strong> Simply click "Reply" in your email client to respond directly to <strong>${senderEmail}</strong>.
+        ⚡ <strong>1-Click Direct Reply:</strong> Hit "Reply" in your email client to respond directly to <strong>${senderEmail}</strong>.
       </div>
     </div>
     <div class="footer">
-      <div>Executive AI Portfolio Ecosystem • Enterprise Contact Gateway</div>
-      <div class="reply-hint">Reply-To header configured to: ${senderEmail}</div>
+      <div>AI Solutions Portfolio • Contact Channel</div>
+      <div class="reply-hint">Reply-To: ${senderEmail}</div>
     </div>
   </div>
 </body>
@@ -185,7 +185,7 @@ export async function POST(req: Request) {
       ? `${cleanOrg} <${cleanEmail}>`
       : cleanEmail;
 
-    const subject = `[Executive Inquiry] ${cleanTopic} from ${senderIdentifier}`;
+    const subject = `[Portfolio Contact] ${cleanTopic} from ${senderIdentifier}`;
     const htmlBody = generateExecutiveHtmlTemplate({
       referenceId,
       senderEmail: cleanEmail,
@@ -197,7 +197,7 @@ export async function POST(req: Request) {
       timestamp,
     });
 
-    const plainTextBody = `New Executive Portfolio Inquiry:
+    const plainTextBody = `New Portfolio Contact Message:
 Reference ID: ${referenceId}
 ${cleanSenderName ? `Sender Name: ${cleanSenderName}\n` : ""}${cleanOrg ? `Organization: ${cleanOrg}\n` : ""}Sender Email: ${cleanEmail}
 Topic: ${cleanTopic}

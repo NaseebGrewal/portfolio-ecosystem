@@ -18,15 +18,15 @@ export default function EnterprisePedigreeMarquee() {
           <div>
             <div className="inline-flex items-center gap-1.5 text-xs font-mono text-blue-700 dark:text-blue-400 uppercase tracking-widest font-bold">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>COMPANIES & INSTITUTES EXPERIENCE</span>
+              <span>ORGANIZATIONS & TRACK RECORD</span>
             </div>
             <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight mt-1">
-              Engineering Leadership, Digitalization & Enterprise Track Record
+              Engineering Leadership & Industry Track Record
             </h3>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300 bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-3 py-1.5 rounded-xl self-start sm:self-auto">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span>7 Global Organizations</span>
+            <span>7 Organizations</span>
           </div>
         </div>
 

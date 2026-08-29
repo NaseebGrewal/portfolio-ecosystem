@@ -20,15 +20,15 @@ export default function ExecutiveCredentialsBar() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
           <div>
             <span className="text-[11px] font-mono text-blue-700 dark:text-cyan-400 uppercase tracking-wider font-semibold">
-              Verified Professional Qualifications
+              Academic & Industry Credentials
             </span>
             <h2 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-              Academic Foundations, Certifications & Leadership Culture
+              Academic Foundations, Certifications & Engineering Practices
             </h2>
           </div>
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-3 py-1.5 rounded-xl w-fit">
             <ShieldCheck className="w-4 h-4" />
-            <span>100% Verified Credentials</span>
+            <span>Verified Qualifications</span>
           </div>
         </div>
 

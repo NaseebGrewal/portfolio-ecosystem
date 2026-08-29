@@ -77,10 +77,10 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
       {/* Fresh Executive Narrative (Value Focused) */}
       <div className="max-w-3xl mb-8 space-y-3 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed font-light">
         <p>
-          I architect enterprise AI systems, high-throughput microservices, and R&D Operating Systems across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, SAP, Meesho, and WONGDOODY</strong>), I specialize in eliminating legacy friction and engineering high-ROI systems.
+          I architect enterprise AI systems, high-throughput microservices, and R&D platforms across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, SAP, Meesho, and WONGDOODY</strong>), I specialize in eliminating legacy friction and engineering high-ROI systems.
         </p>
         <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300">
-          Core Focus: In-house R&D Operating Systems (<strong className="text-emerald-800 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), zero-hallucination agentic compliance swarms (LangGraph / REACH SDS), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.
+          Core Focus: In-house R&D Operating Systems (<strong className="text-emerald-800 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), deterministic agentic compliance swarms (LangGraph / REACH SDS), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.
         </p>
       </div>
 
@@ -107,19 +107,19 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
       {/* Action CTA Buttons */}
       <div className="flex flex-wrap items-center gap-3">
         <a
-          href="#interactive-demo"
-          className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-600/25"
+          href="#core-systems"
+          className="px-6 py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-600/25"
         >
           <Cpu className="w-4 h-4" />
-          <span>Try Interactive Sandboxes</span>
+          <span>Explore Core Systems</span>
         </a>
 
         <a
-          href="#ai-copilot"
-          className="px-6 py-3.5 rounded-xl bg-cyan-50 dark:bg-cyan-950/80 hover:bg-cyan-100 dark:hover:bg-cyan-900/80 border border-cyan-200 dark:border-cyan-700/60 text-cyan-900 dark:text-cyan-200 font-medium text-sm flex items-center gap-2 transition-all"
+          href="#interactive-demo"
+          className="px-5 py-3.5 rounded-xl bg-cyan-50 dark:bg-cyan-950/80 hover:bg-cyan-100 dark:hover:bg-cyan-900/80 border border-cyan-200 dark:border-cyan-700/60 text-cyan-900 dark:text-cyan-200 font-medium text-sm flex items-center gap-2 transition-all"
         >
           <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
-          <span>Recruiter AI Copilot</span>
+          <span>Live Sandboxes</span>
         </a>
 
         <a
@@ -127,14 +127,13 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
           className="px-5 py-3.5 rounded-xl bg-white dark:bg-surface hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-800 dark:text-gray-200 border border-gray-200 dark:border-surfaceBorder font-medium text-sm flex items-center gap-2 transition-all"
         >
           <Layers className="w-4 h-4" />
-          <span>Full Systems Catalog (14)</span>
+          <span>Systems Catalog (14)</span>
         </a>
 
-        {/* Unicorn-Grade Get in Touch Button */}
         <button
           onClick={handleContactClick}
           className="px-5 py-3.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white font-medium text-sm flex items-center gap-2 transition-all shadow-lg shadow-blue-600/20 cursor-pointer ring-1 ring-white/20 hover:scale-[1.02]"
-          title="Get in Touch with Principal AI Architect"
+          title="Get in Touch"
         >
           <Mail className="w-4 h-4" />
           <span>Get in Touch</span>

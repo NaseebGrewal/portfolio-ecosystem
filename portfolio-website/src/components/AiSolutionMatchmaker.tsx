@@ -108,13 +108,13 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
       <div className="mb-10">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-50 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-700 dark:text-cyan-300 mb-3">
           <Sparkles className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
-          Interactive Architecture Matchmaker
+          Architectural Solution Blueprints
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-3">
-          Strategic System Design Blueprints
+          System Design Blueprints & ROI
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl font-light">
-          Explore architectural blueprints, projected business ROI, and concrete systems engineered to solve enterprise R&D bottlenecks.
+          Explore production blueprints, projected ROI, and concrete systems engineered to solve real-world industrial and enterprise bottlenecks.
         </p>
       </div>
 
@@ -169,7 +169,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
             <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 mb-6">
               <div className="text-xs font-mono font-semibold text-emerald-800 dark:text-emerald-300 mb-1 flex items-center gap-1.5">
                 <DollarSign className="w-4 h-4" />
-                <span>Executive Business ROI:</span>
+                <span>Business Impact & ROI:</span>
               </div>
               <div className="text-xs text-emerald-900 dark:text-emerald-100/90 leading-relaxed font-light">
                 {selectedScenario.projectedRoi}

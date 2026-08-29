@@ -29,14 +29,12 @@ import {
 
 const NAV_ITEMS = [
   { id: "pedigree", label: "Experience", href: "#pedigree" },
-  { id: "value-matrix", label: "Strategic ROI", href: "#value-matrix" },
-  { id: "interactive-demo", label: "Live Sandboxes", href: "#interactive-demo" },
-  { id: "ai-copilot", label: "AI Systems Copilot", href: "#ai-copilot" },
   { id: "core-systems", label: "Core Systems", href: "#core-systems" },
-  { id: "catalog", label: "Catalog (14)", href: "#catalog" },
-  { id: "skills", label: "Skills", href: "#skills" },
-  { id: "architecture", label: "Architecture", href: "#architecture" },
+  { id: "interactive-demo", label: "Live Sandboxes", href: "#interactive-demo" },
+  { id: "catalog", label: "Systems Catalog", href: "#catalog" },
+  { id: "skills", label: "Skills & Architecture", href: "#skills" },
   { id: "credentials", label: "Credentials", href: "#credentials" },
+  { id: "contact", label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
@@ -180,7 +178,29 @@ export default function Home() {
         <EnterprisePedigreeMarquee />
       </div>
 
-      {/* Strategic Value Matrix (Executive Differentiator) */}
+      {/* Core Production Microservices (Flagship Projects front and center) */}
+      <section id="core-systems" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
+        <div className="mb-12">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3 shadow-xs">
+            <Cpu className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+            Core Production Microservices & Systems
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-3">
+            Production Microservice Systems
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl font-light">
+            Engineered systems demonstrating the union of physical domain science, full-stack microservices, deterministic multi-agent workflows, and containerized cloud DevOps.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {FLAGSHIP_PROJECTS.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </section>
+
+      {/* Strategic Value Matrix (Architectural Differentiator) */}
       <div id="value-matrix">
         <StrategicValueMatrix />
       </div>
@@ -194,28 +214,6 @@ export default function Home() {
       {/* Interactive AI Architecture Matchmaker */}
       <AiSolutionMatchmaker onOpenContactModal={handleOpenContactModal} />
 
-      {/* Core Production Microservices */}
-      <section id="core-systems" className="py-16 px-6 max-w-7xl mx-auto border-t border-gray-200 dark:border-surfaceBorder">
-        <div className="mb-12">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3">
-            <Cpu className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
-            Core Production Microservices & Sandboxes
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight mb-3">
-            Production Microservice Systems
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400 text-sm max-w-2xl font-light">
-            Engineered systems demonstrating the union of physical domain science, full-stack microservices, multi-agent workflows, and containerized cloud DevOps.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {FLAGSHIP_PROJECTS.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
-      </section>
-
       {/* Full Filterable Systems Catalog (14 Systems) */}
       <EnterpriseProjectCatalog />
 
@@ -223,7 +221,9 @@ export default function Home() {
       <SkillsMatrix />
 
       {/* Architecture Viewer */}
-      <ArchitectureViewer />
+      <div id="architecture">
+        <ArchitectureViewer />
+      </div>
 
       {/* Sleek Executive Credentials & Trust Bar */}
       <ExecutiveCredentialsBar />
@@ -233,14 +233,14 @@ export default function Home() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-8">
             <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300 text-xs font-mono mb-4 shadow-xs">
-              <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Direct Executive Communication
+              <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
+              Direct Communication
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mb-2 tracking-tight">
-              Contact Me:
+              Get in Touch
             </h3>
             <p className="text-slate-700 dark:text-slate-300 text-sm max-w-xl mx-auto font-light leading-relaxed">
-              Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Technical Product Ownership leadership roles across Germany, EU, and Remote worldwide.
+              Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Staff/Principal Engineering leadership roles across Germany, EU, and Remote worldwide.
             </p>
           </div>
 

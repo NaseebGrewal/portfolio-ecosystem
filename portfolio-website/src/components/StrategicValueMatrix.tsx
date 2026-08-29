@@ -7,34 +7,34 @@ import { Sparkles, Check, X, ShieldAlert, Cpu, FlaskConical, DollarSign, Award, 
 export default function StrategicValueMatrix() {
   const comparisonData = [
     {
-      capability: "Cross-Industry Domain Science (Chemicals, Auto, Cement, Pharma)",
-      typicalDev: "No physical domain context (treats chemical/mechanical telemetry as generic text)",
-      typicalChemist: "Deep domain silo, but reliant on manual desktop spreadsheets and legacy tools",
-      candidateAdvantage: "B.Tech in Polymer/Chemical Engineering + M.Sc. in CS; models physical & chemical systems natively"
+      capability: "Domain-Aware Telemetry & Physics",
+      genericStack: "Treats chemical & mechanical sensor data as generic text or key-value logs",
+      legacySilo: "Manual spreadsheets and siloed vendor desktop software",
+      integratedArchitecture: "Native physical modeling (B.Tech Polymer Eng + M.Sc. CS) for high-throughput laboratory pipelines"
     },
     {
-      capability: "Zero-Hallucination Regulatory & Compliance Guardrails",
-      typicalDev: "Prone to LLM hallucinations on strict legal substance & safety thresholds",
-      typicalChemist: "Manual review taking 3+ hours per supplier SDS or compliance consignment",
-      candidateAdvantage: "Architects deterministic multi-agent guardrails (LangGraph) with 0% hallucination on SVHC limits"
+      capability: "Deterministic Regulatory Verification",
+      genericStack: "Vulnerable to LLM hallucinations on statutory concentration thresholds",
+      legacySilo: "Manual compliance reviews taking 2-3 hours per consignment",
+      integratedArchitecture: "Deterministic LangGraph multi-agent swarms ensuring 0% hallucination on REACH SVHC thresholds"
     },
     {
-      capability: "Production Cloud Microservices & High-Throughput APIs",
-      typicalDev: "Strong generic web skills, but lacks physical testing and plant telemetry alignment",
-      typicalChemist: "No distributed cloud architecture or containerized microservice experience",
-      candidateAdvantage: "Next.js 15 + FastAPI + Rust/WASM on AWS ECS Fargate with sub-45ms P99 latency & 99.95% SLA"
+      capability: "Production Latency & Microservice SLA",
+      genericStack: "Standard server-side stacks with latency bottlenecks on complex math",
+      legacySilo: "No distributed cloud architecture or containerized deployment",
+      integratedArchitecture: "FastAPI + client-side Rust/WASM (1.8 ms ISO 527 solver) with 99.95% AWS ECS SLA"
     },
     {
-      capability: "FinOps Cost Optimization & In-House Architecture",
-      typicalDev: "Often defaults to expensive proprietary third-party SaaS subscriptions",
-      typicalChemist: "Locked into legacy commercial vendor database licenses costing €100k+/year",
-      candidateAdvantage: "Eliminated €1.2M+ in recurring vendor fees by engineering in-house R&D Operating Systems"
+      capability: "FinOps & Total Cost of Ownership (TCO)",
+      genericStack: "Defaults to high-cost 3rd-party SaaS without token caching",
+      legacySilo: "Locked into €100k+/year recurring commercial vendor software licenses",
+      integratedArchitecture: "Saved €1.2M+ by architecting custom in-house R&D platforms with Redis semantic caching"
     },
     {
-      capability: "Team Upskilling & Engineering Mentorship",
-      typicalDev: "Works in developer isolation without coaching scientific laboratory teams",
-      typicalChemist: "Lacks formal training in modern software engineering (TDD, clean Git)",
-      candidateAdvantage: "Conducts regular hands-on workshops in clean code, TDD, and Git flow, doubling team velocity"
+      capability: "Engineering Enablement & Mentorship",
+      genericStack: "Isolated engineering without domain stakeholder coaching",
+      legacySilo: "Limited exposure to modern agile practices, TDD, and CI/CD",
+      integratedArchitecture: "Hands-on workshops in clean code, TDD, and Git workflows accelerating team velocity"
     }
   ];
 
@@ -70,13 +70,13 @@ export default function StrategicValueMatrix() {
       <div className="mb-12">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3 shadow-xs">
           <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-          The Strategic Executive Advantage
+          Architectural Principles & Impact
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
-          Strategic Value Matrix & Executive ROI
+          Strategic Architecture & Value Delivery
         </h2>
         <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light">
-          Senior technical leadership capable of speaking the exact language of plant engineers and laboratory scientists while architecting enterprise cloud and agentic AI systems.
+          Bridging physical science and industrial R&D with modern distributed systems, agentic automation, and cloud cost governance.
         </p>
       </div>
 
@@ -113,10 +113,10 @@ export default function StrategicValueMatrix() {
           <thead className="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-400 uppercase font-mono text-[11px] border-b border-slate-200 dark:border-slate-800">
             <tr>
               <th className="p-4 sm:p-5 font-bold">Engineering Dimension</th>
-              <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Standard Web Developer</th>
-              <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Traditional Laboratory Scientist</th>
+              <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Generic Software Stack</th>
+              <th className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">Legacy Domain Silo</th>
               <th className="p-4 sm:p-5 bg-blue-50 dark:bg-blue-950/40 text-blue-800 dark:text-blue-300 font-bold border-l border-blue-200 dark:border-blue-900/50">
-                {CANDIDATE_PROFILE.name} (AI Solutions Architect)
+                Integrated AI Systems Architecture
               </th>
             </tr>
           </thead>
@@ -129,19 +129,19 @@ export default function StrategicValueMatrix() {
                 <td className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">
                   <div className="flex items-start gap-1.5">
                     <X className="w-3.5 h-3.5 text-rose-500 dark:text-rose-400 mt-0.5 flex-shrink-0" />
-                    <span>{row.typicalDev}</span>
+                    <span>{row.genericStack}</span>
                   </div>
                 </td>
                 <td className="p-4 sm:p-5 hidden md:table-cell text-slate-600 dark:text-slate-400">
                   <div className="flex items-start gap-1.5">
                     <X className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 mt-0.5 flex-shrink-0" />
-                    <span>{row.typicalChemist}</span>
+                    <span>{row.legacySilo}</span>
                   </div>
                 </td>
                 <td className="p-4 sm:p-5 bg-blue-50/40 dark:bg-blue-950/20 border-l border-blue-200 dark:border-blue-900/40 text-blue-950 dark:text-blue-200 font-medium">
                   <div className="flex items-start gap-1.5">
                     <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400 mt-0.5 flex-shrink-0" />
-                    <span>{row.candidateAdvantage}</span>
+                    <span>{row.integratedArchitecture}</span>
                   </div>
                 </td>
               </tr>

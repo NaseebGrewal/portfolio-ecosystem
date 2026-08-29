@@ -24,11 +24,11 @@ export interface ContactFormProps {
 }
 
 export const TOPIC_BADGES = [
-  { id: "staff-role", label: "Executive / Staff AI Role", icon: "💼" },
+  { id: "staff-role", label: "Staff / Lead AI Role", icon: "💼" },
   { id: "genai-agents", label: "Multi-Agent & GenAI Systems", icon: "🤖" },
-  { id: "materials-rd", label: "R&D Digitalization & Materials AI", icon: "🔬" },
-  { id: "finops-cloud", label: "Cloud FinOps & Infrastructure", icon: "⚡" },
-  { id: "advisory", label: "Technical Advisory & Consulting", icon: "📊" },
+  { id: "materials-rd", label: "R&D Digitalization & AI", icon: "🔬" },
+  { id: "finops-cloud", label: "Cloud Systems & FinOps", icon: "⚡" },
+  { id: "advisory", label: "Technical Advisory", icon: "📊" },
   { id: "custom", label: "Other / Custom Topic", icon: "✨" },
 ];
 
@@ -137,11 +137,11 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         </div>
 
         <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 tracking-tight">
-          Inquiry Successfully Transmitted
+          Message Successfully Sent
         </h3>
 
         <p className="text-slate-300 text-sm max-w-md mx-auto mb-6 leading-relaxed font-light">
-          Your message has been securely routed directly to the Principal AI Architect. You will receive an executive response within 24 hours.
+          Thank you for reaching out. Your message has been delivered directly to my inbox and I will follow up within 24 hours.
         </p>
 
         <div className="bg-slate-900/90 border border-slate-800 rounded-xl p-4 max-w-sm mx-auto mb-6 text-left font-mono text-xs space-y-2">
@@ -154,9 +154,9 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             <span className="text-slate-200 truncate max-w-[180px]">{submissionReceipt.topic}</span>
           </div>
           <div className="flex justify-between items-center text-slate-400">
-            <span>Security Status:</span>
-            <span className="text-cyan-400 flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5" /> End-to-End Encrypted
+            <span>Status:</span>
+            <span className="text-emerald-400 font-semibold flex items-center gap-1">
+              <CheckCircle2 className="w-3.5 h-3.5" /> Delivered to Inbox
             </span>
           </div>
         </div>
@@ -367,11 +367,11 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         />
       </div>
 
-      {/* Security Guarantee & Anti-Scraping Privacy Badge */}
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50/50 dark:bg-blue-950/40 border border-blue-200/60 dark:border-blue-900/40 text-[11px] text-slate-600 dark:text-slate-400">
-        <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-cyan-400 flex-shrink-0" />
+      {/* Confidentiality Guarantee */}
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-[11px] text-slate-600 dark:text-slate-400">
+        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 flex-shrink-0" />
         <span>
-          <strong>Enterprise Privacy Protection:</strong> Server-side delivery with zero DOM email exposure. Your contact information is never shared or tracked.
+          <strong>Confidential Communication:</strong> Direct inbox delivery. Your contact details are never shared or tracked.
         </span>
       </div>
 
@@ -408,12 +408,12 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           {isSubmitting ? (
             <>
               <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
-              <span>Transmitting Securely...</span>
+              <span>Sending Message...</span>
             </>
           ) : (
             <>
               <Send className="w-3.5 h-3.5" />
-              <span>Send Executive Inquiry</span>
+              <span>Send Message</span>
               <Sparkles className="w-3 h-3 text-cyan-200" />
             </>
           )}

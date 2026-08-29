@@ -29,7 +29,7 @@ export default function ProjectCard({ project }: { project: Project }) {
 
         {/* Business ROI Box */}
         <div className="p-3.5 rounded-2xl bg-emerald-50/50 dark:bg-gray-900/80 border border-emerald-100 dark:border-gray-800 text-xs text-gray-800 dark:text-gray-300 mb-5 leading-relaxed">
-          <strong className="text-emerald-700 dark:text-emerald-400 font-semibold">Executive ROI: </strong>
+          <strong className="text-emerald-700 dark:text-emerald-400 font-semibold">Business Impact: </strong>
           {project.businessImpact}
         </div>
 
