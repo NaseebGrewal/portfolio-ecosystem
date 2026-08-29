@@ -48,14 +48,14 @@ const SCENARIOS: ChallengeScenario[] = [
   {
     id: "sc-02",
     industry: "ESH & Chemical Compliance",
-    bottleneck: "Manual SDS / REACH safety document reviews taking hours with fear of LLM hallucinations on legal SVHC limits",
-    recommendedPattern: "Deterministic Multi-Agent Swarm with Rule-Based Guardrails (LangGraph + Azure OpenAI)",
+    bottleneck: "Manual SDS / REACH safety document reviews taking hours with risk of LLM hallucinations on strict SVHC limits",
+    recommendedPattern: "Deterministic Multi-Agent Pipeline with Rule-Based Guardrails (LangGraph + Azure OpenAI)",
     techStack: ["LangGraph", "Python 3.12", "ECHA SVHC Registry", "Azure OpenAI", "Docker"],
-    projectedRoi: "Accelerates compliance verification from 2 hours to 11.4 ms per SDS with a mathematically guaranteed 0% hallucination rate.",
+    projectedRoi: "Accelerates compliance verification from 2 hours to 11.4 ms per SDS with deterministic validation against statutory limits.",
     architectureBlueprint: "Supervisor-worker LangGraph pipeline with CAS normalizer, deterministic rule engine, and Human-in-the-Loop CMR escalation.",
     matchingProject: "ChemAgent-Gov: Multi-Agent REACH Auditor",
     projectGithub: FLAGSHIP_PROJECTS[1]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
-    architecturalPillar: "Deterministic verification boundary ensuring 0% hallucinations when evaluating strict EU REACH Annex XVII thresholds."
+    architecturalPillar: "Deterministic verification boundary ensuring zero LLM errors when evaluating strict EU REACH Annex XVII thresholds."
   },
   {
     id: "sc-03",

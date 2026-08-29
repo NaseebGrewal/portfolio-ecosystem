@@ -32,12 +32,12 @@ interface ChatMessage {
 
 const QUICK_PROMPTS = [
   {
-    label: "Spar on VP / Architect Role",
+    label: "Spar on Architect Role",
     query: "How does your experience leading €1.2M+ R&D cloud migrations and multi-agent platforms position you for a Senior AI Solutions Architect or Product Owner leadership role?"
   },
   {
-    label: "0% SDS Compliance Swarm",
-    query: "How does the ChemAgent multi-agent swarm guarantee 0% hallucination on strict REACH SVHC 0.1% w/w chemical thresholds?"
+    label: "REACH Compliance Pipeline",
+    query: "How does the ChemAgent multi-agent workflow enforce deterministic validation on strict REACH SVHC 0.1% w/w chemical thresholds?"
   },
   {
     label: "Rust / WASM 1.8ms Engine",
@@ -172,12 +172,12 @@ export default function FloatingArchitectCopilot() {
     {
       id: "welcome-msg",
       role: "assistant",
-      content: `### Welcome to the Executive AI Systems Copilot 👋
+      content: `### Welcome to the AI Systems Copilot 👋
 
 I am your interactive architectural advisor and technical sparring partner. Live model streaming is enabled — choose between verified free models (**MiniMax M3 Free** @ 154 TPS, **Poolside Laguna** for code, **InclusionAI Ling** for FinOps) or Google's **Gemini 3.7 Flash / 3.5 Flash Lite**.
 
 Ask me about:
-1. **Multi-Agent Systems**: LangGraph / CrewAI deterministic compliance swarms.
+1. **Multi-Agent Systems**: LangGraph / CrewAI deterministic compliance workflows.
 2. **High-Performance Physics**: Client-side Rust & WebAssembly vs server Python.
 3. **Cloud FinOps**: Redis SHA256 semantic caching and €1.2M+ vendor cost elimination.
 4. **Leadership Fit**: R&D Digitalization Lead, Principal Architect, and Technical Product Owner.`,

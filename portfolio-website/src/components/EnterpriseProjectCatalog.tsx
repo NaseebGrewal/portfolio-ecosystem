@@ -18,7 +18,7 @@ import {
   Cpu
 } from "lucide-react";
 
-type CategoryFilter = "All" | "GenAI & Multi-Agent" | "Full-Stack Cloud & R&D OS" | "High-Performance & ML" | "Enterprise Infrastructure";
+type CategoryFilter = "All" | "GenAI & Multi-Agent" | "Full-Stack Cloud & R&D Platforms" | "High-Performance & ML" | "Enterprise Infrastructure";
 type DomainFilter = "All" | "Chemicals & Materials" | "Automotive & Industrial" | "Life Sciences & Pharma" | "FinTech & Compliance";
 
 export default function EnterpriseProjectCatalog() {
@@ -29,7 +29,7 @@ export default function EnterpriseProjectCatalog() {
   const categories: CategoryFilter[] = [
     "All",
     "GenAI & Multi-Agent",
-    "Full-Stack Cloud & R&D OS",
+    "Full-Stack Cloud & R&D Platforms",
     "High-Performance & ML",
     "Enterprise Infrastructure"
   ];
@@ -62,7 +62,7 @@ export default function EnterpriseProjectCatalog() {
     switch (category) {
       case "GenAI & Multi-Agent":
         return "bg-blue-50 dark:bg-blue-950/80 border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300";
-      case "Full-Stack Cloud & R&D OS":
+      case "Full-Stack Cloud & R&D Platforms":
         return "bg-emerald-50 dark:bg-emerald-950/80 border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300";
       case "High-Performance & ML":
         return "bg-purple-50 dark:bg-purple-950/80 border-purple-200 dark:border-purple-800 text-purple-800 dark:text-purple-300";

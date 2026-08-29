@@ -549,7 +549,7 @@ export default function InteractiveDemoSuite() {
             Flagship Engineering & AI Sandbox
           </h2>
           <p className="text-slate-600 dark:text-gray-400 text-sm max-w-2xl font-light mt-1">
-            Test real-time polymer intelligence, deterministic chemical compliance swarms, ultra-fast rheology solvers, and LLM FinOps proxies.
+            Test real-time polymer intelligence, multi-agent chemical compliance pipelines, ultra-fast rheology solvers, and LLM FinOps proxies.
           </p>
         </div>
 
@@ -739,7 +739,7 @@ export default function InteractiveDemoSuite() {
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                Deterministic chemical composition validation against 2026 ECHA REACH Candidate lists with 0% LLM hallucination.
+                Deterministic chemical composition validation against 2026 ECHA REACH Candidate lists.
               </p>
             </div>
             <div className="text-xs font-mono text-cyan-800 dark:text-cyan-400 bg-cyan-50 dark:bg-cyan-950/60 border border-cyan-200 dark:border-cyan-800/60 px-3 py-1 rounded-xl">
@@ -749,7 +749,7 @@ export default function InteractiveDemoSuite() {
 
           {/* Sample selector */}
           <div className="mb-6">
-            <div className="text-xs font-mono text-slate-500 dark:text-gray-400 mb-2 font-semibold">Select SDS Consignment to Audit:</div>
+            <div className="text-xs font-mono text-slate-500 dark:text-gray-400 mb-2 font-semibold">Select SDS Sample to Audit:</div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               {FALLBACK_SDS.map((s) => (
                 <button
@@ -769,7 +769,7 @@ export default function InteractiveDemoSuite() {
             </div>
           </div>
 
-          {/* Agent Swarm Node Progress */}
+          {/* Agent Pipeline Node Progress */}
           <div className="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-6 font-mono text-xs">
             <div
               className={`p-3.5 rounded-2xl border transition-all ${

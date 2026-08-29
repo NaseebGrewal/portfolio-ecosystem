@@ -15,7 +15,7 @@ export interface Project {
 export interface CatalogProject {
   id: string;
   title: string;
-  category: "GenAI & Multi-Agent" | "Full-Stack Cloud & R&D OS" | "High-Performance & ML" | "Enterprise Infrastructure";
+  category: "GenAI & Multi-Agent" | "Full-Stack Cloud & R&D Platforms" | "High-Performance & ML" | "Enterprise Infrastructure";
   disciplineBadge: string;
   domain: "Chemicals & Materials" | "Automotive & Industrial" | "Cement & Building Materials" | "Life Sciences & Pharma" | "FinTech & Compliance";
   problemSolved: string;
@@ -152,7 +152,7 @@ export const CANDIDATE_PROFILE = {
   headline: "Senior AI Solutions Architect & Lead Systems Engineer",
   tagline: "Enterprise AI Architecture • Industrial R&D Digitalization • Multi-Agent Systems",
   executiveSummary:
-    "Cross-industry Senior AI Solutions Architect with 7+ years of experience leading digitalization across E-Commerce (Meesho), Enterprise IT (SAP), AI & Cloud Consulting (WONGDOODY / Infosys), Specialty Chemicals (Continental, IFF Pharma), and Industrial Plants (Heidelberg Materials). Proven record of eliminating €1.2M+ in recurring third-party vendor licensing by architecting customized in-house R&D Operating Systems, multi-agent compliance swarms (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
+    "Cross-industry Senior AI Solutions Architect with 7+ years of experience leading digitalization across E-Commerce (Meesho), Enterprise IT (SAP), AI & Cloud Consulting (WONGDOODY / Infosys), Specialty Chemicals (Continental, IFF Pharma), and Industrial Cement Plants (Heidelberg Materials). Proven record of eliminating €1.2M+ in recurring third-party vendor licensing by architecting customized in-house R&D platforms, deterministic multi-agent compliance pipelines (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
   location: process.env.NEXT_PUBLIC_CANDIDATE_LOCATION || "Germany (Open to Hybrid & Remote Worldwide)",
   email: process.env.NEXT_PUBLIC_CANDIDATE_EMAIL || "contact@yourdomain.com",
   phone: process.env.NEXT_PUBLIC_CANDIDATE_PHONE || "+49 XXXXXXXXXX",
@@ -191,7 +191,7 @@ export const CANDIDATE_PROFILE = {
     }
   ],
   headlineStats: [
-    { label: "Vendor Costs Saved", value: "€1.2M+", context: "Replaced commercial vendor database & testing licenses with in-house R&D OS" },
+    { label: "Vendor Costs Saved", value: "€1.2M+", context: "Replaced commercial vendor database & testing licenses with in-house R&D platform" },
     { label: "Active Enterprise Users", value: "150+", context: "Scientists, lab technicians & compliance officers across multi-site production" },
     { label: "Cloud SLA Availability", value: "99.95%", context: "Containerized AWS ECS Fargate & ALB multi-AZ architecture" },
     { label: "Discovery Acceleration", value: "60%", context: "Sub-second prediction APIs & automated regulatory screening" }
@@ -199,7 +199,7 @@ export const CANDIDATE_PROFILE = {
   skillCategories: [
     {
       category: "Enterprise AI & Multi-Agent Systems",
-      description: "Autonomous Agent swarms, RAG architectures, model evaluation & FinOps guardrails",
+      description: "Autonomous multi-agent pipelines, RAG architectures, model evaluation & FinOps guardrails",
       skills: [
         { name: "Multi-Agent Orchestration (LangGraph, CrewAI)", highlight: true },
         { name: "Generative AI & LLM APIs (GPT-4o, Claude 3.5, Gemini 2.0)", highlight: true },
@@ -267,7 +267,7 @@ export const CANDIDATE_PROFILE = {
       period: "Jul 2025 – Present",
       badge: "Current Leadership Role",
       highlights: [
-        "Architected and delivered the enterprise in-house R&D Operating System (Next.js 15 + FastAPI + MongoDB on AWS ECS Fargate), serving 150+ chemical researchers and engineers across multi-site production facilities.",
+        "Architected and delivered the enterprise in-house R&D platform (Next.js 15 + FastAPI + MongoDB on AWS ECS Fargate), serving 150+ chemical researchers and engineers across multi-site production facilities.",
         "Eliminated over €1,200,000 in recurring third-party vendor licensing fees by building customized formulation lifecycle management, high-density lab property grids, and automated ESH compliance gates.",
         "Integrated Agentic AI workflows (LangGraph, OpenAI, Claude) to automate polymer property predictions, SDS safety reviews, and formulation optimization, cutting manual discovery cycles by 60%.",
         "Engineered high-throughput testing microservices utilizing Python and Rust/WASM to replace legacy desktop tools, reducing mechanical curve-fitting latency from minutes to sub-second execution.",
@@ -384,8 +384,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     id: "materials-intelligence-platform",
     title: "Enterprise Materials Intelligence Platform",
     category: "Full-Stack & Cloud",
-    tagline: "In-House R&D Operating System: Formulation Lifecycle, High-Density Grids & ESH Gates",
-    businessImpact: "Replaced high-cost third-party vendor platforms with an in-house R&D Operating System, saving €1.2M+ in recurring licenses for 150+ researchers across global plants.",
+    tagline: "In-House R&D Platform: Formulation Lifecycle, High-Density Grids & ESH Gates",
+    businessImpact: "Replaced high-cost third-party vendor platforms with a custom in-house R&D platform, saving €1.2M+ in recurring licenses for 150+ researchers across global plants.",
     vendorCostSaved: "€1.2M+",
     stack: ["FastAPI", "Next.js 15", "MongoDB", "Redis", "AWS ECS Fargate", "Docker", "GitHub Actions"],
     githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/01-materials-intelligence-platform` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform"),
@@ -405,8 +405,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     id: "chemagent-sds-compliance",
     title: "ChemAgent-Gov: Multi-Agent REACH Auditor",
     category: "Multi-Agent AI",
-    tagline: "Autonomous Agentic SDS Parsing, ECHA SVHC Cross-Referencing & OESL Auditing",
-    businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier SDS with zero hallucination rate on regulated limits.",
+    tagline: "Automated Multi-Agent SDS Parsing, ECHA SVHC Cross-Referencing & Regulatory Verification",
+    businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier SDS with deterministic validation against statutory thresholds.",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
     githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/02-chemagent-sds-compliance` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance"),
     liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_2_DEMO_URL || undefined,
@@ -466,9 +466,9 @@ export const FLAGSHIP_PROJECTS: Project[] = [
 export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
   {
     id: "material-database-platform",
-    title: "Enterprise Material Database & R&D OS",
-    category: "Full-Stack Cloud & R&D OS",
-    disciplineBadge: "Enterprise R&D OS • Full-Stack AWS",
+    title: "Enterprise Material Database & R&D Platform",
+    category: "Full-Stack Cloud & R&D Platforms",
+    disciplineBadge: "Enterprise R&D Platform • Full-Stack AWS",
     domain: "Chemicals & Materials",
     problemSolved: "Eliminated fragmented legacy spreadsheets and €1.2M+ in third-party vendor fees by centralizing all recipe lifecycles, ingredients, and compliance gates into one high-performance system.",
     architectureHighlights: [
@@ -487,9 +487,9 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     id: "chemagent-sds-compliance",
     title: "ChemAgent-Gov: Multi-Agent REACH & SDS Auditor",
     category: "GenAI & Multi-Agent",
-    disciplineBadge: "Multi-Agent Swarm • LangGraph",
+    disciplineBadge: "Multi-Agent Pipeline • LangGraph",
     domain: "Chemicals & Materials",
-    problemSolved: "Automated the tedious, error-prone manual review of chemical Safety Data Sheets against strict ECHA SVHC lists with zero hallucination guarantee.",
+    problemSolved: "Automated the manual review of chemical Safety Data Sheets against strict ECHA SVHC lists with deterministic regulatory validation.",
     architectureHighlights: [
       "Supervisor-Worker multi-agent orchestration using LangGraph with deterministic state checkpoints",
       "Live ECHA SVHC candidate list cross-referencing and GHS hazard statement (H350/H360) parsing",
@@ -571,7 +571,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
   {
     id: "test-order-management-platform",
     title: "Enterprise Lab Test Order Management Platform",
-    category: "Full-Stack Cloud & R&D OS",
+    category: "Full-Stack Cloud & R&D Platforms",
     disciplineBadge: "Laboratory Automation • Cloud Data Tracking",
     domain: "Chemicals & Materials",
     problemSolved: "Bridged the communication gap between research departments and physical testing laboratories, enabling structured test requests, result tracking, and file evaluation.",
@@ -680,7 +680,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
   {
     id: "patient-feedback-healthcare-system",
     title: "Patient Feedback Healthcare Analytics Platform",
-    category: "Full-Stack Cloud & R&D OS",
+    category: "Full-Stack Cloud & R&D Platforms",
     disciplineBadge: "Relational Modeling • Supabase & Flask",
     domain: "Life Sciences & Pharma",
     problemSolved: "Enabled hospitals to collect, analyze, and visualize patient feedback across medical staff, facilities, and stay experiences to drive clinical quality improvements.",

@@ -32,7 +32,7 @@ describe("Portfolio Data & Flagship Projects", () => {
   it("should contain the expanded enterprise systems catalog with 14 projects", () => {
     expect(ENTERPRISE_SYSTEMS_CATALOG.length).toBeGreaterThanOrEqual(12);
     const catalogTitles = ENTERPRISE_SYSTEMS_CATALOG.map((p) => p.title);
-    expect(catalogTitles).toContain("Enterprise Material Database & R&D OS");
+    expect(catalogTitles).toContain("Enterprise Material Database & R&D Platform");
     expect(catalogTitles).toContain("Industrial Plant Root Cause Failure Analysis (RCFA) GenAI");
     expect(catalogTitles).toContain("Multi-Modal RAG Data Assistant & Code Quality Reviewer");
     expect(catalogTitles).toContain("R&D Data Registry (RDDR) & ODIS Ontology Search");

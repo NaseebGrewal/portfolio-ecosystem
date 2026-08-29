@@ -15,8 +15,8 @@ export default function StrategicValueMatrix() {
     {
       capability: "Deterministic Regulatory Verification",
       genericStack: "Vulnerable to LLM hallucinations on statutory concentration thresholds",
-      legacySilo: "Manual compliance reviews taking 2-3 hours per consignment",
-      integratedArchitecture: "Deterministic LangGraph multi-agent swarms ensuring 0% hallucination on REACH SVHC thresholds"
+      legacySilo: "Manual compliance reviews taking 2-3 hours per Safety Data Sheet (SDS)",
+      integratedArchitecture: "Deterministic LangGraph multi-agent pipelines ensuring strict rule-based compliance against REACH SVHC thresholds"
     },
     {
       capability: "Production Latency & Microservice SLA",
@@ -41,8 +41,8 @@ export default function StrategicValueMatrix() {
   const pillars = [
     {
       title: "Agentic AI & Deterministic Governance",
-      desc: "LangGraph multi-agent swarms for SDS parsing, ECHA compliance, and RAG over multi-terabyte industrial data lakes.",
-      stat: "0% Hallucination on SVHC limits",
+      desc: "LangGraph multi-agent pipelines for SDS parsing, ECHA compliance, and RAG over multi-terabyte industrial data lakes.",
+      stat: "Deterministic Rule Verification",
       icon: <Cpu className="w-5 h-5 text-blue-600 dark:text-blue-400" />
     },
     {

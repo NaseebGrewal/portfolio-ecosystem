@@ -38,7 +38,7 @@ export default function ArchitectureViewer() {
               activeTab === "langgraph" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
-            Multi-Agent LangGraph Swarm
+            Multi-Agent LangGraph Pipeline
           </button>
           <button
             onClick={() => setActiveTab("finops")}

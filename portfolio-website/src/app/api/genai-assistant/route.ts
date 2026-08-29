@@ -46,9 +46,9 @@ const DETERMINISTIC_KNOWLEDGE: Record<string, string> = {
 
   chemical: `### ChemAgent-Gov: Multi-Agent Deterministic REACH & SDS Compliance
 
-1. **Deterministic Multi-Agent Swarm**: Supervisor-worker LangGraph multi-agent swarm parses incoming supplier SDS PDFs into structured Pydantic v2 schemas with zero hallucination.
+1. **Deterministic Multi-Agent Pipeline**: Supervisor-worker LangGraph multi-agent workflow parses incoming supplier SDS PDFs into structured Pydantic v2 schemas with deterministic validation.
 2. **Live ECHA Cross-Referencing**: Automated verification agent evaluates chemical CAS numbers against live ECHA SVHC candidate lists with strict 0.1% w/w regulatory boundary checks.
-3. **Regulatory Governance**: 0% hallucination rate on legal compliance thresholds; flags carcinogenic H350/H360 hazard statements and enforces automated human-in-the-loop review.`,
+3. **Regulatory Governance**: Deterministic rules on legal compliance thresholds; flags carcinogenic H350/H360 hazard statements and enforces automated human-in-the-loop review.`,
 
   rust: `### High-Performance Rust + WebAssembly (WASM) Rheology Engine
 
@@ -149,7 +149,7 @@ export async function POST(req: Request) {
 1. **Strategic Architecture Framing**: When tackling this technical domain, decouple high-throughput ingestion from stateful compute using asynchronous message brokers (e.g., AWS Kinesis or Redis Pub/Sub) to isolate traffic spikes.
 2. **Recommended Technology Stack**:
    - **API & Middleware Tier**: Containerized FastAPI / Next.js 15 App Router running on AWS ECS Fargate or Azure Container Apps with automated ALB load balancing.
-   - **Intelligence & Agentic Tier**: LangGraph supervisor-worker workflows with Redis SHA256 semantic caching for sub-10ms response on repetitive queries and zero hallucination guardrails.
+   - **Intelligence & Agentic Tier**: LangGraph supervisor-worker workflows with Redis SHA256 semantic caching for sub-10ms response on repetitive queries and deterministic validation guardrails.
    - **Storage & Ingestion**: MongoDB Atlas / DocumentDB for schema-flexible domain objects paired with Amazon S3 for immutable raw artifact logging.
 3. **Measurable ROI & Resilience**:
    - **Latency SLA**: Sub-45ms P99 API response times with horizontal autoscaling (2–10 worker tasks).

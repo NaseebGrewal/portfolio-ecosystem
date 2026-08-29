@@ -61,19 +61,19 @@ const PRESET_SCENARIOS: PromptScenario[] = [
   },
   {
     id: "rag",
-    label: "Sub-200ms RAG vs. 0% Hallucination",
+    label: "Low-Latency RAG & Compliance Guardrails",
     icon: <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />,
     category: "agents",
     domain: "Applied AI Systems",
-    query: "How do you achieve sub-200ms RAG retrieval while guaranteeing 0% hallucination on strict compliance datasheets?"
+    query: "How do you achieve sub-200ms RAG retrieval while enforcing deterministic guardrails on strict compliance datasheets?"
   },
   {
     id: "chemical",
-    label: "LangGraph Multi-Agent REACH Swarm",
+    label: "LangGraph Multi-Agent REACH Pipeline",
     icon: <FlaskConical className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />,
     category: "agents",
     domain: "Multi-Agent AI",
-    query: "How does your LangGraph multi-agent swarm eliminate hallucinations when auditing supplier SDS documents against live ECHA SVHC lists?"
+    query: "How does your LangGraph multi-agent pipeline enforce deterministic rules when auditing supplier SDS documents against live ECHA SVHC lists?"
   },
   {
     id: "rust",

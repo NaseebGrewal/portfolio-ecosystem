@@ -74,14 +74,24 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
         ))}
       </div>
 
-      {/* Fresh Executive Narrative (Value Focused) */}
-      <div className="max-w-3xl mb-8 space-y-3 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed font-light">
+      {/* Executive Narrative */}
+      <div className="max-w-3xl mb-8 space-y-4 text-slate-800 dark:text-slate-200 text-base sm:text-lg leading-relaxed font-light">
         <p>
-          I architect enterprise AI systems, high-throughput microservices, and R&D platforms across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, SAP, Meesho, and WONGDOODY</strong>), I specialize in eliminating legacy friction and engineering high-ROI systems.
+          I architect enterprise AI systems, high-throughput microservices, and specialized R&D platforms across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, IFF, Wongdoody (An Infosys Company), Heidelberg Materials, SAP, and Meesho</strong>), I specialize in eliminating legacy operational friction and engineering high-ROI systems.
         </p>
-        <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300">
-          Core Focus: In-house R&D Operating Systems (<strong className="text-emerald-800 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), deterministic agentic compliance swarms (LangGraph / REACH SDS), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.
-        </p>
+
+        {/* Distinct Unicorn-Grade Core Focus Showcase */}
+        <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-cyan-50/60 dark:from-blue-950/40 dark:via-slate-900/50 dark:to-cyan-950/30 border border-blue-200/80 dark:border-blue-900/50 shadow-xs">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-cyan-400" />
+            <span className="text-xs font-mono uppercase tracking-wider font-bold text-blue-700 dark:text-cyan-300">
+              Core Architectural Focus
+            </span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
+            Engineering in-house R&D platforms (<strong className="text-emerald-700 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), deterministic multi-agent compliance pipelines (LangGraph / REACH SDS validation), and client-side Rust/WASM numerical simulation engines deployed on AWS ECS and Azure.
+          </p>
+        </div>
       </div>
 
       {/* Key Headline Stat Cards */}

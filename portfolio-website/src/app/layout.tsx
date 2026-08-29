@@ -5,7 +5,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: `${CANDIDATE_PROFILE.name} | Senior AI Solutions Architect & R&D Digitalization Lead`,
-  description: `${CANDIDATE_PROFILE.name} — Enterprise AI solutions architect and full-stack digitalization leader with 7+ years bridging chemical materials science with generative AI, multi-agent swarms, and cloud distributed systems.`,
+  description: `${CANDIDATE_PROFILE.name} — AI solutions architect and engineering leader with 7+ years bridging physical materials science with generative AI, multi-agent pipelines, and cloud distributed systems.`,
   keywords: [
     "AI Solutions Architect",
     "R&D Digitalization",
