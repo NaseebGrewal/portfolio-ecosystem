@@ -4,11 +4,12 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Optional
-from app.rheology_engine import compute_tensile_invariants
+import time
+from app.rheology_engine import compute_tensile_invariants, is_rust_native_active
 
 app = FastAPI(
     title="Lab Rheology & Tensile Mechanics Engine API",
-    description="High-Speed Tensile Curve Fitting, Young's Modulus & Toughness Invariant Solver",
+    description="High-Speed Tensile Curve Fitting, Young's Modulus & Toughness Invariant Solver with Native Rust Core",
     version="1.0.0"
 )
 
@@ -36,10 +37,13 @@ class TensileCurveRequest(BaseModel):
 
 @app.get("/health")
 async def health():
+    rust_active = is_rust_native_active()
     return {
         "status": "healthy",
         "service": "rust-wasm-rheology-engine",
-        "engine_mode": "Vectorized Fast Numeric Core"
+        "engine_mode": "Native Compiled Rust Core (C-ABI SIMD)" if rust_active else "Vectorized Fast Numeric Core",
+        "rust_native_active": rust_active,
+        "iso_standards": ["ISO 527-1", "ISO 527-2"]
     }
 
 @app.get("/api/v1/rheology/samples")
@@ -56,14 +60,17 @@ async def get_curve_by_grade(grade_id: str):
 
 @app.post("/api/v1/rheology/analyze-curve")
 async def analyze_curve(req: TensileCurveRequest):
+    start = time.perf_counter()
     try:
         results = compute_tensile_invariants(req.strain_pct, req.stress_mpa)
+        elapsed_ms = round((time.perf_counter() - start) * 1000, 3)
         return {
             "sample_id": req.sample_id,
             "polymer_grade": req.polymer_grade,
             "data_points_analyzed": len(req.strain_pct),
             "mechanical_invariants": results,
-            "latency_ms": 0.85
+            "latency_ms": max(elapsed_ms, 0.08),
+            "engine": results.get("engine", "Fast Numeric Core")
         }
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))

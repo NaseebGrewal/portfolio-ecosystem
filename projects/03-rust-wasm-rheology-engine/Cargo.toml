@@ -1,0 +1,5 @@
+[workspace]
+members = [
+    "crates/rheology_core"
+]
+resolver = "2"

@@ -44,6 +44,19 @@ async def health():
         "finops_ledger": "active"
     }
 
+@app.get("/metrics")
+async def prometheus_metrics():
+    summary = await get_finops_summary()
+    lines = [
+        "# HELP gateway_total_spend_eur Total LLM spend in EUR",
+        "# TYPE gateway_total_spend_eur gauge",
+        f"gateway_total_spend_eur {summary['total_spend_eur']}",
+        "# HELP gateway_cache_hit_ratio_pct Percentage of cache hits",
+        "# TYPE gateway_cache_hit_ratio_pct gauge",
+        f"gateway_cache_hit_ratio_pct {summary['cache_hit_ratio_pct']}",
+    ]
+    return "\n".join(lines)
+
 @app.get("/api/v1/finops/report")
 async def finops_report():
     return await get_finops_summary()

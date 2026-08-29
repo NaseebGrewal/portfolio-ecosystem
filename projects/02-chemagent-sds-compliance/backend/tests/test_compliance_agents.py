@@ -9,6 +9,17 @@ async def test_healthcheck():
         response = await ac.get("/health")
     assert response.status_code == 200
     assert response.json()["status"] == "healthy"
+    assert "workflow_engine" in response.json()
+    assert "llm_engine" in response.json()
+
+@pytest.mark.asyncio
+async def test_get_sample_sds():
+    transport = ASGITransport(app=app)
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.get("/api/v1/sds/samples")
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data) >= 3
 
 @pytest.mark.asyncio
 async def test_audit_safe_sds():
@@ -27,6 +38,8 @@ async def test_audit_safe_sds():
     data = response.json()
     assert data["regulatory_audit"]["is_compliant"] is True
     assert data["regulatory_audit"]["audit_decision"] == "PASSED"
+    assert "agents_invoked" in data["agent_pipeline_execution"]
+    assert "SupervisorGatekeeperAgent" in data["agent_pipeline_execution"]["agents_invoked"]
 
 @pytest.mark.asyncio
 async def test_audit_svhc_violation_sds():
@@ -47,3 +60,19 @@ async def test_audit_svhc_violation_sds():
     assert data["regulatory_audit"]["audit_decision"] == "REJECTED_SVHC_DETECTED"
     assert len(data["regulatory_audit"]["flagged_substances"]) == 1
     assert data["regulatory_audit"]["flagged_substances"][0]["cas_number"] == "117-81-7"
+
+@pytest.mark.asyncio
+async def test_audit_unstructured_sds_extraction():
+    transport = ASGITransport(app=app)
+    payload = {
+        "raw_sds_text": "SAFETY DATA SHEET - Product: Plasticized Compound with 4.5% Bis(2-ethylhexyl) phthalate DEHP (CAS 117-81-7). Hazard: H360FD May damage fertility."
+    }
+    async with AsyncClient(transport=transport, base_url="http://test") as ac:
+        response = await ac.post("/api/v1/audit/sds-unstructured", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert len(data["extracted_composition"]) >= 1
+    assert data["regulatory_audit"]["is_compliant"] is False
+    assert data["regulatory_audit"]["audit_decision"] == "REJECTED_SVHC_DETECTED"
+    assert "SDSExtractorAgent" in data["agent_pipeline_execution"]["agents_invoked"]
+

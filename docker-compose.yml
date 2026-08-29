@@ -69,9 +69,19 @@ services:
       dockerfile: Dockerfile
     container_name: chemagent_backend
     restart: unless-stopped
+    env_file:
+      - path: ./portfolio-website/.env.local
+        required: false
+      - path: ./portfolio-website/.env
+        required: false
+      - path: ./projects/02-chemagent-sds-compliance/backend/.env
+        required: false
     environment:
       - PORT=8001
       - ENVIRONMENT=development
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - NEXT_PUBLIC_GEMINI_AI_API_KEY=${NEXT_PUBLIC_GEMINI_AI_API_KEY:-}
     ports:
       - "8001:8001"
     volumes:
@@ -82,8 +92,8 @@ services:
   # ----------------------------------------------------------------------------
   rheology_backend:
     build:
-      context: ./projects/03-rust-wasm-rheology-engine/backend
-      dockerfile: Dockerfile
+      context: ./projects/03-rust-wasm-rheology-engine
+      dockerfile: backend/Dockerfile
     container_name: rheology_backend
     restart: unless-stopped
     environment:
