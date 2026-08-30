@@ -1,7 +1,7 @@
 # ==============================================================================
 # Portfolio Ecosystem - Unified Monorepo Docker Compose
 # ==============================================================================
-# Starts all 5 applications with a single command:
+# Starts all 8 applications with a single command:
 #
 #   docker compose up --build
 #
@@ -12,6 +12,9 @@
 #   - Project 02 (ChemAgent API):        http://localhost:8001/docs
 #   - Project 03 (Rheology Engine API):  http://localhost:8002/docs
 #   - Project 04 (AI Gateway & FinOps):  http://localhost:8003/docs
+#   - Project 05 (Doc Intelligence API): http://localhost:8004/docs
+#   - Project 06 (Clinical Triage API):  http://localhost:8005/docs
+#   - Project 07 (Code Review AST API):  http://localhost:8006/docs
 #   - Shared Redis Cache:                localhost:6379
 # ==============================================================================
 
@@ -125,6 +128,57 @@ services:
       - ./projects/04-enterprise-ai-gateway-finops/backend:/app
 
   # ----------------------------------------------------------------------------
+  # Project 05: Multimodal Document Intelligence & Semantic Mesh (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  doc_intelligence_backend:
+    build:
+      context: ./projects/05-multimodal-document-intelligence/backend
+      dockerfile: Dockerfile
+    container_name: doc_intelligence_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8004
+      - ENVIRONMENT=development
+    ports:
+      - "8004:8004"
+    volumes:
+      - ./projects/05-multimodal-document-intelligence/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Project 06: Clinical NLP Patient Sentiment & Triage (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  clinical_triage_backend:
+    build:
+      context: ./projects/06-clinical-nlp-patient-sentiment-triage/backend
+      dockerfile: Dockerfile
+    container_name: clinical_triage_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8005
+      - ENVIRONMENT=development
+    ports:
+      - "8005:8005"
+    volumes:
+      - ./projects/06-clinical-nlp-patient-sentiment-triage/backend:/app
+
+  # ----------------------------------------------------------------------------
+  # Project 07: Autonomous AST Code Review & RAG Agent (FastAPI Backend)
+  # ----------------------------------------------------------------------------
+  code_review_backend:
+    build:
+      context: ./projects/07-autonomous-ast-code-review-agent/backend
+      dockerfile: Dockerfile
+    container_name: code_review_backend
+    restart: unless-stopped
+    environment:
+      - PORT=8006
+      - ENVIRONMENT=development
+    ports:
+      - "8006:8006"
+    volumes:
+      - ./projects/07-autonomous-ast-code-review-agent/backend:/app
+
+  # ----------------------------------------------------------------------------
   # Executive AI Portfolio Website (Next.js 15 Main Application)
   # ----------------------------------------------------------------------------
   portfolio_website:
@@ -145,6 +199,12 @@ services:
       - NEXT_PUBLIC_CHEMAGENT_API_URL=http://localhost:8001
       - NEXT_PUBLIC_RHEOLOGY_API_URL=http://localhost:8002
       - NEXT_PUBLIC_GATEWAY_API_URL=http://localhost:8003
+      - NEXT_PUBLIC_DOC_INTELLIGENCE_API_URL=http://localhost:8004
+      - NEXT_PUBLIC_CLINICAL_TRIAGE_API_URL=http://localhost:8005
+      - NEXT_PUBLIC_CODE_REVIEW_API_URL=http://localhost:8006
+      - NEXT_PUBLIC_PROJECT_5_GITHUB_URL=${NEXT_PUBLIC_PROJECT_5_GITHUB_URL:-}
+      - NEXT_PUBLIC_PROJECT_6_GITHUB_URL=${NEXT_PUBLIC_PROJECT_6_GITHUB_URL:-}
+      - NEXT_PUBLIC_PROJECT_7_GITHUB_URL=${NEXT_PUBLIC_PROJECT_7_GITHUB_URL:-}
       - NEXT_PUBLIC_PROFILE_IMAGE_URL=${NEXT_PUBLIC_PROFILE_IMAGE_URL:-}
     ports:
       - "3000:3000"
@@ -153,3 +213,6 @@ services:
       - chemagent_backend
       - rheology_backend
       - gateway_backend
+      - doc_intelligence_backend
+      - clinical_triage_backend
+      - code_review_backend

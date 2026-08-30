@@ -20,13 +20,22 @@ describe("Portfolio Data & Flagship Projects", () => {
     expect(companyNames).toContain("IIT Roorkee");
   });
 
-  it("should contain all 4 flagship projects with complete metadata", () => {
-    expect(FLAGSHIP_PROJECTS).toHaveLength(4);
+  it("should contain all 7 flagship projects with complete metadata and GitHub links", () => {
+    expect(FLAGSHIP_PROJECTS).toHaveLength(7);
     const titles = FLAGSHIP_PROJECTS.map((p) => p.title);
     expect(titles).toContain("Enterprise Materials Intelligence Platform");
     expect(titles).toContain("ChemAgent-Gov: Multi-Agent REACH Auditor");
     expect(titles).toContain("Ultra-Fast Lab Rheology & Mechanics Engine");
     expect(titles).toContain("Enterprise AI Gateway & FinOps Controller");
+    expect(titles).toContain("Multimodal Document Intelligence & Semantic Mesh");
+    expect(titles).toContain("Clinical NLP Patient Sentiment & Autonomous Triage");
+    expect(titles).toContain("Autonomous AST Code Review & RAG Agent");
+
+    // Verify all 7 projects have valid github URLs
+    FLAGSHIP_PROJECTS.forEach((p) => {
+      expect(p.githubUrl).toBeDefined();
+      expect(p.githubUrl.length).toBeGreaterThan(10);
+    });
   });
 
   it("should contain the expanded enterprise systems catalog with 14 projects", () => {

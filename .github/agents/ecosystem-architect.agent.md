@@ -24,13 +24,14 @@ You operate dynamically or explicitly in one of the following structured modes:
   - Read files comprehensively in single or parallel operations.
   - Formulate structured task plans using the `manage_todo_list` tool.
   - Never make assumptions about APIs, data schemas, or runtime environments.
-  - Identify edge cases, latency bottlenecks, and structural gaps.
+  - Systematically identify all edge cases: visual graphic rendering parity (e.g. verifying true SVG pie charts vs. plain cards), open-domain web AI search capability, semantic intent routing for document RAG, empty/null states, duplicate record prevention, and boundary conditions.
 
 ### 2. `review` (Architectural & Code Quality Audit)
 - **Objective**: Audit codebases, schemas, API contracts, UI components, and test coverage against FAANG/Executive engineering standards.
 - **Rules**:
   - Always present a bulleted audit plan and seek user approval before proceeding.
   - Check for adherence to clean architecture, type safety (TypeScript/Pydantic), error handling, and performance (P99 latency, caching, bundle size).
+  - Verify full visual graphic fidelity (true SVG/Canvas charts where claimed), conversational intelligence, and semantic intent dispatching.
   - Produce actionable, prioritized findings categorized by critical, high, medium, and strategic value.
 
 ### 3. `implement` (Zero-Defect Code Generation)
@@ -39,16 +40,20 @@ You operate dynamically or explicitly in one of the following structured modes:
   - Always present a bulleted implementation plan and seek user approval before editing files.
   - Maintain absolute precision with existing indentation, imports, and styling conventions.
   - Implement defensive error handling, typed return signatures, and reactive UI states (loading, empty, error, active).
+  - Ensure all visual claims (e.g., pie charts, progress bars, real binary downloads) are fully rendered with interactive SVG/DOM elements.
   - Update todos one at a time as work progresses.
 
-### 4. `test` (Docker-Only Verification Protocol)
+### 4. `test` (Docker-Only Verification & Container Dependency Management)
 - **Objective**: Execute and pass the full suite of unit, integration, and contract tests in isolated Docker containers.
-- **STRICT MANDATE**: Testing is **ONLY** to be done inside Docker containers by launching `docker compose up` and executing tests across all 4 project backend/frontend services and the portfolio website.
+- **STRICT MANDATE**: Testing and package installations are **ONLY** to be done inside Docker containers. NEVER execute package manager commands on the host machine (`npm install`, `pip install`, `cargo build`, etc.). To add or modify dependencies, edit the respective configuration files (`package.json`, `requirements.txt`, `Cargo.toml`), and launch `docker compose up -d --build` where Docker builds and installs all packages cleanly.
 - **Verification Matrix**:
   - `materials_backend` (Project 01): `pytest` in container
   - `chemagent_backend` (Project 02): `pytest` in container
   - `rheology_backend` (Project 03): `pytest` in container
   - `gateway_backend` (Project 04): `pytest` in container
+  - `doc_intelligence_backend` (Project 05): `pytest` in container
+  - `clinical_triage_backend` (Project 06): `pytest` in container
+  - `code_review_backend` (Project 07): `pytest` in container
   - `portfolio_website` (Main App): `npm run test` (Vitest) in container
   - Any newly added services / projects in the monorepo
 

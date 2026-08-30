@@ -20,9 +20,10 @@ This monorepo is an Executive-grade AI & R&D Digitalization portfolio containing
      - `Custom input from user`
   3. The agent MUST NOT proceed with editing files, running heavy investigations, or implementing changes until the user approves the plan.
 
-### 2. Docker-Only Testing & Fresh Build Rule
-- **All tests MUST be run exclusively inside Docker containers.**
-- **Fresh Build Guarantee**: Always build services via Docker Compose to ensure code changes are compiled and reflected in the running image:
+### 2. Docker-Only Testing & Dependency Management Rule (NO HOST COMMANDS)
+- **STRICT HOST EXECUTION PROHIBITION**: NEVER run package installation or build commands on the host machine (e.g., `npm install`, `pip install`, `cargo build`, `pip3`, `yarn`, `pnpm`). The host environment may lack node_modules, Python virtualenvs, or Rust toolchains by design.
+- **Dependency Changes**: When new packages or dependencies are needed, simply declare and update them in the appropriate config file (`package.json`, `requirements.txt`, `Cargo.toml`).
+- **Container Build & Execution**: Docker Compose will handle all dependency installations and compilation inside isolated Docker containers:
   ```bash
   docker compose up -d --build
   ```
@@ -36,11 +37,21 @@ This monorepo is an Executive-grade AI & R&D Digitalization portfolio containing
   - `docker compose exec -T chemagent_backend pytest`
   - `docker compose exec -T rheology_backend pytest`
   - `docker compose exec -T gateway_backend pytest`
+  - `docker compose exec -T doc_intelligence_backend pytest`
+  - `docker compose exec -T clinical_triage_backend pytest`
+  - `docker compose exec -T code_review_backend pytest`
   - `docker compose exec -T portfolio_website npm run test`
 - Alternatively, run `./scripts/docker-test-all.sh`.
-- All 5 test suites must pass 100% with zero failures.
+- All test suites must pass 100% with zero failures.
 
-### 3. Browser Visual, Responsive Form Factors & Live Update Verification Rule
+### 3. Comprehensive Edge-Case Analysis & Deep Verification Rule
+- **Mandatory Edge-Case Discovery**: When analyzing, planning, or implementing any feature, the agent MUST systematically identify and address all operational and visual edge cases:
+  1. **Visual Graphic Parity**: If a UI section claims to display visual graphics (e.g., "Bar Graphs & Pie Charts"), ensure actual visual charts (interactive SVG/Canvas elements with responsive scales, tooltips, and legends) are implemented rather than just numeric summary cards.
+  2. **Conversational AI & Open-Domain Intelligence**: Chatbot agents must deliver rich responses for general knowledge, technical queries, math, coding, and web-scale questions when no document is loaded, leveraging active API routes (`/api/genai-assistant`) or pre-trained knowledge bases.
+  3. **Semantic Query Intent Routing in RAG**: When querying indexed documents, distinguish between holistic queries (*"what is mentioned in this document"*, *"summarize this paper"*, *"overview"*)—which require synthesized multi-section executive overviews—and granular technical queries (*"ISO 527 modulus"*, *"Carreau-Yasuda equation"*, *"SVHC limit"*)—which require focused mathematical formulations and exact section citations.
+  4. **Data Integrity & Form Lifecycle**: Validate duplicate records (e.g., blocking identical patient IDs/MRNs), provide clean reset mechanisms, handle empty/loading/error states defensively, and prevent UI state leakage.
+
+### 4. Browser Visual, Responsive Form Factors & Live Update Verification Rule
 - Once all Docker builds and tests pass, the agent MUST verify that the live application at `http://localhost:3000` (and `http://localhost:3001` if materials frontend was altered) displays the newly implemented updates (not a stale prior build).
 - **Mandatory 3-Device Responsive Testing**:
   1. **Mobile Viewport (375px–430px)**: Verify navigation ribbon/drawer, stacked vertical layout, full-bleed images, touch target sizing, and zero horizontal overflow.
@@ -49,8 +60,8 @@ This monorepo is an Executive-grade AI & R&D Digitalization portfolio containing
 - Use local browser inspection tools to inspect `http://localhost:3000`.
 - Verify interactive widgets, layout responsiveness, contrast, and console health.
 
-### 4. Post-Execution Summary & Final Sign-Off Rule
-- Only AFTER all Docker builds exit with code 0, all 5 test suites pass 100%, and live updates are verified on `http://localhost:3000`, present a bulleted summary checklist of all completed work.
+### 5. Post-Execution Summary & Final Sign-Off Rule
+- Only AFTER all Docker builds exit with code 0, all test suites pass 100%, and live updates are verified on `http://localhost:3000`, present a bulleted summary checklist of all completed work.
 - Prompt the user for final sign-off with two explicit options:
   1. `Yes, approve and finalize`
   2. `Custom input from user`

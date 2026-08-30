@@ -31,7 +31,10 @@ portfolio-ecosystem/
     ├── 01-materials-intelligence-platform/    # FastAPI + Next.js + MongoDB + Redis + ECS
     ├── 02-chemagent-sds-compliance/           # LangGraph Multi-Agent ECHA/REACH Auditor
     ├── 03-rust-wasm-rheology-engine/          # Rust + WASM + Python Tensile Mechanics Engine
-    └── 04-enterprise-ai-gateway-finops/       # FastAPI + Redis Semantic Cache + FinOps Quotas
+    ├── 04-enterprise-ai-gateway-finops/       # FastAPI + Redis Semantic Cache + FinOps Quotas
+    ├── 05-multimodal-document-intelligence/   # FastAPI + OCR + Vision Transformer + Semantic Mesh
+    ├── 06-clinical-nlp-patient-sentiment-triage/# BioBERT + PHI Redaction + Emergency Triage
+    └── 07-autonomous-ast-code-review-agent/   # Python AST + CWE Security Gate + FAISS RAG
 ```
 
 ---
