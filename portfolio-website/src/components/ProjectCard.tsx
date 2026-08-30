@@ -84,12 +84,12 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.liveDemoUrl && (
             <a
               href={project.liveDemoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+              target={project.liveDemoUrl.startsWith("http") ? "_blank" : undefined}
+              rel={project.liveDemoUrl.startsWith("http") ? "noopener noreferrer" : undefined}
               className="py-2 px-3 rounded-xl bg-blue-50 hover:bg-blue-100 dark:bg-blue-600/20 dark:hover:bg-blue-600/30 border border-blue-200 dark:border-blue-500/30 text-blue-700 dark:text-blue-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-all shadow-xs"
             >
               <span>Live Sandbox</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              {project.liveDemoUrl.startsWith("http") && <ExternalLink className="w-3.5 h-3.5" />}
             </a>
           )}
         </div>

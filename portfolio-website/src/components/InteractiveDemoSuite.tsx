@@ -1319,66 +1319,149 @@ export default function InteractiveDemoSuite() {
 
     setFeedbackError(null);
     setIsSubmittingFeedback(true);
-    setTimeout(() => {
-      const lower = patientComment.toLowerCase();
-      const isCritical =
-        lower.includes("shortness of breath") ||
-        lower.includes("allergic reaction") ||
-        lower.includes("anaphylaxis") ||
-        overallExp === 1;
 
-      const priority: "CRITICAL" | "HIGH" | "MODERATE" | "ROUTINE" = isCritical
-        ? "CRITICAL"
-        : overallExp === 2
-        ? "HIGH"
-        : overallExp === 3
-        ? "MODERATE"
-        : "ROUTINE";
-      const slaTarget = isCritical ? "15 mins" : overallExp === 2 ? "1 hour" : overallExp === 3 ? "4 hours" : "24 hours";
-      const action = isCritical
-        ? "ESCALATION: Chief Medical Officer alerted. Acute trigger detected. Bedside check dispatched."
-        : overallExp <= 2
-        ? "DEPARTMENT REVIEW: Patient relations lead assigned to investigate service complaint."
-        : "COMMENDATION: Routed to departmental quality circle and staff recognition board.";
+    const submitDirectly = async () => {
+      // 1. If Clinical Triage API (Project 06) is online, call live FastAPI endpoint
+      if (apiStatus.clinical_triage === "online") {
+        try {
+          const payload = {
+            patient_id: currentId,
+            patient_name: patientName.trim() || "Anonymous Patient",
+            room: patientRoom.trim() || "Ward 2",
+            date: patientDate || new Date().toISOString().split("T")[0],
+            department: clinicalDept,
+            overall_experience: overallExp,
+            doctor_care: docCare,
+            doctor_communication: docComm,
+            nurse_care: nurseCare,
+            food_quality: foodQuality,
+            accommodation: accommodation,
+            sanitization: sanitization,
+            safety: safety,
+            staff_support: staffSupport,
+            doctor_involved: docInvolvement === "yes",
+            nurse_prompt: nursePromptness === "yes",
+            cleanliness: cleanliness === "yes",
+            information_timely: timelyInfo === "yes",
+            medication_info: medInfo === "yes",
+            comments: patientComment,
+          };
 
-      const newEntry = {
-        id: `TRG-${Math.floor(1000 + Math.random() * 9000)}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`,
-        patientId: currentId,
-        patientName: patientName.trim() || "Anonymous Patient",
-        room: patientRoom.trim() || "Ward 2",
-        date: patientDate || new Date().toISOString().split("T")[0],
-        dept: clinicalDept,
-        overallExp,
-        docCare,
-        docComm,
-        nurseCare,
-        foodQuality,
-        accommodation,
-        sanitization,
-        safety,
-        staffSupport,
-        yesNoAnswers: {
-          docInvolvement,
-          nursePromptness,
-          cleanliness,
-          timelyInfo,
-          medInfo
-        },
-        comments: patientComment.replace(/Room \d+/g, "[PHI-ROOM-REDACTED]"),
-        priority,
-        slaTarget,
-        action,
-        timestamp: "Just now"
-      };
+          const res = await fetch(`${clinicalTriageApiUrl}/api/v1/triage/ingest`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+            signal: AbortSignal.timeout(3000),
+          });
 
-      setInMemoryFeedbacks((prev) => [newEntry, ...prev]);
-      setIsSubmittingFeedback(false);
-      setFeedbackSubmitSuccess(`Feedback logged as ${newEntry.id} (Priority: ${priority}). In-memory analytics & charts updated live.`);
-      setTimeout(() => setFeedbackSubmitSuccess(null), 4500);
+          if (res.ok) {
+            const ticketData = await res.json();
+            const newEntry = {
+              id: ticketData.ticket_id || `TRG-${Math.floor(1000 + Math.random() * 9000)}`,
+              patientId: currentId,
+              patientName: ticketData.feedback?.patient_name || patientName.trim() || "Anonymous Patient",
+              room: ticketData.feedback?.room || patientRoom.trim() || "Ward 2",
+              date: patientDate || new Date().toISOString().split("T")[0],
+              dept: clinicalDept,
+              overallExp,
+              docCare,
+              docComm,
+              nurseCare,
+              foodQuality,
+              accommodation,
+              sanitization,
+              safety,
+              staffSupport,
+              yesNoAnswers: {
+                docInvolvement,
+                nursePromptness,
+                cleanliness,
+                timelyInfo,
+                medInfo
+              },
+              comments: ticketData.deidentified_text || patientComment.replace(/Room \d+/g, "[PHI-ROOM-REDACTED]"),
+              priority: ticketData.priority as "CRITICAL" | "HIGH" | "MODERATE" | "ROUTINE",
+              slaTarget: ticketData.sla_target || (overallExp === 1 ? "15 mins" : "24 hours"),
+              action: ticketData.recommended_action || "Processed via Clinical NLP Microservice",
+              timestamp: "Just now"
+            };
 
-      // Cleanly reset form inputs upon successful submission
-      resetClinicalForm();
-    }, 450);
+            setInMemoryFeedbacks((prev) => [newEntry, ...prev]);
+            setIsSubmittingFeedback(false);
+            setFeedbackSubmitSuccess(`Feedback processed via FastAPI (Port 8005) as ${newEntry.id} (Priority: ${newEntry.priority}).`);
+            setTimeout(() => setFeedbackSubmitSuccess(null), 4500);
+            resetClinicalForm();
+            return;
+          }
+        } catch {
+          // Graceful fallback to client engine
+        }
+      }
+
+      // Fallback in-memory scoring engine
+      setTimeout(() => {
+        const lower = patientComment.toLowerCase();
+        const isCritical =
+          lower.includes("shortness of breath") ||
+          lower.includes("allergic reaction") ||
+          lower.includes("anaphylaxis") ||
+          overallExp === 1;
+
+        const priority: "CRITICAL" | "HIGH" | "MODERATE" | "ROUTINE" = isCritical
+          ? "CRITICAL"
+          : overallExp === 2
+          ? "HIGH"
+          : overallExp === 3
+          ? "MODERATE"
+          : "ROUTINE";
+        const slaTarget = isCritical ? "15 mins" : overallExp === 2 ? "1 hour" : overallExp === 3 ? "4 hours" : "24 hours";
+        const action = isCritical
+          ? "ESCALATION: Chief Medical Officer alerted. Acute trigger detected. Bedside check dispatched."
+          : overallExp <= 2
+          ? "DEPARTMENT REVIEW: Patient relations lead assigned to investigate service complaint."
+          : "COMMENDATION: Routed to departmental quality circle and staff recognition board.";
+
+        const newEntry = {
+          id: `TRG-${Math.floor(1000 + Math.random() * 9000)}${String.fromCharCode(65 + Math.floor(Math.random() * 26))}`,
+          patientId: currentId,
+          patientName: patientName.trim() || "Anonymous Patient",
+          room: patientRoom.trim() || "Ward 2",
+          date: patientDate || new Date().toISOString().split("T")[0],
+          dept: clinicalDept,
+          overallExp,
+          docCare,
+          docComm,
+          nurseCare,
+          foodQuality,
+          accommodation,
+          sanitization,
+          safety,
+          staffSupport,
+          yesNoAnswers: {
+            docInvolvement,
+            nursePromptness,
+            cleanliness,
+            timelyInfo,
+            medInfo
+          },
+          comments: patientComment.replace(/Room \d+/g, "[PHI-ROOM-REDACTED]"),
+          priority,
+          slaTarget,
+          action,
+          timestamp: "Just now"
+        };
+
+        setInMemoryFeedbacks((prev) => [newEntry, ...prev]);
+        setIsSubmittingFeedback(false);
+        setFeedbackSubmitSuccess(`Feedback logged as ${newEntry.id} (Priority: ${priority}). In-memory analytics & charts updated live.`);
+        setTimeout(() => setFeedbackSubmitSuccess(null), 4500);
+
+        // Cleanly reset form inputs upon successful submission
+        resetClinicalForm();
+      }, 450);
+    };
+
+    submitDirectly();
   };
 
   // ============================================================================
@@ -1872,8 +1955,75 @@ if __name__ == "__main__":
   };
 
   // Run AST Code Review
-  const handleExecuteCodeReview = () => {
+  const handleExecuteCodeReview = async () => {
     setIsAnalyzingCode(true);
+
+    // 1. If Code Review API (Project 07) is online, call live FastAPI AST scanner
+    if (apiStatus.code_review === "online") {
+      try {
+        const analyzeRes = await fetch(`${codeReviewApiUrl}/api/v1/review/analyze`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            code: codeText,
+            filename: "material_recipe_audit.py",
+            language: "python"
+          }),
+          signal: AbortSignal.timeout(3500)
+        });
+
+        if (analyzeRes.ok) {
+          const analyzeData = await analyzeRes.json();
+          
+          // Request unified diff patch
+          const patchRes = await fetch(`${codeReviewApiUrl}/api/v1/review/patch`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              code: codeText,
+              filename: "material_recipe_audit.py"
+            }),
+            signal: AbortSignal.timeout(3500)
+          });
+
+          let patchObj: any = null;
+          if (patchRes.ok) {
+            const pData = await patchRes.json();
+            patchObj = {
+              diff: pData.diff_preview,
+              corrected: pData.patched_code,
+              fixes: pData.applied_fixes || ["Automated AST refactoring applied"]
+            };
+          }
+
+          setCodeReviewResult({
+            syntaxValid: analyzeData.syntax_valid,
+            qualityScore: analyzeData.quality_score,
+            securityScore: analyzeData.security_score,
+            maintainability: analyzeData.maintainability_score,
+            loc: analyzeData.metrics?.loc || codeText.split("\n").filter((l) => l.trim()).length,
+            complexity: analyzeData.metrics?.cyclomatic_complexity || 1,
+            issues: (analyzeData.issues || []).map((iss: any) => ({
+              rule: iss.rule_id,
+              severity: iss.severity,
+              line: iss.line_number,
+              message: iss.message,
+              suggestion: iss.suggestion,
+              cwe: iss.cwe_id
+            })),
+            summary: analyzeData.summary
+          });
+
+          setPatchResult(patchObj);
+          setIsAnalyzingCode(false);
+          return;
+        }
+      } catch {
+        // Fallback to client engine
+      }
+    }
+
+    // Client-side fallback analyzer
     setTimeout(() => {
       const lines = codeText.split("\n");
       const issues: any[] = [];

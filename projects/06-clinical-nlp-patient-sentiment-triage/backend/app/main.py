@@ -7,6 +7,7 @@ import time
 from typing import List, Optional
 from fastapi import FastAPI, HTTPException, status, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from app.models import (
     PatientFeedbackInput,
@@ -24,6 +25,9 @@ app = FastAPI(
     title="Clinical NLP Patient Sentiment & Triage API",
     description="HIPAA-Aligned Patient Feedback Intelligence & Automated Clinical Risk Triage",
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 app.add_middleware(
@@ -33,6 +37,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health", tags=["Health"])

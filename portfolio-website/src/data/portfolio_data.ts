@@ -380,6 +380,35 @@ export const CANDIDATE_PROFILE = {
   ] as Certification[]
 };
 
+// Helper to determine GitHub URLs
+const getProjectGithubUrl = (projectNum: number, dirName: string) => {
+  const envVar = (process.env as Record<string, string | undefined>)[`NEXT_PUBLIC_PROJECT_${projectNum}_GITHUB_URL`];
+  if (envVar) return envVar;
+  if (process.env.NEXT_PUBLIC_GITHUB_URL) {
+    return `${process.env.NEXT_PUBLIC_GITHUB_URL}/portfolio-ecosystem/tree/main/projects/${dirName}`;
+  }
+  return `https://github.com/your-username/portfolio-ecosystem/tree/main/projects/${dirName}`;
+};
+
+// Helper to determine Live Demo Swagger / API URLs directly from real API environment variables
+const getProjectLiveDemoUrl = (projectNum: number) => {
+  const apiMap: Record<number, { envVar: string | undefined; defaultPort: number }> = {
+    1: { envVar: process.env.NEXT_PUBLIC_MATERIALS_API_URL, defaultPort: 8000 },
+    2: { envVar: process.env.NEXT_PUBLIC_CHEMAGENT_API_URL, defaultPort: 8001 },
+    3: { envVar: process.env.NEXT_PUBLIC_RHEOLOGY_API_URL, defaultPort: 8002 },
+    4: { envVar: process.env.NEXT_PUBLIC_GATEWAY_API_URL, defaultPort: 8003 },
+    5: { envVar: process.env.NEXT_PUBLIC_DOC_INTELLIGENCE_API_URL, defaultPort: 8004 },
+    6: { envVar: process.env.NEXT_PUBLIC_CLINICAL_TRIAGE_API_URL, defaultPort: 8005 },
+    7: { envVar: process.env.NEXT_PUBLIC_CODE_REVIEW_API_URL, defaultPort: 8006 },
+  };
+
+  const target = apiMap[projectNum];
+  const baseUrl = (target?.envVar || `http://localhost:${target?.defaultPort || 8000}`).replace(/\/$/, "");
+
+  // All FastAPI microservices expose interactive Swagger documentation at /docs
+  return baseUrl.endsWith("/docs") ? baseUrl : `${baseUrl}/docs`;
+};
+
 export const FLAGSHIP_PROJECTS: Project[] = [
   {
     id: "materials-intelligence-platform",
@@ -389,8 +418,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     businessImpact: "Replaced high-cost third-party vendor platforms with a custom in-house R&D platform, saving €1.2M+ in recurring licenses for 150+ researchers across global plants.",
     vendorCostSaved: "€1.2M+",
     stack: ["FastAPI", "Next.js 15", "MongoDB", "Redis", "AWS ECS Fargate", "Docker", "GitHub Actions"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/01-materials-intelligence-platform` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform"),
-    liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_1_DEMO_URL || undefined,
+    githubUrl: getProjectGithubUrl(1, "01-materials-intelligence-platform"),
+    liveDemoUrl: getProjectLiveDemoUrl(1),
     architectureHighlights: [
       "Full Recipe & Formulation Lifecycle: multi-ingredient stoichiometry, batch versioning & parent-child trees",
       "Excel-Grade Master Filtering: high-density property grids with multi-column filters & real-time statistics",
@@ -409,8 +438,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Automated Multi-Agent SDS Parsing, ECHA SVHC Cross-Referencing & Regulatory Verification",
     businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier SDS with deterministic validation against statutory thresholds.",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/02-chemagent-sds-compliance` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance"),
-    liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_2_DEMO_URL || undefined,
+    githubUrl: getProjectGithubUrl(2, "02-chemagent-sds-compliance"),
+    liveDemoUrl: getProjectLiveDemoUrl(2),
     architectureHighlights: [
       "Supervisor-Worker multi-agent LangGraph workflow with deterministic verification",
       "Deterministic rule evaluation over live ECHA REACH SVHC chemical registries",
@@ -429,8 +458,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Sub-Millisecond Tensile Curve-Fitting & Mechanical Invariant Calculation",
     businessImpact: "Achieved significant computation speedups over legacy laboratory desktop tooling with instant client-side WebAssembly execution.",
     stack: ["Rust", "WebAssembly (WASM)", "Axum", "FastAPI", "Next.js 15", "Plotly"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/03-rust-wasm-rheology-engine` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine"),
-    liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_3_DEMO_URL || undefined,
+    githubUrl: getProjectGithubUrl(3, "03-rust-wasm-rheology-engine"),
+    liveDemoUrl: getProjectLiveDemoUrl(3),
     architectureHighlights: [
       "Zero-latency client-side polynomial regression via compiled WebAssembly",
       "ISO 527-1 Young's Modulus and 0.2% offset yield stress mathematical solvers",
@@ -449,8 +478,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Semantic Caching, Departmental Token Quotas & Multi-Cloud Fallback",
     businessImpact: "Reduced enterprise LLM operational costs by 42% through semantic caching while enforcing strict data privacy and EU AI Act guardrails.",
     stack: ["FastAPI", "Redis", "LiteLLM", "OpenTelemetry", "Docker", "Prometheus"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/04-enterprise-ai-gateway-finops` : "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops"),
-    liveDemoUrl: process.env.NEXT_PUBLIC_PROJECT_4_DEMO_URL || undefined,
+    githubUrl: getProjectGithubUrl(4, "04-enterprise-ai-gateway-finops"),
+    liveDemoUrl: getProjectLiveDemoUrl(4),
     architectureHighlights: [
       "Sub-5ms semantic prompt cache hits using Redis SHA256 and exact prompt indexing",
       "Departmental budget controls preventing unintended token consumption across R&D",
@@ -469,8 +498,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "High-Throughput PDF Merging, Token-Aware Semantic Chunking & PII Redaction",
     businessImpact: "Accelerated enterprise document ingestion throughput to 450 pages/sec with automated GDPR/HIPAA-aligned PII/PHI redaction across chemical TDS & SDS dossiers.",
     stack: ["FastAPI", "Python 3.12", "PyPDF", "Regex PII Masking", "Docker", "REST API"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_5_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/05-multimodal-document-intelligence` : "https://github.com/your-username/multimodal-document-intelligence"),
-    liveDemoUrl: "#interactive-demo",
+    githubUrl: getProjectGithubUrl(5, "05-multimodal-document-intelligence"),
+    liveDemoUrl: getProjectLiveDemoUrl(5),
     architectureHighlights: [
       "Zero-loss multi-file PDF stream merging with dynamic bookmark trees and metadata stripping",
       "Deterministic regex & NLP PII redaction engine masking emails, SSNs, phone numbers, and credentials",
@@ -489,8 +518,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "HIPAA Safe Harbor PHI Redaction, Clinical Distress Radar & Emergency Triage Dispatch",
     businessImpact: "Reduced emergency clinical complaint response time from 4 hours to sub-15 minutes via autonomous severity categorization.",
     stack: ["FastAPI", "Python 3.12", "In-Memory JSON", "Redis", "HIPAA PHI Stripper", "Docker"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_6_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/06-clinical-nlp-patient-sentiment-triage` : "https://github.com/your-username/clinical-patient-feedback-system"),
-    liveDemoUrl: "#interactive-demo",
+    githubUrl: getProjectGithubUrl(6, "06-clinical-nlp-patient-sentiment-triage"),
+    liveDemoUrl: getProjectLiveDemoUrl(6),
     architectureHighlights: [
       "HIPAA Safe Harbor de-identification replacing patient names, MRNs, phone numbers, and room locations",
       "Multi-dimensional clinical experience radar (Doctor Care, Nurse Promptness, Cleanliness, Medication Clarity)",
@@ -509,8 +538,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "Tree-Sitter / AST Static Analysis, CWE-89/95 Security Auditing & 1-Click Git Diff Patching",
     businessImpact: "Master's thesis research system delivering automated static & semantic code reviews with verified 100% boundary test coverage.",
     stack: ["FastAPI", "Python 3.12", "Python AST", "Gemini RAG", "CWE Security", "FAISS Index"],
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_7_GITHUB_URL || (process.env.NEXT_PUBLIC_GITHUB_URL ? `${process.env.NEXT_PUBLIC_GITHUB_URL}/tree/main/projects/07-autonomous-ast-code-review-agent` : "https://github.com/your-username/masters-thesis-rag-code-reviewer"),
-    liveDemoUrl: "#interactive-demo",
+    githubUrl: getProjectGithubUrl(7, "07-autonomous-ast-code-review-agent"),
+    liveDemoUrl: getProjectLiveDemoUrl(7),
     architectureHighlights: [
       "Abstract Syntax Tree (AST) parser pinpointing syntax failures, node hierarchy, and cyclomatic complexity",
       "CWE & OWASP security scanner detecting dynamic eval execution, SQL injections, and hardcoded secrets",

@@ -8,7 +8,7 @@ import time
 from typing import List, Optional
 from fastapi import FastAPI, UploadFile, File, Form, HTTPException, Response, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import JSONResponse, StreamingResponse, RedirectResponse
 
 from app.models import (
     DocumentMetadata,
@@ -27,6 +27,9 @@ app = FastAPI(
     title="Multimodal Document Intelligence API",
     description="High-Throughput PDF Merging, Redaction, and Semantic Chunking Microservice",
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 app.add_middleware(
@@ -45,6 +48,11 @@ PIPELINE_METRICS = {
     "total_redactions_applied": 0,
     "uptime_start": time.time(),
 }
+
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health", tags=["Health"])

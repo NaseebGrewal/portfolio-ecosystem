@@ -6,6 +6,7 @@ Tree-Sitter / AST static analysis, Ruff rule scanning, CWE security auditing, an
 from typing import List, Dict, Any
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 
 from app.models import (
     CodeReviewRequest,
@@ -24,6 +25,9 @@ app = FastAPI(
     title="Autonomous AST Code Review Agent API",
     description="AST Static Analysis, CWE Security Auditing, Automated Patch Refactoring & RAG Review Assistant",
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
 )
 
 app.add_middleware(
@@ -33,6 +37,11 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 
 @app.get("/health", tags=["Health"])
