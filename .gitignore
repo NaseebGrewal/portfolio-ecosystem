@@ -81,6 +81,12 @@ wheels/
 .installed.cfg
 *.egg
 
+# Exception: the portfolio website's frontend source library (Next.js src/lib
+# convention) must be tracked — the Python 'lib/' artifact rule above would
+# otherwise silently swallow it.
+!portfolio-website/src/lib/
+!portfolio-website/src/lib/**
+
 # --- Rust & WebAssembly Artifacts ---
 target/
 **/*.rs.bk

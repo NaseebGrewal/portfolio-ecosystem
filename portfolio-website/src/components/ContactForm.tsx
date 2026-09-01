@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import {
   Send,
   CheckCircle2,
@@ -14,8 +14,29 @@ import {
   RefreshCw,
   X,
   User,
-  Building2
+  Building2,
+  ArrowLeft,
+  AlertTriangle,
+  ClipboardCheck,
+  Eye,
+  PenLine
 } from "lucide-react";
+import { suggestEmailDomain } from "../lib/emailDomain";
+
+/** Compact per-row "Edit" action used on the review screen (>=44px touch target on mobile). */
+function ReviewEditButton({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Edit ${label}`}
+      className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1.5 min-h-[44px] sm:min-h-[36px] rounded-lg text-[11px] font-semibold text-blue-700 dark:text-cyan-400 bg-blue-50 hover:bg-blue-100 dark:bg-blue-950/60 dark:hover:bg-blue-950 border border-blue-200 dark:border-blue-900 transition-colors cursor-pointer"
+    >
+      <PenLine className="w-3 h-3" />
+      Edit
+    </button>
+  );
+}
 
 export interface ContactFormProps {
   onCancel?: () => void;
@@ -85,6 +106,12 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
     timestamp: string;
   } | null>(null);
 
+  // Two-step "Check your answers" flow: editing -> reviewing -> (confirmed) sending
+  const [step, setStep] = useState<"editing" | "reviewing">("editing");
+  const [suggestionDismissed, setSuggestionDismissed] = useState(false);
+  const [focusTarget, setFocusTarget] = useState<string | null>(null);
+  const reviewHeadingRef = useRef<HTMLHeadingElement | null>(null);
+
   useEffect(() => {
     if (initialTopic) {
       const matchedBadge = TOPIC_BADGES.find(
@@ -98,6 +125,17 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
       }
     }
   }, [initialTopic]);
+
+  // Focus management across steps: move focus to the review heading on enter,
+  // and back to the originating field when jumping in via a per-row "Edit".
+  useEffect(() => {
+    if (step === "reviewing") {
+      reviewHeadingRef.current?.focus();
+    } else if (focusTarget) {
+      document.getElementById(focusTarget)?.focus();
+      setFocusTarget(null);
+    }
+  }, [step, focusTarget]);
 
   // Validation & Effective Topic Calculation
   const isEmailValid = useMemo(() => EMAIL_REGEX.test(email.trim()), [email]);
@@ -124,11 +162,25 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
 
   const isFormValid = isEmailValid && isTopicValid && isMessageValid;
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setTouchedEmail(true);
-    setTouchedMessage(true);
+  // "Did you mean ...?" typo guard — syntactically valid emails can still carry
+  // misspelled domains (gmal.com), silently breaking the confirmation/reply loop.
+  const emailSuggestion = useMemo(
+    () => (isEmailValid && !suggestionDismissed ? suggestEmailDomain(email) : null),
+    [email, isEmailValid, suggestionDismissed]
+  );
 
+  const applyEmailSuggestion = () => {
+    if (!emailSuggestion) return;
+    setEmail(emailSuggestion.fullEmail);
+    setSuggestionDismissed(true);
+  };
+
+  const enterEditMode = (targetId?: string) => {
+    setFocusTarget(targetId ?? null);
+    setStep("editing");
+  };
+
+  const sendMessage = async () => {
     if (!isFormValid || isSubmitting) return;
 
     setIsSubmitting(true);
@@ -173,6 +225,23 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
     }
   };
 
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setTouchedEmail(true);
+    setTouchedMessage(true);
+
+    if (!isFormValid || isSubmitting) return;
+
+    // Enterprise "Check your answers" gate: submitting the form only advances
+    // to the review step; transmission happens on explicit confirmation there.
+    if (step === "editing") {
+      setStep("reviewing");
+      return;
+    }
+
+    void sendMessage();
+  };
+
   const handleReset = () => {
     setSenderName("");
     setOrganization("");
@@ -189,6 +258,9 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
     setStatus("idle");
     setErrorMessage("");
     setSubmissionReceipt(null);
+    setStep("editing");
+    setSuggestionDismissed(false);
+    setFocusTarget(null);
   };
 
   if (status === "success" && submissionReceipt) {
@@ -247,6 +319,169 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
     );
   }
 
+  // -- Step 2: "Check your answers" review gate (GOV.UK design pattern) ------
+  if (step === "reviewing") {
+    const contextRows = [
+      { label: "Name", value: senderName.trim(), target: "cf-name" },
+      { label: "Organization", value: organization.trim(), target: "cf-organization" },
+      { label: "Your role", value: senderRole, target: "cf-role" },
+      { label: "Budget", value: budgetRange, target: "cf-budget" },
+      { label: "Timeline", value: timeline, target: "cf-timeline" },
+    ];
+
+    return (
+      <div className="space-y-5 text-left animate-in fade-in slide-in-from-bottom-2 duration-300">
+        <p className="sr-only" role="status">
+          Review step: please verify all entered information before sending.
+        </p>
+
+        {/* Review header */}
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 flex items-center justify-center text-blue-600 dark:text-cyan-400 shrink-0">
+            <ClipboardCheck className="w-5 h-5" />
+          </div>
+          <div>
+            <h3
+              ref={reviewHeadingRef}
+              tabIndex={-1}
+              className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white tracking-tight focus:outline-hidden"
+            >
+              Review your message
+            </h3>
+            <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+              One last check before this reaches my inbox — especially your email address.
+            </p>
+          </div>
+        </div>
+
+        {/* Email — visually emphasized, highest-risk field */}
+        <div className="rounded-xl border-2 border-amber-300/80 dark:border-amber-500/40 bg-amber-50/80 dark:bg-amber-950/20 p-4">
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 text-[11px] font-mono font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-400 mb-1">
+                <AlertTriangle className="w-3.5 h-3.5" />
+                Email — confirmation goes here
+              </div>
+              <p className="text-sm font-semibold text-slate-900 dark:text-white break-all">
+                {email.trim()}
+              </p>
+              <p className="text-[11px] text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                Your receipt and my reply are sent to this address — please double-check the spelling.
+              </p>
+              {emailSuggestion && (
+                <div role="alert" className="mt-2 flex flex-wrap items-center gap-2 text-[11px]">
+                  <span className="text-amber-800 dark:text-amber-300">
+                    Did you mean <strong className="font-semibold">{emailSuggestion.fullEmail}</strong>?
+                  </span>
+                  <button
+                    type="button"
+                    onClick={applyEmailSuggestion}
+                    className="px-2 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white font-semibold transition-colors cursor-pointer"
+                  >
+                    Use suggestion
+                  </button>
+                </div>
+              )}
+            </div>
+            <ReviewEditButton onClick={() => enterEditMode("cf-email")} label="email" />
+          </div>
+        </div>
+
+        {/* Subject, context fields and message */}
+        <dl className="rounded-xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900/60 divide-y divide-slate-100 dark:divide-slate-800/80 overflow-hidden">
+          <div className="flex items-start justify-between gap-3 px-4 py-3">
+            <div className="min-w-0">
+              <dt className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Subject
+              </dt>
+              <dd className="text-xs font-medium text-slate-900 dark:text-slate-100 mt-0.5 break-words">
+                {effectiveTopic}
+              </dd>
+            </div>
+            <ReviewEditButton onClick={() => enterEditMode("cf-custom-topic")} label="subject" />
+          </div>
+
+          {contextRows.map((row) => (
+            <div key={row.label} className="flex items-start justify-between gap-3 px-4 py-3">
+              <div className="min-w-0">
+                <dt className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                  {row.label}
+                </dt>
+                <dd
+                  className={`text-xs mt-0.5 break-words ${
+                    row.value
+                      ? "font-medium text-slate-900 dark:text-slate-100"
+                      : "text-slate-400 dark:text-slate-500 italic"
+                  }`}
+                >
+                  {row.value || "— Not provided"}
+                </dd>
+              </div>
+              <ReviewEditButton onClick={() => enterEditMode(row.target)} label={row.label.toLowerCase()} />
+            </div>
+          ))}
+
+          <div className="flex items-start justify-between gap-3 px-4 py-3">
+            <div className="min-w-0 flex-1">
+              <dt className="text-[11px] font-mono font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">
+                Message
+              </dt>
+              <dd className="text-xs text-slate-700 dark:text-slate-300 mt-0.5 whitespace-pre-wrap break-words max-h-40 overflow-y-auto leading-relaxed">
+                {message.trim()}
+              </dd>
+            </div>
+            <ReviewEditButton onClick={() => enterEditMode("cf-message")} label="message" />
+          </div>
+        </dl>
+
+        {/* Error alert if transmission failed from the review step */}
+        {status === "error" && errorMessage && (
+          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            <span>{errorMessage}</span>
+          </div>
+        )}
+
+        {/* Review actions */}
+        <div className="flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3 pt-1">
+          <button
+            type="button"
+            onClick={() => enterEditMode()}
+            disabled={isSubmitting}
+            className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 text-xs font-semibold border border-slate-200 dark:border-slate-700 transition-all cursor-pointer flex items-center justify-center gap-2"
+          >
+            <ArrowLeft className="w-3.5 h-3.5" />
+            <span>Back to edit</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => void sendMessage()}
+            disabled={isSubmitting}
+            className={`px-6 py-2.5 rounded-xl font-semibold text-xs flex items-center justify-center gap-2 transition-all shadow-md ${
+              !isSubmitting
+                ? "bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white shadow-blue-600/25 cursor-pointer ring-1 ring-white/20 hover:scale-[1.01]"
+                : "bg-slate-200 dark:bg-slate-800/80 text-slate-400 dark:text-slate-500 border border-slate-300 dark:border-slate-800 cursor-not-allowed opacity-70"
+            }`}
+          >
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-white" />
+                <span>Sending Message...</span>
+              </>
+            ) : (
+              <>
+                <Send className="w-3.5 h-3.5" />
+                <span>Confirm &amp; Send</span>
+                <Sparkles className="w-3 h-3 text-cyan-200" />
+              </>
+            )}
+          </button>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <form onSubmit={handleSubmit} className="space-y-5 text-left">
       {/* Topic Badges Selection */}
@@ -293,6 +528,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         </label>
         <div className="relative">
           <input
+            id="cf-custom-topic"
             type="text"
             value={customTopic}
             onChange={(e) => setCustomTopic(e.target.value)}
@@ -338,6 +574,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           </label>
           <div className="relative">
             <input
+              id="cf-name"
               type="text"
               value={senderName}
               onChange={(e) => setSenderName(e.target.value)}
@@ -357,6 +594,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           </label>
           <div className="relative">
             <input
+              id="cf-organization"
               type="text"
               value={organization}
               onChange={(e) => setOrganization(e.target.value)}
@@ -374,6 +612,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             Your role
           </label>
           <select
+            id="cf-role"
             value={senderRole}
             onChange={(e) => setSenderRole(e.target.value)}
             className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
@@ -389,6 +628,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             Budget
           </label>
           <select
+            id="cf-budget"
             value={budgetRange}
             onChange={(e) => setBudgetRange(e.target.value)}
             className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
@@ -404,6 +644,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             Timeline
           </label>
           <select
+            id="cf-timeline"
             value={timeline}
             onChange={(e) => setTimeline(e.target.value)}
             className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
@@ -457,10 +698,12 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         </label>
         <div className="relative">
           <input
+            id="cf-email"
             type="email"
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
+              setSuggestionDismissed(false);
               if (!touchedEmail) setTouchedEmail(true);
             }}
             onBlur={() => setTouchedEmail(true)}
@@ -475,6 +718,34 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             }`}
           />
         </div>
+
+        {/* Inline typo guard — "Did you mean ...?" (non-blocking, one-click apply) */}
+        {emailSuggestion && (
+          <div
+            role="alert"
+            className="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1.5 px-3 py-2 rounded-lg bg-amber-50 dark:bg-amber-950/40 border border-amber-300/70 dark:border-amber-500/40 text-[11px]"
+          >
+            <AlertTriangle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400 shrink-0" />
+            <span className="text-amber-800 dark:text-amber-300">
+              Did you mean <strong className="font-semibold">{emailSuggestion.fullEmail}</strong>?
+            </span>
+            <button
+              type="button"
+              onClick={applyEmailSuggestion}
+              className="px-2 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white font-semibold transition-colors cursor-pointer"
+            >
+              Use suggestion
+            </button>
+            <button
+              type="button"
+              onClick={() => setSuggestionDismissed(true)}
+              aria-label="Dismiss email suggestion"
+              className="p-1 rounded-md text-amber-700 dark:text-amber-400 hover:bg-amber-100 dark:hover:bg-amber-900/50 transition-colors cursor-pointer"
+            >
+              <X className="w-3 h-3" />
+            </button>
+          </div>
+        )}
       </div>
 
       {/* Message Body Input */}
@@ -489,6 +760,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           </span>
         </label>
         <textarea
+          id="cf-message"
           rows={isModal ? 4 : 5}
           value={message}
           onChange={(e) => {
@@ -553,8 +825,8 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             </>
           ) : (
             <>
-              <Send className="w-3.5 h-3.5" />
-              <span>Send Message</span>
+              <Eye className="w-3.5 h-3.5" />
+              <span>Review Message</span>
               <Sparkles className="w-3 h-3 text-cyan-200" />
             </>
           )}
