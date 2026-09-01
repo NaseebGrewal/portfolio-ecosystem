@@ -8,6 +8,7 @@ export interface Project {
   stack: string[];
   githubUrl: string;
   liveDemoUrl?: string;
+  frontendUrl?: string;
   architectureHighlights: string[];
   metrics: { label: string; value: string }[];
 }
@@ -380,14 +381,11 @@ export const CANDIDATE_PROFILE = {
   ] as Certification[]
 };
 
-// Helper to determine GitHub URLs
-const getProjectGithubUrl = (projectNum: number, dirName: string) => {
-  const envVar = (process.env as Record<string, string | undefined>)[`NEXT_PUBLIC_PROJECT_${projectNum}_GITHUB_URL`];
-  if (envVar) return envVar;
-  if (process.env.NEXT_PUBLIC_GITHUB_URL) {
-    return `${process.env.NEXT_PUBLIC_GITHUB_URL}/portfolio-ecosystem/tree/main/projects/${dirName}`;
-  }
-  return `https://github.com/your-username/portfolio-ecosystem/tree/main/projects/${dirName}`;
+// Helper to determine GitHub URLs — derived from the single base NEXT_PUBLIC_GITHUB_URL
+// plus the monorepo project subdirectory, so no per-project GitHub env vars are needed.
+export const getProjectGithubUrl = (projectNum: number, dirName: string) => {
+  const base = (process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/your-username").replace(/\/$/, "");
+  return `${base}/portfolio-ecosystem/tree/main/projects/${dirName}`;
 };
 
 // Helper to determine Live Demo Swagger / API URLs directly from real API environment variables
@@ -420,6 +418,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     stack: ["FastAPI", "Next.js 15", "MongoDB", "Redis", "AWS ECS Fargate", "Docker", "GitHub Actions"],
     githubUrl: getProjectGithubUrl(1, "01-materials-intelligence-platform"),
     liveDemoUrl: getProjectLiveDemoUrl(1),
+    frontendUrl: (process.env.NEXT_PUBLIC_MATERIALS_FRONTEND_URL || "http://localhost:3001").replace(/\/$/, ""),
     architectureHighlights: [
       "Full Recipe & Formulation Lifecycle: multi-ingredient stoichiometry, batch versioning & parent-child trees",
       "Excel-Grade Master Filtering: high-density property grids with multi-column filters & real-time statistics",
@@ -570,7 +569,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "€1.2M+ direct vendor costs saved; adopted by 150+ researchers & plant technicians across global facilities.",
     stack: ["Next.js 15", "FastAPI", "MongoDB", "Redis", "AWS ECS", "ALB", "Docker", "GitHub Actions"],
     sourcePath: "projects/01-materials-intelligence-platform",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_1_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
+    githubUrl: getProjectGithubUrl(1, "01-materials-intelligence-platform"),
     isInteractive: true
   },
   {
@@ -588,7 +587,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Reduced SDS auditing cycle time from 3 hours to 11.4ms with 100% regulatory boundary accuracy.",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
     sourcePath: "projects/02-chemagent-sds-compliance",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_2_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
+    githubUrl: getProjectGithubUrl(2, "02-chemagent-sds-compliance"),
     isInteractive: true
   },
   {
@@ -606,7 +605,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Sub-millisecond mathematical execution directly in the browser; eliminates local desktop installation overhead.",
     stack: ["Rust", "WebAssembly (WASM)", "Axum", "FastAPI", "Next.js 15", "Plotly"],
     sourcePath: "projects/03-rust-wasm-rheology-engine",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_3_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
+    githubUrl: getProjectGithubUrl(3, "03-rust-wasm-rheology-engine"),
     isInteractive: true
   },
   {
@@ -624,7 +623,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Reduced enterprise AI API operational expenditure by 42% while enforcing EU AI Act governance.",
     stack: ["FastAPI", "Redis", "LiteLLM", "Docker", "Prometheus", "OpenTelemetry"],
     sourcePath: "projects/04-enterprise-ai-gateway-finops",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_4_GITHUB_URL || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
+    githubUrl: getProjectGithubUrl(4, "04-enterprise-ai-gateway-finops"),
     isInteractive: true
   },
   {
@@ -657,7 +656,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Academic research validated in production environments; rated with highest academic honors for novel multi-modal evaluation.",
     stack: ["Python 3.12", "Python AST", "FastAPI", "Ruff Linter", "Pytest", "Docker"],
     sourcePath: "projects/07-autonomous-ast-code-review-agent",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_7_GITHUB_URL || "https://github.com/your-username/masters-thesis-rag-code-reviewer",
+    githubUrl: getProjectGithubUrl(7, "07-autonomous-ast-code-review-agent"),
     isInteractive: true
   },
   {
@@ -690,7 +689,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Accelerated enterprise document ingestion throughput to 450 pages/sec with automated GDPR/HIPAA-aligned PII/PHI redaction.",
     stack: ["FastAPI", "Python 3.12", "PyPDF", "Regex PII Masking", "Docker", "REST API"],
     sourcePath: "projects/05-multimodal-document-intelligence",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_5_GITHUB_URL || "https://github.com/your-username/multimodal-document-intelligence",
+    githubUrl: getProjectGithubUrl(5, "05-multimodal-document-intelligence"),
     isInteractive: true
   },
   {
@@ -786,7 +785,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     businessImpact: "Reduced emergency clinical complaint response time from 4 hours to sub-15 minutes via autonomous severity categorization.",
     stack: ["FastAPI", "Python 3.12", "In-Memory JSON", "Redis", "HIPAA PHI Stripper", "Docker"],
     sourcePath: "projects/06-clinical-nlp-patient-sentiment-triage",
-    githubUrl: process.env.NEXT_PUBLIC_PROJECT_6_GITHUB_URL || "https://github.com/your-username/clinical-patient-feedback-system",
+    githubUrl: getProjectGithubUrl(6, "06-clinical-nlp-patient-sentiment-triage"),
     isInteractive: true
   }
 ];

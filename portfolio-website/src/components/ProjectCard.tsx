@@ -79,8 +79,19 @@ export default function ProjectCard({ project }: { project: Project }) {
             className="flex-1 py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium flex items-center justify-center gap-2 transition-all border border-slate-200 dark:border-slate-700 shadow-xs"
           >
             <Github className="w-4 h-4" />
-            <span>Monorepo Source</span>
+            <span>GitHub</span>
           </a>
+          {project.frontendUrl && (
+            <a
+              href={project.frontendUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-2 px-3 rounded-xl bg-emerald-50 hover:bg-emerald-100 dark:bg-emerald-600/20 dark:hover:bg-emerald-600/30 border border-emerald-200 dark:border-emerald-500/30 text-emerald-700 dark:text-emerald-300 text-xs font-medium flex items-center justify-center gap-1.5 transition-all shadow-xs"
+            >
+              <span>Live App</span>
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
           {project.liveDemoUrl && (
             <a
               href={project.liveDemoUrl}

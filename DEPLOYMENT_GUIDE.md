@@ -87,13 +87,26 @@ git push -u origin main
 
 Vercel natively supports **FastAPI** as a serverless backend preset alongside **Next.js 15**. You can deploy all services from the single `portfolio-ecosystem` GitHub repository.
 
-> **⚠️ Troubleshooting: `{"detail":"Not Found"}` on every route (`/`, `/docs`, `/health`, `/openapi.json`)**
-> This symptom means the Vercel project is **not** deploying the monorepo backend at all — it is serving a stale deployment or a different source (e.g., an old standalone repository) whose FastAPI app exposes no public routes. The in-repo `vercel.json` + `api/index.py` configuration is identical across all 7 backends, so the fix is entirely in the Vercel project settings:
-> 1. **Settings → Git**: ensure the project is connected to `NaseebGrewal/portfolio-ecosystem` (branch `main`) — **not** an old standalone repository.
-> 2. **Settings → General → Root Directory**: must be `projects/0X-.../backend` for the respective service.
-> 3. **Framework Preset:** `Other` (or `FastAPI` auto-detect); no custom build/output overrides.
-> 4. **Deployments → Redeploy** with "Use existing Build Cache" **unchecked**.
-> Verification: `curl https://<project>.vercel.app/openapi.json` must return the OpenAPI schema (HTTP 200).
+> **⚠️ MANDATORY INVARIANT — Framework Preset MUST be `FastAPI` (never `Other`), and NO `vercel.json` rewrite / `api/index.py` shim may exist.**
+>
+> Each backend relies on the **FastAPI preset's native auto-detection** of the entrypoint `app/main.py` (a Vercel-supported entrypoint). There must be **no** `vercel.json` rewrite (e.g. `"/(.*)" → "/api/index.py"`) and **no** `api/index.py` file in any backend directory — these belong to the legacy `Other` (generic Python serverless) preset and **conflict** with the FastAPI preset's native routing.
+>
+> **Symptom of the conflict:** `{"detail":"Not Found"}` on **every** route (`/`, `/docs`, `/health`, `/openapi.json`), even though the build succeeds and the correct repo/commit/root directory are used. This happens because the manual rewrite delivers requests to a rewritten path the app has no routes for.
+>
+> **The two configurations are mutually exclusive:**
+> | Preset | `vercel.json` rewrite + `api/index.py` | Result |
+> |---|---|---|
+> | `Other` (legacy) | required | ✅ works (manual routing) |
+> | `FastAPI` (native) | **must be absent** | ✅ works (auto-detect `app/main.py`) |
+> | `FastAPI` + leftover rewrite | present | ❌ all routes 404 |
+>
+> **Fix / correct setup for every backend:**
+> 1. **Settings → Build & Development Settings → Framework Preset:** `FastAPI`.
+> 2. **Root Directory:** `projects/0X-.../backend` for the respective service.
+> 3. Ensure the backend directory contains **only** `app/`, `tests/`, `Dockerfile`, `requirements.txt` (no `vercel.json`, no `api/` folder).
+> 4. **Settings → Git:** connected to `NaseebGrewal/portfolio-ecosystem` (branch `main`).
+> 5. **Deployments → Redeploy** with "Use existing Build Cache" **unchecked** (preset/settings changes only take effect on a fresh deploy).
+> 6. **Verification:** `curl https://<project>.vercel.app/openapi.json` must return the OpenAPI schema (HTTP 200), and `/docs` must render Swagger UI.
 
 ### Deployment Matrix on Vercel:
 

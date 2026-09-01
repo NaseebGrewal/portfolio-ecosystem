@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useMemo, useEffect, useRef } from "react";
+import { getProjectGithubUrl } from "@/data/portfolio_data";
 import {
   Zap,
   Search,
@@ -4879,7 +4880,7 @@ if __name__ == "__main__":
 
             <div className="flex items-center gap-2">
               <a
-                href={process.env.NEXT_PUBLIC_PROJECT_5_GITHUB_URL || "https://github.com/your-username/multimodal-document-intelligence"}
+                href={getProjectGithubUrl(5, "05-multimodal-document-intelligence")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 text-slate-700 dark:text-gray-300 hover:text-blue-600 flex items-center gap-1.5 transition-colors"
@@ -5412,7 +5413,7 @@ if __name__ == "__main__":
 
             <div className="flex items-center gap-2">
               <a
-                href={process.env.NEXT_PUBLIC_PROJECT_6_GITHUB_URL || "https://github.com/your-username/clinical-patient-feedback-system"}
+                href={getProjectGithubUrl(6, "06-clinical-nlp-patient-sentiment-triage")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 text-slate-700 dark:text-gray-300 hover:text-blue-600 flex items-center gap-1.5 transition-colors"
@@ -6170,7 +6171,7 @@ if __name__ == "__main__":
                 <span>Reset History</span>
               </button>
               <a
-                href={process.env.NEXT_PUBLIC_PROJECT_7_GITHUB_URL || "https://github.com/your-username/masters-thesis-rag-code-reviewer"}
+                href={getProjectGithubUrl(7, "07-autonomous-ast-code-review-agent")}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="px-3 py-1.5 rounded-xl text-xs font-mono bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 text-slate-700 dark:text-gray-300 hover:text-blue-600 flex items-center gap-1.5 transition-colors"
