@@ -1840,7 +1840,7 @@ FAISS retrieved 3 semantic vector chunks matching query: **"${query}"** (Cosine 
           answer = `### 🔢 Mathematical & Scientific Calculation\n\nI can solve mathematical equations, unit conversions, and engineering formulas. For example:\n\n- **ISO 527 Elastic Modulus**: $E = \\frac{\\Delta\\sigma}{\\Delta\\varepsilon}$\n- **Shear Stress**: $\\tau = \\eta \\cdot \\dot{\\gamma}$\n- **FinOps Cache Savings**: $\\text{Savings} = (1 - \\frac{\\text{Cache Hits}}{\\text{Total Requests}}) \\times \\text{Token Cost}$\n\nSpecify your numerical variables or formula and I will compute the exact result.`;
           citations = ["Engineering Mathematics Reference"];
         } else {
-          answer = `### 💡 Technical Solutions Insight\n\nRegarding **"${query}"**:\n\n1. **System Architecture**: Production-grade AI systems benefit from strict decoupling—separating API contracts (FastAPI / Pydantic v2), caching layers (Redis semantic hashing), and reactive frontends (Next.js 15).\n2. **Type Safety & Reliability**: Full strict-mode TypeScript on the client combined with Pydantic validation on the backend ensures deterministic data contracts and zero runtime type mismatches.\n3. **Document-Grounded RAG**: To ask queries specific to a scientific report or paper, upload a PDF above to compute vector embeddings in real time.`;
+          answer = `### 💡 Technical Solutions Insight\n\nRegarding **"${query}"**:\n\n1. **System Architecture**: Production-grade AI systems benefit from strict decoupling: separating API contracts (FastAPI / Pydantic v2), caching layers (Redis semantic hashing), and reactive frontends (Next.js 15).\n2. **Type Safety & Reliability**: Full strict-mode TypeScript on the client combined with Pydantic validation on the backend ensures deterministic data contracts and zero runtime type mismatches.\n3. **Document-Grounded RAG**: To ask queries specific to a scientific report or paper, upload a PDF above to compute vector embeddings in real time.`;
           citations = ["Executive AI Architecture Guidelines"];
         }
 
@@ -3119,26 +3119,29 @@ if __name__ == "__main__":
 
   return (
     <section id="interactive-demo" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
-      {/* Top Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+      {/* Top Header — left-aligned column, tabs move to their own full-width row below */}
+      <div className="mb-4">
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-cyan-50 dark:bg-cyan-950/70 border border-cyan-200 dark:border-cyan-800 text-cyan-800 dark:text-cyan-300 mb-2 shadow-xs">
             <Radio className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400 animate-pulse" />
             Live Full-Stack Interactive Suite
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-            Flagship Engineering & AI Sandbox
+            Live Demos: Seven Production Systems
           </h2>
           <p className="text-slate-600 dark:text-gray-400 text-sm max-w-2xl font-light mt-1">
-            Test real-time polymer formulation algorithms, multi-agent REACH compliance workflows, sub-millisecond Rust mechanics curves, and LLM FinOps proxies.
+            Mix a recipe, audit a safety document, fit a lab curve, cache an AI answer, merge PDFs, triage feedback, or review code.
           </p>
         </div>
 
-        {/* Demo Switcher */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 shadow-xs">
+      </div>
+
+      {/* Demo Switcher — full-width row directly beneath header, parallel to heading edge */}
+      <div className="mb-8 w-full overflow-x-auto no-scrollbar">
+        <div className="flex flex-nowrap sm:flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-slate-100 dark:bg-gray-900 border border-slate-200 dark:border-gray-800 shadow-xs w-max sm:w-full">
           <button
             onClick={() => setActiveDemo("materials")}
-            className={`px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
+            className={`flex-shrink-0 px-2.5 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center gap-1.5 ${
               activeDemo === "materials" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-600 dark:text-gray-400 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
@@ -3179,7 +3182,7 @@ if __name__ == "__main__":
             }`}
           >
             <FileText className="w-3.5 h-3.5" />
-            <span>05. Doc Intelligence</span>
+            <span>05. Documents</span>
           </button>
           <button
             onClick={() => setActiveDemo("clinical_triage")}
@@ -3188,7 +3191,7 @@ if __name__ == "__main__":
             }`}
           >
             <Stethoscope className="w-3.5 h-3.5" />
-            <span>06. Clinical NLP</span>
+            <span>06. Clinical</span>
           </button>
           <button
             onClick={() => setActiveDemo("code_review")}
@@ -3197,7 +3200,7 @@ if __name__ == "__main__":
             }`}
           >
             <Code2 className="w-3.5 h-3.5" />
-            <span>07. Code Review Agent</span>
+            <span>07. Code review</span>
           </button>
         </div>
       </div>
@@ -3212,7 +3215,7 @@ if __name__ == "__main__":
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h3 className="text-xl font-bold text-slate-950 dark:text-white">
-                  Materials Intelligence & Polymer Formulation Engine
+                  Materials Intelligence &amp; Polymer Formulation Engine
                 </h3>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium ${
@@ -3228,7 +3231,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                Design custom high-performance composite recipes with real-time property forecasting, twin-screw compounding thermal profiles, and digital batch ticket generation.
+                Design custom composite recipes with real-time property forecasting, twin-screw compounding thermal profiles, and digital batch ticket generation.
               </p>
             </div>
 
@@ -3706,7 +3709,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                Supervisor-Worker LangGraph multi-agent pipeline: extracts chemical CAS entities, validates toxicity with Gemini 3.5, and enforces statutory ECHA SVHC 0.1% w/w plant dispatch gates.
+                Supervisor-worker LangGraph pipeline: extracts chemical CAS entities, validates against the ECHA SVHC list (Substances of Very High Concern) at 0.1% w/w, and enforces statutory plant dispatch gates.
               </p>
             </div>
 
@@ -4104,7 +4107,7 @@ if __name__ == "__main__":
                 <ul className="list-disc list-inside mt-1 space-y-0.5">
                   {auditResultData.flagged.map((f: any, i: number) => (
                     <li key={i}>
-                      {f.substance_name || f.cas_number} (CAS: {f.cas_number}) — Detected: <strong>{f.detected_percentage}%</strong> (Statutory Limit: {f.threshold_limit || "0.10"}%)
+                      {f.substance_name || f.cas_number} (CAS: {f.cas_number}). Detected: <strong>{f.detected_percentage}%</strong> (Statutory Limit: {f.threshold_limit || "0.10"}%)
                     </li>
                   ))}
                 </ul>
@@ -4136,7 +4139,7 @@ if __name__ == "__main__":
             <div>
               <div className="flex flex-wrap items-center gap-2 mb-1">
                 <h3 className="text-xl font-bold text-slate-950 dark:text-white">
-                  Ultra-Fast Lab Rheology & Mechanics Curve Solver
+                  Ultra-Fast Lab Rheology &amp; Mechanics Curve Solver
                 </h3>
                 <span
                   className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-medium ${
@@ -4152,7 +4155,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                Sub-millisecond ISO 527 tensile curve regression, linear elastic slope extraction between 0.05% and 0.25% strain, 0.2% yield offset calculation, and toughness integration.
+                Sub-millisecond ISO 527 tensile curve regression, linear elastic slope extraction between 0.05% and 0.25% strain, 0.2% yield offset calculation, and toughness integration, executed client-side via WebAssembly.
               </p>
             </div>
 
@@ -4400,7 +4403,7 @@ if __name__ == "__main__":
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-4 h-4 text-cyan-400" />
                   <span className="text-xs font-mono font-bold text-slate-200">
-                    Live ISO 527 Tensile Curve (σ vs ε) — Hover over graph for exact coordinates
+                    Live ISO 527 Tensile Curve (σ vs ε). Hover over graph for exact coordinates
                   </span>
                 </div>
                 {hoverCoord ? (
@@ -4600,7 +4603,7 @@ if __name__ == "__main__":
                 {showFinopsGuide ? <ChevronUp className="w-3 h-3" /> : <ChevronDown className="w-3 h-3" />}
               </button>
               <div className="text-xs font-mono text-emerald-800 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800/60 px-3 py-1.5 rounded-xl flex items-center gap-1.5">
-                <DollarSign className="w-3 h-3" /> Live FinOps Saved: €{savedEuros}
+                <DollarSign className="w-3 h-3" /> Live AI spend saved: €{savedEuros}
               </div>
             </div>
           </div>
@@ -4779,7 +4782,7 @@ if __name__ == "__main__":
               <div className="text-slate-500 dark:text-gray-400 text-[11px] mb-1">Invocation Cost</div>
               <div className="text-xl font-bold text-emerald-700 dark:text-emerald-400">{lastCost}</div>
               <div className="text-[10px] text-slate-400 dark:text-gray-500 mt-1 font-sans">
-                {lastCost.includes("Hit") ? "100% Token cost spared" : "Tracked in Departmental FinOps Ledger"}
+                {lastCost.includes("Hit") ? "100% token cost spared" : "Tracked on the department spend ledger"}
               </div>
             </div>
 
@@ -4797,7 +4800,7 @@ if __name__ == "__main__":
             <div className="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-200 dark:border-gray-800">
               <span className="font-bold text-slate-900 dark:text-white flex items-center gap-1.5 font-sans">
                 <Database className="w-4 h-4 text-red-500" />
-                Live Redis SHA-256 Key Cache Table &amp; Real-Time TTL Ticking
+                Live Redis cache (SHA-256 keys) &amp; TTL countdown
               </span>
               <span className="text-[10px] text-slate-500">
                 Active Keys in Redis: {redisKeys.length}
@@ -4874,7 +4877,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                High-throughput document compilation, GDPR/HIPAA-aligned PII scrubbers, and vector-ready semantic sliding windows.
+                High-throughput document compilation, GDPR/HIPAA-aligned personal-data redaction, and vector-ready semantic sliding windows.
               </p>
             </div>
 
@@ -5407,7 +5410,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                Collect multi-category ratings, strip HIPAA identifiers, and update hospital quality scores live with zero external database dependencies.
+                Collect multi-category ratings, strip patient identifiers (HIPAA, US health privacy), and update hospital quality scores live with zero external database dependencies.
               </p>
             </div>
 
@@ -6157,7 +6160,7 @@ if __name__ == "__main__":
                 </span>
               </div>
               <p className="text-xs text-slate-600 dark:text-gray-400">
-                General conversational chatbot with live document vectorization, Python Abstract Syntax Tree analysis, and 1-click git diff patching.
+                General conversational chatbot with live document vectorization, Python AST (Abstract Syntax Tree) analysis, and one-click git diff patching.
               </p>
             </div>
 

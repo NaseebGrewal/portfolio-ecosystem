@@ -33,4 +33,9 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=3000
+    # Server-side-only secrets for /api/contact (Resend, private inbox).
+    # Loaded from .env.local at container start — never baked into the image.
+    env_file:
+      - path: .env.local
+        required: false
 

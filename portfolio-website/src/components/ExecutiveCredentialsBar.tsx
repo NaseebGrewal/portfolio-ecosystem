@@ -71,7 +71,7 @@ export default function ExecutiveCredentialsBar() {
           <div>
             <div className="flex items-center gap-2 text-xs font-mono font-semibold text-slate-600 dark:text-slate-400 mb-3 uppercase tracking-wider">
               <Award className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-              <span>Cloud & AI Certifications</span>
+              <span>Cloud &amp; AI Certifications</span>
             </div>
             <div className="space-y-2">
               {CANDIDATE_PROFILE.certifications.map((cert, idx) => (

@@ -5,6 +5,8 @@ export interface Project {
   tagline: string;
   businessImpact: string;
   vendorCostSaved?: string;
+  limitations?: string;
+  lastUpdated?: string;
   stack: string[];
   githubUrl: string;
   liveDemoUrl?: string;
@@ -59,7 +61,7 @@ export interface Degree {
 export interface SkillCategory {
   category: string;
   description: string;
-  skills: { name: string; highlight?: boolean }[];
+  skills: { name: string; highlight?: boolean; proof?: string }[];
 }
 
 export interface EnterpriseCompany {
@@ -90,10 +92,10 @@ export const ENTERPRISE_PEDIGREE: EnterpriseCompany[] = [
     name: "Heidelberg Materials",
     subtitle: "Global Building Materials & Cement",
     industry: "Heavy Industrial & Plants",
-    badge: "GenAI RCFA & Support Acceleration",
+    badge: "Plant Failures Diagnosed 70% Faster",
     shortCode: "HEI",
     logoPath: "/logos/heidelberg-materials.svg",
-    impactHighlight: "Engineered GenAI Customer Support automation and Plant Root Cause Failure Analysis (RCFA) pipelines, accelerating customer issue turnaround and dramatically boosting internal engineering productivity."
+    impactHighlight: "Engineered GenAI Customer Support automation and Plant Root Cause Failure Analysis (RCFA) pipelines, accelerating customer issue turnaround and cutting plant failure root-cause identification time by 70%."
   },
   {
     id: "wongdoody",
@@ -151,17 +153,18 @@ export const CANDIDATE_PROFILE = {
   name: process.env.NEXT_PUBLIC_CANDIDATE_NAME || "Firstname Lastname, M.Sc.",
   title: process.env.NEXT_PUBLIC_CANDIDATE_TITLE || "Senior AI Solutions Architect | R&D Digitalization & Full-Stack Lead",
   headline: "Senior AI Solutions Architect & Lead Systems Engineer",
-  tagline: "Enterprise AI Architecture • Industrial R&D Digitalization • Multi-Agent Systems",
+  tagline: "Enterprise AI Architecture • Industrial R&D Digitalization • Multi-Agent Systems that pay for themselves",
   executiveSummary:
-    "Cross-industry Senior AI Solutions Architect with 7+ years of experience leading digitalization across E-Commerce (Meesho), Enterprise IT (SAP), AI & Cloud Consulting (WONGDOODY / Infosys), Specialty Chemicals (Continental, IFF Pharma), and Industrial Cement Plants (Heidelberg Materials). Proven record of eliminating €1.2M+ in recurring third-party vendor licensing by architecting customized in-house R&D platforms, deterministic multi-agent compliance pipelines (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
+    "Cross-industry Senior AI Solutions Architect with 7+ years leading digitalization across E-Commerce (Meesho), Enterprise IT (SAP), AI & Cloud Consulting (WONGDOODY / Infosys), Specialty Chemicals (Continental, IFF Pharma), and Industrial Cement Plants (Heidelberg Materials). Eliminated €1.2M+ in recurring third-party vendor licensing by architecting in-house R&D platforms, deterministic multi-agent compliance pipelines (LangGraph), and sub-millisecond Rust/WASM simulation engines on AWS ECS and Azure.",
   location: process.env.NEXT_PUBLIC_CANDIDATE_LOCATION || "Germany (Open to Hybrid & Remote Worldwide)",
-  email: process.env.NEXT_PUBLIC_CANDIDATE_EMAIL || "contact@yourdomain.com",
+  // Private inbox is server-side only (CANDIDATE_EMAIL) — never shipped to the client bundle.
+  // Direct email address is intentionally not published; the qualified contact form is the channel.
   phone: process.env.NEXT_PUBLIC_CANDIDATE_PHONE || "+49 XXXXXXXXXX",
   githubUrl: process.env.NEXT_PUBLIC_GITHUB_URL || "https://github.com/your-username",
   linkedinUrl: process.env.NEXT_PUBLIC_LINKEDIN_URL || "https://linkedin.com/in/your-profile",
   portfolioUrl: process.env.NEXT_PUBLIC_PORTFOLIO_URL || "https://yourportfolio.dev",
   profileImageUrl: process.env.NEXT_PUBLIC_PROFILE_IMAGE_URL || "/profile.png",
-  status: "Available for Senior AI & Solutions Architecture Leadership Roles",
+  status: "Available for Senior AI / Solutions Architecture roles",
   experienceYears: "7+",
   targetIndustries: [
     "Specialty Chemicals & Advanced Materials",
@@ -181,11 +184,11 @@ export const CANDIDATE_PROFILE = {
     },
     {
       title: "R&D Technical Product Ownership",
-      description: "Bridged complex physical/chemical lab requirements with Agile sprint planning, technical roadmaps, and stakeholder alignment."
+      description: "Bridged complex physical and chemical lab requirements with Agile sprint planning, technical roadmaps, and stakeholder alignment."
     },
     {
       title: "Enterprise Architecture & FinOps",
-      description: "Designed multi-AZ cloud deployments (AWS ECS/ALB, Azure Container Apps) with semantic caching to slash AI operational costs."
+      description: "Designed multi-AZ cloud deployments (AWS ECS/ALB, Azure Container Apps) with semantic caching to reduce AI operational costs."
     },
     {
       title: "Zero-Downtime DevOps Culture",
@@ -193,7 +196,7 @@ export const CANDIDATE_PROFILE = {
     }
   ],
   headlineStats: [
-    { label: "Vendor Costs Saved", value: "€1.2M+", context: "Replaced commercial vendor database & testing licenses with in-house R&D platform" },
+    { label: "Vendor Licenses Eliminated", value: "€1.2M+", context: "In-house R&D platform replaced commercial vendor database & testing licenses" },
     { label: "Active Enterprise Users", value: "150+", context: "Scientists, lab technicians & compliance officers across multi-site production" },
     { label: "Cloud SLA Availability", value: "99.95%", context: "Containerized AWS ECS Fargate & ALB multi-AZ architecture" },
     { label: "Discovery Acceleration", value: "60%", context: "Sub-second prediction APIs & automated regulatory screening" }
@@ -203,61 +206,61 @@ export const CANDIDATE_PROFILE = {
       category: "Enterprise AI & Multi-Agent Systems",
       description: "Autonomous multi-agent pipelines, RAG architectures, model evaluation & FinOps guardrails",
       skills: [
-        { name: "Multi-Agent Orchestration (LangGraph, CrewAI)", highlight: true },
-        { name: "Generative AI & LLM APIs (GPT-4o, Claude 3.5, Gemini 2.0)", highlight: true },
-        { name: "RAG & Vector Search (MongoDB Vector, FAISS, Qdrant)", highlight: true },
-        { name: "Azure AI Search & Foundry, AWS Bedrock", highlight: true },
-        { name: "Semantic Caching & FinOps Token Quotas (LiteLLM)", highlight: true },
-        { name: "Root Cause Failure Analysis (RCFA) AI Systems", highlight: false },
-        { name: "Knowledge Graphs & Ontology Modeling (Neo4j, MarkLogic)", highlight: false }
+        { name: "Multi-Agent Orchestration (LangGraph, CrewAI)", highlight: true, proof: "02 ChemAgent" },
+        { name: "Generative AI & LLM APIs (GPT-4o, Claude 3.5, Gemini 2.0)", highlight: true, proof: "04 AI Gateway" },
+        { name: "RAG & Vector Search (MongoDB Vector, FAISS, Qdrant)", highlight: true, proof: "05 Doc Intelligence" },
+        { name: "Azure AI Search & Foundry, AWS Bedrock", highlight: true, proof: "Plant RCFA" },
+        { name: "Semantic Caching & FinOps Token Quotas (LiteLLM)", highlight: true, proof: "04 AI Gateway" },
+        { name: "Root Cause Failure Analysis (RCFA) AI Systems", highlight: false, proof: "Plant RCFA" },
+        { name: "Knowledge Graphs & Ontology Modeling (Neo4j, MarkLogic)", highlight: false, proof: "Patent search" }
       ]
     },
     {
       category: "Full-Stack & High-Performance Engineering",
       description: "Reactive web platforms, sub-millisecond compute engines & microservices",
       skills: [
-        { name: "Python (FastAPI, AsyncIO, Pydantic v2)", highlight: true },
-        { name: "TypeScript & Next.js 15 (React 19/18)", highlight: true },
-        { name: "Rust & WebAssembly (WASM / Axum)", highlight: true },
-        { name: "High-Density Data Grids & Excel-Grade Filtering", highlight: true },
-        { name: "Tailwind CSS & Modern Accessible UI/UX", highlight: false },
-        { name: "Test-Driven Development (Pytest, Vitest, 100% Pass Rate)", highlight: true }
+        { name: "Python (FastAPI, AsyncIO, Pydantic v2)", highlight: true, proof: "All backends" },
+        { name: "TypeScript & Next.js 15 (React 19/18)", highlight: true, proof: "Portfolio site" },
+        { name: "Rust & WebAssembly (WASM / Axum)", highlight: true, proof: "03 Rheology" },
+        { name: "High-Density Data Grids & Excel-Grade Filtering", highlight: true, proof: "01 Materials" },
+        { name: "Tailwind CSS & Modern Accessible UI/UX", highlight: false, proof: "Portfolio site" },
+        { name: "Test-Driven Development (Pytest, Vitest, 100% Pass Rate)", highlight: true, proof: "All services" }
       ]
     },
     {
       category: "Cloud Architecture, DevOps & Infrastructure",
       description: "Resilient containerized deployments, zero-downtime pipelines & infrastructure as code",
       skills: [
-        { name: "AWS (ECS Fargate, ECR, S3, RDS, Lambda, ALB, Route 53)", highlight: true },
-        { name: "Microsoft Azure (Container Apps, Azure Functions, Blob)", highlight: true },
-        { name: "Docker & Multi-Stage Production Builds", highlight: true },
-        { name: "Automated CI/CD (GitHub Actions, GitLab CI)", highlight: true },
-        { name: "Monitoring & Observability (OpenTelemetry, Prometheus)", highlight: false },
-        { name: "FinOps Cost Optimization & Resource Rightsizing", highlight: false }
+        { name: "AWS (ECS Fargate, ECR, S3, RDS, Lambda, ALB, Route 53)", highlight: true, proof: "01 Materials" },
+        { name: "Microsoft Azure (Container Apps, Azure Functions, Blob)", highlight: true, proof: "Plant RCFA" },
+        { name: "Docker & Multi-Stage Production Builds", highlight: true, proof: "All services" },
+        { name: "Automated CI/CD (GitHub Actions, GitLab CI)", highlight: true, proof: "Monorepo" },
+        { name: "Monitoring & Observability (OpenTelemetry, Prometheus)", highlight: false, proof: "04 AI Gateway" },
+        { name: "FinOps Cost Optimization & Resource Rightsizing", highlight: false, proof: "04 AI Gateway" }
       ]
     },
     {
       category: "Data Engineering & Enterprise Databases",
       description: "Multi-terabyte telemetry, distributed caching, schema design & time-series data",
       skills: [
-        { name: "MongoDB Atlas & Complex Aggregation Pipelines", highlight: true },
-        { name: "Redis In-Memory Semantic Caching", highlight: true },
-        { name: "PostgreSQL & Relational Data Modeling", highlight: true },
-        { name: "AWS Glue, Athena & S3 Data Lakes", highlight: false },
-        { name: "MarkLogic & Ontology-Driven Search Engines", highlight: false },
-        { name: "Time-Series Telemetry & Sensor Ingestion", highlight: false }
+        { name: "MongoDB Atlas & Complex Aggregation Pipelines", highlight: true, proof: "01 Materials" },
+        { name: "Redis In-Memory Semantic Caching", highlight: true, proof: "04 AI Gateway" },
+        { name: "PostgreSQL & Relational Data Modeling", highlight: true, proof: "Lab Orders" },
+        { name: "AWS Glue, Athena & S3 Data Lakes", highlight: false, proof: "Data Lake tab" },
+        { name: "MarkLogic & Ontology-Driven Search Engines", highlight: false, proof: "Patent search" },
+        { name: "Time-Series Telemetry & Sensor Ingestion", highlight: false, proof: "Predictive Maint." }
       ]
     },
     {
       category: "Industrial Domain Science & Digitalization",
       description: "Bridging physical science R&D, chemical thermodynamics & automated regulatory compliance",
       skills: [
-        { name: "Polymer Physics & Recipe Formulation Lifecycle", highlight: true },
-        { name: "Rheology & ISO 527 Tensile Mechanical Modeling", highlight: true },
-        { name: "Automated REACH SVHC & SDS Safety Gates", highlight: true },
-        { name: "Automotive Plant Root Cause Failure Analysis (RCFA)", highlight: true },
-        { name: "Cement & Concrete Compressive Strength Prediction", highlight: false },
-        { name: "Cross-Functional IT/Lab Stakeholder Alignment", highlight: true }
+        { name: "Polymer Physics & Recipe Formulation Lifecycle", highlight: true, proof: "01 Materials" },
+        { name: "Rheology & ISO 527 Tensile Mechanical Modeling", highlight: true, proof: "03 Rheology" },
+        { name: "Automated REACH SVHC & SDS Safety Gates", highlight: true, proof: "02 ChemAgent" },
+        { name: "Automotive Plant Root Cause Failure Analysis (RCFA)", highlight: true, proof: "Plant RCFA" },
+        { name: "Cement & Concrete Compressive Strength Prediction", highlight: false, proof: "Cement ML" },
+        { name: "Cross-Functional IT/Lab Stakeholder Alignment", highlight: true, proof: "Leadership" }
       ]
     }
   ] as SkillCategory[],
@@ -415,6 +418,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     tagline: "In-House R&D Platform: Formulation Lifecycle, High-Density Grids & ESH Gates",
     businessImpact: "Replaced high-cost third-party vendor platforms with a custom in-house R&D platform, saving €1.2M+ in recurring licenses for 150+ researchers across global plants.",
     vendorCostSaved: "€1.2M+",
+    limitations: "The material models give reliable estimates for standard composite types, but they cannot account for every fiber arrangement or curing effect. All predictions should be confirmed with physical lab tests before production use.",
+    lastUpdated: "Aug 2026",
     stack: ["FastAPI", "Next.js 15", "MongoDB", "Redis", "AWS ECS Fargate", "Docker", "GitHub Actions"],
     githubUrl: getProjectGithubUrl(1, "01-materials-intelligence-platform"),
     liveDemoUrl: getProjectLiveDemoUrl(1),
@@ -435,13 +440,15 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     title: "ChemAgent-Gov: Multi-Agent REACH Auditor",
     category: "Multi-Agent AI",
     tagline: "Automated Multi-Agent SDS Parsing, ECHA SVHC Cross-Referencing & Regulatory Verification",
-    businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier SDS with deterministic validation against statutory thresholds.",
+    businessImpact: "Accelerated chemical safety compliance verification from hours to seconds per supplier Safety Data Sheet (SDS) with deterministic validation against statutory thresholds.",
+    limitations: "Automatic checks cover the legal limit (0.1%) for every substance on the official EU candidate list. Unusual document layouts, scanned PDFs, and brand-new substances are sent to a human reviewer instead of being auto-approved.",
+    lastUpdated: "Aug 2026",
     stack: ["Python 3.12", "LangGraph", "Azure OpenAI", "FastAPI", "ChromaDB", "Docker"],
     githubUrl: getProjectGithubUrl(2, "02-chemagent-sds-compliance"),
     liveDemoUrl: getProjectLiveDemoUrl(2),
     architectureHighlights: [
       "Supervisor-Worker multi-agent LangGraph workflow with deterministic verification",
-      "Deterministic rule evaluation over live ECHA REACH SVHC chemical registries",
+      "Deterministic rule evaluation over live ECHA REACH SVHC chemical registries at the 0.1% w/w statutory limit",
       "Automated human-in-the-loop alerts for carcinogenic (H350/H360) hazard statements"
     ],
     metrics: [
@@ -456,6 +463,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     category: "High-Perf Engineering",
     tagline: "Sub-Millisecond Tensile Curve-Fitting & Mechanical Invariant Calculation",
     businessImpact: "Achieved significant computation speedups over legacy laboratory desktop tooling with instant client-side WebAssembly execution.",
+    limitations: "Curve fitting works best on clean, steadily rising test curves. Very noisy sensor data or unusual specimen shapes are flagged for manual review rather than fitted automatically.",
+    lastUpdated: "Jul 2026",
     stack: ["Rust", "WebAssembly (WASM)", "Axum", "FastAPI", "Next.js 15", "Plotly"],
     githubUrl: getProjectGithubUrl(3, "03-rust-wasm-rheology-engine"),
     liveDemoUrl: getProjectLiveDemoUrl(3),
@@ -466,7 +475,7 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     ],
     metrics: [
       { label: "Regression Time", value: "1.8 ms" },
-      { label: "Execution Speed", value: "WASM Native" },
+      { label: "Execution", value: "In-Browser WASM" },
       { label: "Memory Footprint", value: "< 4.2 MB" }
     ]
   },
@@ -476,6 +485,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     category: "AI Governance",
     tagline: "Semantic Caching, Departmental Token Quotas & Multi-Cloud Fallback",
     businessImpact: "Reduced enterprise LLM operational costs by 42% through semantic caching while enforcing strict data privacy and EU AI Act guardrails.",
+    limitations: "Caching currently matches identical prompts only; differently worded questions with the same meaning are not yet deduplicated (planned next). Spending limits apply per department rather than per user, and switching to a backup provider adds a short delay on the first request.",
+    lastUpdated: "Aug 2026",
     stack: ["FastAPI", "Redis", "LiteLLM", "OpenTelemetry", "Docker", "Prometheus"],
     githubUrl: getProjectGithubUrl(4, "04-enterprise-ai-gateway-finops"),
     liveDemoUrl: getProjectLiveDemoUrl(4),
@@ -496,6 +507,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     category: "Document Intelligence",
     tagline: "High-Throughput PDF Merging, Token-Aware Semantic Chunking & PII Redaction",
     businessImpact: "Accelerated enterprise document ingestion throughput to 450 pages/sec with automated GDPR/HIPAA-aligned PII/PHI redaction across chemical TDS & SDS dossiers.",
+    limitations: "Personal data removal is highly accurate for structured details like emails, phone numbers, and ID numbers, but can miss personal details written in free-form text. Scanned or image-only PDFs need a separate text-recognition step first.",
+    lastUpdated: "Jun 2026",
     stack: ["FastAPI", "Python 3.12", "PyPDF", "Regex PII Masking", "Docker", "REST API"],
     githubUrl: getProjectGithubUrl(5, "05-multimodal-document-intelligence"),
     liveDemoUrl: getProjectLiveDemoUrl(5),
@@ -516,6 +529,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     category: "Healthcare NLP",
     tagline: "HIPAA Safe Harbor PHI Redaction, Clinical Distress Radar & Emergency Triage Dispatch",
     businessImpact: "Reduced emergency clinical complaint response time from 4 hours to sub-15 minutes via autonomous severity categorization.",
+    limitations: "Supports clinicians; it does not replace them. Every urgent case still needs a person to confirm. Privacy stripping covers the 18 US HIPAA identifier types; rare combinations of leftover details could still identify someone.",
+    lastUpdated: "Jul 2026",
     stack: ["FastAPI", "Python 3.12", "In-Memory JSON", "Redis", "HIPAA PHI Stripper", "Docker"],
     githubUrl: getProjectGithubUrl(6, "06-clinical-nlp-patient-sentiment-triage"),
     liveDemoUrl: getProjectLiveDemoUrl(6),
@@ -536,6 +551,8 @@ export const FLAGSHIP_PROJECTS: Project[] = [
     category: "Automated Code Review",
     tagline: "Tree-Sitter / AST Static Analysis, CWE-89/95 Security Auditing & 1-Click Git Diff Patching",
     businessImpact: "Master's thesis research system delivering automated static & semantic code reviews with verified 100% boundary test coverage.",
+    limitations: "The review covers the security and quality rules built into its Python ruleset. Issues that only appear while the program runs, problems spanning multiple files, and constructs outside that ruleset are marked for human review instead.",
+    lastUpdated: "May 2026",
     stack: ["FastAPI", "Python 3.12", "Python AST", "Gemini RAG", "CWE Security", "FAISS Index"],
     githubUrl: getProjectGithubUrl(7, "07-autonomous-ast-code-review-agent"),
     liveDemoUrl: getProjectLiveDemoUrl(7),
@@ -780,7 +797,7 @@ export const ENTERPRISE_SYSTEMS_CATALOG: CatalogProject[] = [
     architectureHighlights: [
       "HIPAA Safe Harbor de-identification replacing patient names, MRNs, phone numbers, and room locations",
       "Multi-dimensional clinical experience radar (Doctor Care, Nurse Promptness, Cleanliness, Medication Clarity)",
-      "Autonomous triage classifier flagging acute adverse clinical triggers (anaphylaxis, medication errors) with SLA countdowns"
+      "Auto-triage for emergencies (allergic shock, medication errors) with a 15-minute SLA clock"
     ],
     businessImpact: "Reduced emergency clinical complaint response time from 4 hours to sub-15 minutes via autonomous severity categorization.",
     stack: ["FastAPI", "Python 3.12", "In-Memory JSON", "Redis", "HIPAA PHI Stripper", "Docker"],

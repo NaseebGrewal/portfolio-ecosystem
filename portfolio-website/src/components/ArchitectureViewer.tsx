@@ -11,35 +11,65 @@ import {
   Layers,
   ArrowRight,
   ShieldCheck,
-  Zap
+  Zap,
+  ChevronDown,
+  ChevronUp
 } from "lucide-react";
 
 export default function ArchitectureViewer() {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [activeTab, setActiveTab] = useState<"ecosystem" | "aws" | "langgraph" | "rust" | "finops" | "datalake">("ecosystem");
   const [selectedNode, setSelectedNode] = useState<string>("gateway");
 
   return (
-    <section id="architecture" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
+    <section id="architecture" className="py-10 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
       <div className="p-6 sm:p-8 rounded-3xl bg-white dark:bg-surface border border-slate-200 dark:border-surfaceBorder shadow-md">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+        <button
+          type="button"
+          onClick={() => setIsExpanded((prev) => !prev)}
+          aria-expanded={isExpanded}
+          className="w-full text-left flex flex-col sm:flex-row sm:items-center justify-between gap-3 cursor-pointer group"
+        >
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-2 shadow-xs">
               <Layers className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
               Interactive System Topologies & Latency Budgets
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight group-hover:text-blue-700 dark:group-hover:text-cyan-300 transition-colors">
               Production Cloud & AI Architectures
             </h2>
-            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-light mt-1">
-              Real-world system designs powering high-throughput scientific data, autonomous multi-agent compliance, and enterprise FinOps.
+            <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 font-light mt-1 max-w-2xl">
+              Optional technical deep-dive: six topology views covering the same systems proven above, for reviewers who want the infrastructure detail.
             </p>
           </div>
+          <div className="flex items-center gap-2 text-xs font-mono font-semibold text-blue-700 dark:text-cyan-300 bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 px-3.5 py-2 rounded-xl self-start sm:self-auto flex-shrink-0 group-hover:bg-blue-100 dark:group-hover:bg-blue-900/60 transition-colors">
+            <span>{isExpanded ? "Hide topologies" : "Expand deep-dive"}</span>
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </div>
+        </button>
 
-        {/* Tab Buttons */}
-        <div className="flex flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+        {/* Collapsed summary strip: one-line proof per topology, no scroll cost */}
+        {!isExpanded && (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {["Ecosystem Interlock", "AWS ECS Fargate", "LangGraph Determinism", "Rust/WASM 1.8 ms", "Redis FinOps 42%", "S3 Data Lake"].map((chip) => (
+              <span
+                key={chip}
+                className="px-2.5 py-1 rounded-lg text-[11px] font-mono bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300"
+              >
+                {chip}
+              </span>
+            ))}
+          </div>
+        )}
+
+        {isExpanded && (
+        <div className="mt-6 animate-fadeIn">
+        {/* Tab Buttons — own full-width row, parallel to heading edge */}
+        <div className="mb-3 w-full overflow-x-auto no-scrollbar">
+          <div className="flex flex-nowrap sm:flex-wrap items-center gap-1.5 p-1.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 w-max sm:w-full">
           <button
             onClick={() => setActiveTab("ecosystem")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "ecosystem" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
@@ -47,7 +77,7 @@ export default function ArchitectureViewer() {
           </button>
           <button
             onClick={() => setActiveTab("aws")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "aws" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
@@ -55,7 +85,7 @@ export default function ArchitectureViewer() {
           </button>
           <button
             onClick={() => setActiveTab("langgraph")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "langgraph" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
@@ -63,15 +93,15 @@ export default function ArchitectureViewer() {
           </button>
           <button
             onClick={() => setActiveTab("rust")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "rust" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
-            Rust / WASM SIMD
+            Rust / WASM Engine
           </button>
           <button
             onClick={() => setActiveTab("finops")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "finops" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
@@ -79,26 +109,40 @@ export default function ArchitectureViewer() {
           </button>
           <button
             onClick={() => setActiveTab("datalake")}
-            className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
+            className={`flex-shrink-0 px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
               activeTab === "datalake" ? "bg-blue-600 text-white shadow-sm font-semibold" : "text-slate-700 dark:text-slate-300 hover:text-slate-950 dark:hover:text-white"
             }`}
           >
             AWS S3 Data Lake
           </button>
+          </div>
         </div>
-      </div>
+
+        {/* Business-constraint caption for the active tab */}
+        <div className="mb-6 text-[11px] font-mono text-slate-500 dark:text-slate-400 flex items-center gap-2">
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-500 dark:bg-cyan-400 flex-shrink-0" />
+          <span>
+            {activeTab === "ecosystem" && "Rationale: a single governed ingress point enforces cost and safety policy before any domain or AI service executes."}
+            {activeTab === "aws" && "Rationale: replacing €1.2M+/year in vendor licenses with an owned, autoscaling AWS ECS platform."}
+            {activeTab === "langgraph" && "Rationale: statutory chemical limits are enforced as deterministic rules with a full audit trail, never as model inference."}
+            {activeTab === "rust" && "Rationale: curve-fitting executes client-side via WebAssembly, eliminating server round-trips entirely."}
+            {activeTab === "finops" && "Rationale: caching repeated prompts and enforcing departmental budgets prevents uncontrolled LLM expenditure."}
+            {activeTab === "datalake" && "Rationale: plant sensor telemetry remains inexpensive to store and fast to query on S3 with Glue/Athena."}
+          </span>
+        </div>
 
       {/* Diagram Render Box */}
       <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 border border-slate-200 dark:border-slate-800 font-mono text-xs shadow-inner transition-colors">
+
         
-        {/* TAB 0: UNICORN MONOREPO ECOSYSTEM TOPOLOGY */}
+        {/* TAB 0: MONOREPO ECOSYSTEM TOPOLOGY */}
         {activeTab === "ecosystem" && (
           <div className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-200 dark:border-slate-800">
               <div className="text-slate-700 dark:text-slate-300 font-medium flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="font-semibold text-slate-900 dark:text-white">Live Monorepo Microservices Interlock</span>
-                <span className="text-[11px] text-slate-500">| 4 Services + Next.js 15 + Redis</span>
+                <span className="text-[11px] text-slate-500">| Next.js 15 + 4 FastAPI Services + Redis</span>
               </div>
               <div className="text-[11px] text-blue-600 dark:text-cyan-400 font-mono">
                 Click any tier or microservice below to inspect specs &rarr;
@@ -267,7 +311,7 @@ export default function ArchitectureViewer() {
           <div className="space-y-4">
             <div className="text-slate-600 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
               <span className="w-2 h-2 rounded-full bg-blue-500" />
-              <span>// AWS ECS Fargate & Application Load Balancer Architecture (€1.2M+ Savings)</span>
+              <span>€1.2M+ saved: owned AWS platform, not a vendor license</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-blue-900/50 shadow-xs">
@@ -303,7 +347,7 @@ export default function ArchitectureViewer() {
           <div className="space-y-4">
             <div className="text-slate-600 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
               <span className="w-2 h-2 rounded-full bg-amber-500" />
-              <span>// LangGraph Multi-Agent Deterministic Chemical Compliance Pipeline</span>
+              <span>Legal limits are rules with an audit trail, not model guesses</span>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
               <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs">
@@ -331,7 +375,7 @@ export default function ArchitectureViewer() {
           <div className="space-y-4">
             <div className="text-slate-600 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
               <span className="w-2 h-2 rounded-full bg-cyan-500" />
-              <span>// Rust + WebAssembly (WASM) 1.8ms Client Compute Pipeline</span>
+              <span>Lab curve-fitting in the browser: 1.8 ms, no server wait</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-cyan-900/50 shadow-xs">
@@ -367,7 +411,7 @@ export default function ArchitectureViewer() {
           <div className="space-y-4">
             <div className="text-slate-600 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
               <span className="w-2 h-2 rounded-full bg-purple-500" />
-              <span>// Enterprise AI FinOps & Governance Gateway (42% Cost Reduction)</span>
+              <span>42% lower AI spend: cache repeats, cap departments</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-purple-900/50 shadow-xs">
@@ -403,7 +447,7 @@ export default function ArchitectureViewer() {
           <div className="space-y-4">
             <div className="text-slate-600 dark:text-slate-400 mb-2 flex items-center gap-2 font-medium">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
-              <span>// AWS Laboratory Telemetry & Multi-Terabyte Data Lake (80% Overhead Reduction)</span>
+              <span>Plant sensor data cheap to store, fast to query. 80% less lab overhead.</span>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-indigo-900/50 shadow-xs">
@@ -428,6 +472,8 @@ export default function ArchitectureViewer() {
           </div>
         )}
       </div>
+        </div>
+        )}
       </div>
     </section>
   );

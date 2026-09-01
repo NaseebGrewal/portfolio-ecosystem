@@ -1,6 +1,6 @@
 import React from "react";
 import { Project } from "@/data/portfolio_data";
-import { Github, ExternalLink, Cpu, CheckCircle2, DollarSign, FolderGit2 } from "lucide-react";
+import { Github, ExternalLink, CheckCircle2, DollarSign, AlertTriangle } from "lucide-react";
 
 export default function ProjectCard({ project }: { project: Project }) {
   return (
@@ -27,16 +27,16 @@ export default function ProjectCard({ project }: { project: Project }) {
           {project.tagline}
         </p>
 
-        {/* Business ROI Box */}
+        {/* Business Problem & ROI Box — leads the card (Problem → Cost → Result) */}
         <div className="p-3.5 rounded-2xl bg-emerald-50/70 dark:bg-slate-900/80 border border-emerald-200/80 dark:border-slate-800 text-xs text-slate-800 dark:text-slate-200 mb-5 leading-relaxed">
           <strong className="text-emerald-700 dark:text-emerald-400 font-semibold">Business Impact: </strong>
           {project.businessImpact}
         </div>
 
         {/* Architecture Highlights */}
-        <div className="space-y-2 mb-6">
+        <div className="space-y-2 mb-5">
           <div className="text-xs font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wider font-mono">
-            Key Architecture Highlights
+            How it works
           </div>
           {project.architectureHighlights.map((highlight, idx) => (
             <div key={idx} className="flex items-start gap-2 text-xs text-slate-800 dark:text-slate-200">
@@ -46,11 +46,22 @@ export default function ProjectCard({ project }: { project: Project }) {
           ))}
         </div>
 
-        {/* Metrics Grid */}
-        <div className="grid grid-cols-3 gap-2 mb-6 p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
+        {/* Limitations & Failure Modes — senior-engineer signal */}
+        {project.limitations && (
+          <div className="p-3.5 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200/70 dark:border-amber-800/40 text-xs text-amber-900 dark:text-amber-200 mb-5 leading-relaxed">
+            <div className="flex items-center gap-1.5 mb-1 font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider font-mono text-[10px]">
+              <AlertTriangle className="w-3.5 h-3.5" />
+              Limits
+            </div>
+            {project.limitations}
+          </div>
+        )}
+
+        {/* Metrics Grid — stays 3-up on desktop, relaxes to stacked rows on very small screens */}
+        <div className="grid grid-cols-3 max-[380px]:grid-cols-1 gap-2 mb-6 p-3 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
           {project.metrics.map((m, idx) => (
-            <div key={idx} className="text-center">
-              <div className="text-[11px] text-slate-600 dark:text-slate-400 mb-0.5 font-medium">{m.label}</div>
+            <div key={idx} className="text-center max-[380px]:flex max-[380px]:items-center max-[380px]:justify-between max-[380px]:px-2">
+              <div className="text-[11px] text-slate-600 dark:text-slate-400 mb-0.5 max-[380px]:mb-0 font-medium">{m.label}</div>
               <div className="text-sm font-bold text-blue-700 dark:text-blue-300 font-mono">{m.value}</div>
             </div>
           ))}

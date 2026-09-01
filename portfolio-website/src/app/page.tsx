@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import EnterprisePedigreeMarquee from "@/components/EnterprisePedigreeMarquee";
 import StrategicValueMatrix from "@/components/StrategicValueMatrix";
 import InteractiveDemoSuite from "@/components/InteractiveDemoSuite";
-import GenAiArchitectCopilot from "@/components/GenAiArchitectCopilot";
 import EnterpriseProjectCatalog from "@/components/EnterpriseProjectCatalog";
 import AiSolutionMatchmaker from "@/components/AiSolutionMatchmaker";
 import ProjectCard from "@/components/ProjectCard";
@@ -14,31 +13,28 @@ import ArchitectureViewer from "@/components/ArchitectureViewer";
 import ExecutiveCredentialsBar from "@/components/ExecutiveCredentialsBar";
 import ContactModal from "@/components/ContactModal";
 import ContactForm from "@/components/ContactForm";
+import GlossaryModal from "@/components/GlossaryModal";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { FLAGSHIP_PROJECTS, CANDIDATE_PROFILE } from "@/data/portfolio_data";
 import {
-  Mail,
   Github,
   Linkedin,
   Sparkles,
   Cpu,
-  Layers,
-  ArrowUpRight,
   Compass
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { id: "pedigree", label: "Experience", href: "#pedigree" },
-  { id: "core-systems", label: "Core Systems", href: "#core-systems" },
-  { id: "interactive-demo", label: "Live Sandboxes", href: "#interactive-demo" },
+  { id: "core-systems", label: "Systems", href: "#core-systems" },
+  { id: "interactive-demo", label: "Live demos", href: "#interactive-demo" },
   { id: "catalog", label: "Projects", href: "#catalog" },
-  { id: "skills", label: "Skills & Architecture", href: "#skills" },
+  { id: "skills", label: "Skills", href: "#skills" },
   { id: "credentials", label: "Credentials", href: "#credentials" },
   { id: "contact", label: "Contact", href: "#contact" },
 ];
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState<string>("pedigree");
+  const [activeSection, setActiveSection] = useState<string>("");
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const [contactModalTopic, setContactModalTopic] = useState<string | undefined>(undefined);
 
@@ -79,7 +75,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen bg-background text-foreground selection:bg-blue-600 selection:text-white transition-colors duration-200">
-      {/* Sticky Executive Top Bar */}
+      {/* Sticky Top Bar */}
       <header className="sticky top-0 z-50 backdrop-blur-md bg-white/95 dark:bg-[#090d16]/95 border-b border-slate-200 dark:border-[#1f2937] shadow-xs transition-colors">
         <div className="max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 py-3 flex items-center justify-between gap-4">
           {/* Brand & Title */}
@@ -137,7 +133,7 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 transition-all shadow-xs"
-                title="LinkedIn Profile"
+                title="LinkedIn: full experience, roles, and dates"
               >
                 <Linkedin className="w-4 h-4" />
               </a>
@@ -146,7 +142,7 @@ export default function Home() {
               type="button"
               onClick={() => handleOpenContactModal()}
               className="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-blue-600 via-indigo-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-xs font-semibold transition-all shadow-sm flex items-center gap-1.5 cursor-pointer ring-1 ring-white/15 hover:scale-[1.02]"
-              title="Open Executive Contact Portal"
+              title="Open contact form"
             >
               <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
               <span className="hidden sm:inline">Get in Touch</span>
@@ -159,7 +155,7 @@ export default function Home() {
         <div className="xl:hidden border-t border-slate-200/80 dark:border-slate-800/80 px-4 sm:px-6 lg:px-8 xl:px-12 py-1.5 bg-slate-50/90 dark:bg-[#0c1220]/90 overflow-x-auto no-scrollbar flex items-center gap-1.5">
           <div className="inline-flex items-center gap-1 text-[11px] font-mono font-bold text-blue-700 dark:text-cyan-400 mr-2 flex-shrink-0">
             <Compass className="w-3.5 h-3.5" />
-            <span>JUMP:</span>
+            <span>Jump</span>
           </div>
           {NAV_ITEMS.map((item) => {
             const isActive = activeSection === item.id;
@@ -183,12 +179,12 @@ export default function Home() {
       {/* Hero Section */}
       <Hero onOpenContactModal={handleOpenContactModal} />
 
-      {/* Moving Companies & Institutes Experience Marquee Strip */}
-      <div id="pedigree">
+      {/* Logos only — roles and dates live on LinkedIn / CV, never on this site */}
+      <div id="track-record">
         <EnterprisePedigreeMarquee />
       </div>
 
-      {/* Core Production Microservices (Flagship Projects front and center) */}
+      {/* Seven flagship systems */}
       <section id="core-systems" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 max-w-[1440px] mx-auto border-t border-slate-200 dark:border-surfaceBorder">
         <div className="mb-12">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-300 mb-3 shadow-xs">
@@ -196,10 +192,13 @@ export default function Home() {
             Core Production Microservices & Systems
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
-            Production Microservice Systems
+            Seven Production-Grade Systems, Live &amp; Interactive
           </h2>
           <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light">
-            Engineered systems demonstrating the union of physical domain science, full-stack microservices, deterministic multi-agent workflows, and containerized cloud DevOps.
+            From polymer formulation and chemical-safety compliance to in-browser lab mathematics and AI cost governance. Each system ships with a working demo.
+          </p>
+          <p className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-2">
+            Containerized FastAPI microservices with in-browser fallback engines: every demo runs instantly, no credentials required.
           </p>
         </div>
 
@@ -210,6 +209,9 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Interactive AI Solution Matchmaker (problem → system adjacency) */}
+      <AiSolutionMatchmaker onOpenContactModal={handleOpenContactModal} />
+
       {/* Strategic Value Matrix (Architectural Differentiator) */}
       <div id="value-matrix">
         <StrategicValueMatrix />
@@ -218,80 +220,81 @@ export default function Home() {
       {/* Interactive Live Demo Suite (Proof of Work) */}
       <InteractiveDemoSuite />
 
-      {/* Live Recruiter AI Copilot (Powered by Gemini API) */}
-      <GenAiArchitectCopilot />
-
-      {/* Interactive AI Architecture Matchmaker */}
-      <AiSolutionMatchmaker onOpenContactModal={handleOpenContactModal} />
-
       {/* Full Filterable Projects Catalog (14 Systems) */}
       <EnterpriseProjectCatalog />
 
       {/* Technical Architecture & Skills Matrix */}
       <SkillsMatrix />
 
-      {/* Architecture Viewer */}
+      {/* Architecture Viewer (collapsed deep-dive) */}
       <ArchitectureViewer />
 
-      {/* Sleek Executive Credentials & Trust Bar */}
+      {/* Credentials & Trust Bar */}
       <ExecutiveCredentialsBar />
 
-      {/* Executive Contact & CTA Footer */}
+      {/* Enterprise Contact & CTA Footer */}
       <footer id="contact" className="py-16 px-4 sm:px-6 lg:px-8 xl:px-12 bg-slate-100 dark:bg-[#0c1220] border-t border-slate-200 dark:border-surfaceBorder transition-colors">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-blue-50 dark:bg-blue-950/90 border border-blue-200 dark:border-blue-800 text-blue-800 dark:text-cyan-300 text-xs font-mono mb-4 shadow-xs">
-              <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Direct Communication
+        <div className="max-w-[1440px] mx-auto">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-800 text-emerald-700 dark:text-emerald-300 text-xs font-mono mb-4 shadow-xs">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+              </span>
+              {CANDIDATE_PROFILE.status}
             </div>
             <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white mb-2 tracking-tight">
-              Get in Touch
+              Let&apos;s work together
             </h3>
             <p className="text-slate-700 dark:text-slate-300 text-sm max-w-xl mx-auto font-light leading-relaxed">
-              Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Staff/Principal Engineering leadership roles across Germany, EU, and Remote worldwide.
+              Available for Senior AI Solutions Architect, R&D Digitalization Lead, and Staff/Principal Engineering roles across Germany, the EU, and remote worldwide. Every inquiry receives a personal reply within 24 hours.
             </p>
           </div>
 
-          {/* Inline Always-Visible Contact Box (No popup required in footer) */}
-          <div className="bg-white dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl mb-10 ring-1 ring-slate-900/5 dark:ring-white/5">
-            <ContactForm isModal={false} />
+          {/* Centered conversion form — identity lives in sticky nav */}
+          <div className="max-w-3xl mx-auto mb-12">
+            <div className="bg-white dark:bg-[#080d1a] border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl ring-1 ring-slate-900/5 dark:ring-white/5">
+              <ContactForm isModal={false} />
+            </div>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 mb-8">
-            {CANDIDATE_PROFILE.linkedinUrl && (
-              <a
-                href={CANDIDATE_PROFILE.linkedinUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
-              >
-                <Linkedin className="w-4 h-4 text-blue-600 dark:text-cyan-400" />
-                <span>LinkedIn Profile</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-              </a>
-            )}
-
-            {CANDIDATE_PROFILE.githubUrl && (
-              <a
-                href={CANDIDATE_PROFILE.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-5 py-2.5 rounded-xl bg-white dark:bg-slate-900 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 text-xs font-medium flex items-center gap-2 shadow-xs transition-all"
-              >
-                <Github className="w-4 h-4 text-slate-900 dark:text-white" />
-                <span>GitHub Repositories</span>
-                <ArrowUpRight className="w-3.5 h-3.5 text-slate-400" />
-              </a>
-            )}
-          </div>
-
-          <div className="text-center text-xs text-slate-600 dark:text-slate-400 font-mono">
-            © {new Date().getFullYear()} {CANDIDATE_PROFILE.name} • Built with Next.js 15, TypeScript & Tailwind CSS
+          {/* Bottom bar */}
+          <div className="pt-8 border-t border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400 font-mono">
+            <div>© {new Date().getFullYear()} {CANDIDATE_PROFILE.name}</div>
+            <div className="flex items-center gap-3">
+              {CANDIDATE_PROFILE.githubUrl && (
+                <a
+                  href={CANDIDATE_PROFILE.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1.5 rounded-lg hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors"
+                  title="GitHub"
+                  aria-label="GitHub"
+                >
+                  <Github className="w-3.5 h-3.5" />
+                </a>
+              )}
+              {CANDIDATE_PROFILE.linkedinUrl && (
+                <a
+                  href={CANDIDATE_PROFILE.linkedinUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-1.5 rounded-lg hover:text-slate-950 dark:hover:text-white hover:bg-slate-200/70 dark:hover:bg-slate-800 transition-colors"
+                  title="LinkedIn"
+                  aria-label="LinkedIn"
+                >
+                  <Linkedin className="w-3.5 h-3.5" />
+                </a>
+              )}
+              <GlossaryModal />
+              <span>Next.js 15 · TypeScript · Tailwind CSS · Docker</span>
+            </div>
           </div>
         </div>
       </footer>
 
-      {/* Unicorn-Grade Executive Contact Popup Modal */}
+      {/* Contact Popup Modal */}
       <ContactModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}

@@ -3,10 +3,8 @@
 import React, { useState } from "react";
 import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
 import {
-  Cpu,
   Mail,
   Sparkles,
-  Layers,
   Award,
   MapPin
 } from "lucide-react";
@@ -70,41 +68,42 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
               </div>
             </div>
 
-            {/* Cross-Industry Vertical Badges */}
+            {/* Industry chips — short enough to scan on a phone */}
             <div className="flex flex-wrap items-center gap-1.5 mb-5">
               {CANDIDATE_PROFILE.targetIndustries.map((ind, idx) => (
                 <span
                   key={idx}
                   className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 font-medium"
                 >
-                  • {ind}
+                  {ind}
                 </span>
               ))}
             </div>
 
-            {/* Executive Narrative */}
-            <div className="space-y-3.5 text-slate-800 dark:text-slate-200 text-sm sm:text-base leading-relaxed font-light mb-5">
+            {/* About Me — high-impact professional narrative */}
+            <div className="space-y-3.5 text-slate-800 dark:text-slate-200 text-sm sm:text-base lg:text-lg leading-relaxed font-light mb-5">
               <p>
-                I architect enterprise AI systems, high-throughput microservices, and specialized R&D platforms across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years of delivering software platforms across global organizations (including <strong className="text-slate-950 dark:text-white font-semibold">Continental, IFF, Wongdoody (An Infosys Company), Heidelberg Materials, SAP, and Meesho</strong>), I specialize in eliminating legacy operational friction and engineering high-ROI systems.
+                I architect enterprise AI systems, high-throughput microservices, and specialized R&amp;D platforms across <strong className="text-slate-950 dark:text-white font-semibold">Specialty Chemicals, Tier-1 Automotive, E-Commerce, Enterprise IT, and Life Sciences</strong>. Over 7+ years delivering software platforms for global organizations including <strong className="text-slate-950 dark:text-white font-semibold">Continental, IFF, Wongdoody (An Infosys Company), Heidelberg Materials, SAP, and Meesho</strong>, I specialize in eliminating legacy operational friction and engineering high-ROI systems.
               </p>
+            </div>
 
-              <div className="p-4 rounded-2xl bg-gradient-to-r from-blue-50/90 via-slate-50 to-cyan-50/60 dark:from-blue-950/40 dark:via-slate-900/50 dark:to-cyan-950/30 border border-blue-200/80 dark:border-blue-900/50 shadow-xs">
-                <div className="flex items-center gap-2 mb-1.5">
-                  <span className="flex h-2 w-2 rounded-full bg-blue-600 dark:bg-cyan-400" />
-                  <span className="text-xs font-mono uppercase tracking-wider font-bold text-blue-700 dark:text-cyan-300">
-                    Core Architectural Focus
-                  </span>
-                </div>
-                <p className="text-xs sm:text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-normal">
-                  Engineering in-house R&D platforms (<strong className="text-emerald-700 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), deterministic multi-agent compliance pipelines (LangGraph / REACH SDS validation), and client-side Rust/WASM numerical simulation engines deployed on AWS ECS and Azure.
-                </p>
+            {/* Core Architectural Focus Card */}
+            <div className="rounded-2xl border border-blue-200/80 dark:border-blue-500/25 bg-gradient-to-br from-blue-50/90 via-indigo-50/70 to-cyan-50/60 dark:from-blue-950/40 dark:via-indigo-950/30 dark:to-cyan-950/25 p-4 sm:p-5 mb-5 shadow-xs backdrop-blur-sm">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="w-2 h-2 rounded-full bg-blue-600 dark:bg-cyan-400" />
+                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.18em] text-blue-700 dark:text-cyan-300">
+                  Core Architectural Focus
+                </span>
               </div>
+              <p className="text-slate-800 dark:text-slate-200 text-sm sm:text-base leading-relaxed font-light">
+                Engineering in-house R&amp;D platforms (<strong className="text-emerald-700 dark:text-emerald-400 font-semibold">€1.2M+ vendor licensing eliminated</strong>), deterministic multi-agent compliance pipelines (LangGraph / REACH SDS validation), and client-side Rust/WASM numerical simulation engines deployed on AWS ECS and Azure.
+              </p>
             </div>
           </div>
 
           <div>
-            {/* Key Headline Stat Cards */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+            {/* Key Headline Stat Cards — 2-up on phones, 4-up from small tablets */}
+            <div className="grid grid-cols-1 min-[430px]:grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
               {CANDIDATE_PROFILE.headlineStats.map((stat, idx) => (
                 <div
                   key={idx}
@@ -123,30 +122,14 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
               ))}
             </div>
 
-            {/* Action CTA Buttons */}
+            {/* Action CTA Buttons — one primary, one secondary */}
             <div className="flex flex-wrap items-center gap-2.5">
               <a
-                href="#core-systems"
+                href="#interactive-demo"
                 className="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all shadow-md shadow-blue-600/25 hover:shadow-blue-600/40"
               >
-                <Cpu className="w-4 h-4" />
-                <span>Explore Core Systems</span>
-              </a>
-
-              <a
-                href="#interactive-demo"
-                className="px-4 py-3 rounded-xl bg-cyan-50 dark:bg-cyan-950/80 hover:bg-cyan-100 dark:hover:bg-cyan-900/80 border border-cyan-200 dark:border-cyan-700/60 text-cyan-900 dark:text-cyan-200 font-medium text-xs sm:text-sm flex items-center gap-2 transition-all"
-              >
-                <Sparkles className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
+                <Sparkles className="w-4 h-4" />
                 <span>Live Sandboxes</span>
-              </a>
-
-              <a
-                href="#catalog"
-                className="px-4 py-3 rounded-xl bg-white dark:bg-surface hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-surfaceBorder font-medium text-xs sm:text-sm flex items-center gap-2 transition-all"
-              >
-                <Layers className="w-4 h-4" />
-                <span>Projects (14)</span>
               </a>
 
               <button
@@ -156,13 +139,25 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
               >
                 <Mail className="w-4 h-4" />
                 <span>Get in Touch</span>
-                <Sparkles className="w-3.5 h-3.5 text-cyan-200" />
               </button>
+
+              <a
+                href="#core-systems"
+                className="px-2 py-3 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
+              >
+                Core systems
+              </a>
+              <a
+                href="#catalog"
+                className="px-2 py-3 text-xs sm:text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-cyan-400 transition-colors"
+              >
+                Additional projects
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Executive Portrait Card - Full Vertical Parity & Minimalist Unicorn Standard (5 cols) */}
+        {/* Right Column: Portrait Card - Full Vertical Parity (5 cols) */}
         <div className="lg:col-span-5 xl:col-span-5 flex flex-col justify-stretch">
           <div className="relative w-full h-full min-h-[500px] sm:min-h-[560px] lg:min-h-full group flex flex-col transform-gpu">
             

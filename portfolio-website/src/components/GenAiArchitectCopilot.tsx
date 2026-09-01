@@ -1,5 +1,9 @@
 "use client";
 
+/**
+ * UNMOUNTED ON PURPOSE. Homepage uses FloatingArchitectCopilot in layout.tsx.
+ * Do not remount this component on page.tsx.
+ */
 import React, { useState, useRef } from "react";
 import {
   Sparkles,
@@ -412,10 +416,10 @@ export default function GenAiArchitectCopilot() {
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-50 dark:bg-blue-950/80 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-cyan-300 mb-3 shadow-xs">
               <Sparkles className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Executive AI Systems Copilot & Architectural Advisory
+              AI Systems Copilot & Architectural Advisory
             </div>
             <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-              Executive AI Systems Copilot
+              AI Systems Copilot
             </h2>
             <p className="text-slate-600 dark:text-gray-400 text-sm mt-1 max-w-2xl font-light">
               Live interactive architectural sparring partner. Test complex system designs, multi-agent orchestration, cloud FinOps, sub-millisecond physics, or open-ended technical challenges.
@@ -611,7 +615,7 @@ export default function GenAiArchitectCopilot() {
             <div className="flex items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-200 dark:border-gray-800">
               <div className="flex items-center gap-2 font-mono text-xs text-blue-700 dark:text-cyan-400 font-bold">
                 <Bot className="w-4 h-4" />
-                <span>Executive Architectural Synthesis</span>
+                <span>Architectural Synthesis</span>
                 {engine && (
                   <span className="text-[10px] text-slate-700 dark:text-gray-300 bg-white dark:bg-gray-800 border border-slate-200 dark:border-gray-700 px-2.5 py-0.5 rounded-lg ml-1 font-mono">
                     {engine}

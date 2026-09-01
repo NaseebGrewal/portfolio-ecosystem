@@ -1,8 +1,7 @@
 "use client";
 
 import React from "react";
-import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
-import { Sparkles, Check, X, ShieldAlert, Cpu, FlaskConical, DollarSign, Award, Users2 } from "lucide-react";
+import { Sparkles, Check, X, Cpu, FlaskConical, DollarSign, Users2 } from "lucide-react";
 
 export default function StrategicValueMatrix() {
   const comparisonData = [

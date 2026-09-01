@@ -187,10 +187,11 @@ describe("Executive Contact System & Validation Suite", () => {
     expect(validateInquiry("founder@deeptech.io", "Other / Custom Topic", " ", "Interested in scheduling an advisory workshop.")).toBe(false);
   });
 
-  it("should verify candidate email routing configuration targets executive inbox", () => {
-    expect(CANDIDATE_PROFILE.email).toBeDefined();
-    expect(CANDIDATE_PROFILE.email.length).toBeGreaterThan(5);
-    expect(EMAIL_REGEX.test(CANDIDATE_PROFILE.email)).toBe(true);
+  it("should not expose the candidate's private inbox in the client-side profile data", () => {
+    // Anti-scraping guard: the direct email channel is the qualified contact form only.
+    expect("email" in CANDIDATE_PROFILE).toBe(false);
+    expect(CANDIDATE_PROFILE.linkedinUrl).toBeDefined();
+    expect(CANDIDATE_PROFILE.githubUrl).toBeDefined();
   });
 
   it("should format executive sender identities cleanly for enterprise, academia, and direct senders", () => {
@@ -233,14 +234,14 @@ describe("Executive Contact System & Validation Suite", () => {
         return customTopic?.trim() || "Custom Inquiry";
       }
       if (customTopic && customTopic.trim().length > 0) {
-        return `${selectedTopic} — ${customTopic.trim()}`;
+        return `${selectedTopic}: ${customTopic.trim()}`;
       }
       return selectedTopic;
     };
 
     // Preset badge with custom subject / project name
     expect(resolveEffectiveTopic("Staff / Lead AI Role", "Series B AI Lead Architecture"))
-      .toBe("Staff / Lead AI Role — Series B AI Lead Architecture");
+      .toBe("Staff / Lead AI Role: Series B AI Lead Architecture");
 
     // Preset badge without custom subject
     expect(resolveEffectiveTopic("Multi-Agent & GenAI Systems", ""))

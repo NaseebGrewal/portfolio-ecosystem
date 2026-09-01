@@ -27,9 +27,33 @@ export const TOPIC_BADGES = [
   { id: "staff-role", label: "Staff / Lead AI Role", icon: "💼" },
   { id: "genai-agents", label: "Multi-Agent & GenAI Systems", icon: "🤖" },
   { id: "materials-rd", label: "R&D Digitalization & AI", icon: "🔬" },
-  { id: "finops-cloud", label: "Cloud Systems & FinOps", icon: "⚡" },
+  { id: "finops-cloud", label: "Cloud & AI cost control", icon: "⚡" },
   { id: "advisory", label: "Technical Advisory", icon: "📊" },
   { id: "custom", label: "Other / Custom Topic", icon: "✨" },
+];
+
+export const ROLE_OPTIONS = [
+  "Recruiter / Talent Partner",
+  "Hiring Manager / CTO",
+  "Founder / Executive",
+  "Engineering Peer",
+  "Other",
+];
+
+export const BUDGET_OPTIONS = [
+  "Full-time role (N/A)",
+  "Under €10k",
+  "€10k – €50k",
+  "€50k – €150k",
+  "€150k+",
+  "To be scoped",
+];
+
+export const TIMELINE_OPTIONS = [
+  "Immediate",
+  "This quarter",
+  "Next 6 months",
+  "Exploring / no fixed date",
 ];
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
@@ -37,9 +61,14 @@ const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-
 export default function ContactForm({ onCancel, isModal = false, initialTopic }: ContactFormProps) {
   const [senderName, setSenderName] = useState("");
   const [organization, setOrganization] = useState("");
+  // Untouched qualifier selects submit as undefined — no fabricated "Recruiter / Full-time / Immediate" context
+  const [senderRole, setSenderRole] = useState("");
+  const [budgetRange, setBudgetRange] = useState("");
+  const [timeline, setTimeline] = useState("");
+  const [honeypot, setHoneypot] = useState("");
   const [email, setEmail] = useState("");
   const [selectedTopic, setSelectedTopic] = useState<string>(
-    initialTopic || TOPIC_BADGES[0].label
+    initialTopic || "Technical Advisory"
   );
   const [customTopic, setCustomTopic] = useState("");
   const [message, setMessage] = useState("");
@@ -79,7 +108,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
       return customTopic.trim();
     }
     if (customTopic.trim().length > 0) {
-      return `${selectedTopic} — ${customTopic.trim()}`;
+      return `${selectedTopic}: ${customTopic.trim()}`;
     }
     return selectedTopic;
   }, [selectedTopic, customTopic, isCustomTopicNeeded]);
@@ -112,10 +141,14 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         body: JSON.stringify({
           senderName: senderName.trim() || undefined,
           organization: organization.trim() || undefined,
+          senderRole: senderRole || undefined,
+          budgetRange: budgetRange || undefined,
+          timeline: timeline || undefined,
           email: email.trim(),
           topic: selectedTopic,
           customTopic: customTopic.trim() || undefined,
           message: message.trim(),
+          website: honeypot, // honeypot — always empty for humans
         }),
       });
 
@@ -143,8 +176,12 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
   const handleReset = () => {
     setSenderName("");
     setOrganization("");
+    setSenderRole("");
+    setBudgetRange("");
+    setTimeline("");
+    setHoneypot("");
     setEmail("");
-    setSelectedTopic(TOPIC_BADGES[0].label);
+    setSelectedTopic("Technical Advisory");
     setCustomTopic("");
     setMessage("");
     setTouchedEmail(false);
@@ -162,11 +199,11 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         </div>
 
         <h3 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mb-2 tracking-tight">
-          Message Successfully Sent
+          Message sent
         </h3>
 
         <p className="text-slate-700 dark:text-slate-200 text-sm max-w-md mx-auto mb-6 leading-relaxed font-normal">
-          Thank you for reaching out. Your message has been delivered directly to my inbox and I will follow up within 24 hours.
+          Your message has been delivered and a confirmation is on its way to your inbox. I personally reply within 24 hours.
         </p>
 
         <div className="bg-white/95 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-4 max-w-sm mx-auto mb-6 text-left font-mono text-xs space-y-2.5 shadow-sm">
@@ -193,7 +230,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             className="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-50 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-semibold flex items-center gap-2 border border-slate-300 dark:border-slate-700 transition-all shadow-xs cursor-pointer"
           >
             <RefreshCw className="w-3.5 h-3.5" />
-            <span>Send Another Message</span>
+            <span>Send another</span>
           </button>
 
           {isModal && onCancel && (
@@ -202,7 +239,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
               onClick={onCancel}
               className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold shadow-md transition-all cursor-pointer"
             >
-              Close Window
+              Close
             </button>
           )}
         </div>
@@ -217,9 +254,9 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2 flex items-center justify-between">
           <span className="flex items-center gap-1.5">
             <Tag className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-            Select Discussion Topic:
+            Topic
           </span>
-          <span className="text-[11px] text-slate-500 font-normal">Choose preset or customize below</span>
+          <span className="text-[11px] text-slate-500 font-normal">Pick one, or type your own</span>
         </label>
 
         <div className="flex flex-wrap gap-2">
@@ -248,7 +285,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
       <div>
         <label className="block text-xs font-mono font-medium text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
           <span>
-            {isCustomTopicNeeded ? "Specific Custom Topic *" : "Custom Subject / Project Name (Optional):"}
+            {isCustomTopicNeeded ? "Custom topic *" : "Subject (optional)"}
           </span>
           {isCustomTopicNeeded && (
             <span className="text-[11px] text-amber-500 font-sans">Required for custom topic</span>
@@ -261,8 +298,8 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
             onChange={(e) => setCustomTopic(e.target.value)}
             placeholder={
               isCustomTopicNeeded
-                ? "e.g., Fractional CTO Advisory for Series B DeepTech..."
-                : "e.g., Polymer Rheology LLM Fine-tuning or Next.js Architecture..."
+                ? "e.g. Staff AI role, R&D platform, advisory"
+                : "e.g. role title or project name"
             }
             className={`w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border text-slate-900 dark:text-slate-100 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 transition-all ${
               isCustomTopicNeeded && customTopic.trim().length < 2
@@ -272,14 +309,18 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           />
         </div>
 
-        {/* Live Subject Preview when both badge & custom text are active */}
-        {!isCustomTopicNeeded && customTopic.trim().length > 0 && (
+        {/* Live Subject Preview — always visible so users confirm the effective topic being sent */}
+        {isTopicValid && (
           <div className="mt-2 px-3 py-1.5 rounded-lg bg-blue-50 dark:bg-blue-950/50 border border-blue-200/80 dark:border-blue-900/60 flex items-center gap-2 text-xs">
             <span className="text-[11px] font-mono text-blue-700 dark:text-cyan-400 font-semibold uppercase shrink-0">
-              Subject Preview:
+              Subject:
             </span>
             <span className="text-slate-800 dark:text-slate-200 font-medium truncate">
-              {selectedTopic} <span className="text-blue-500 dark:text-cyan-400">—</span> {customTopic.trim()}
+              {isCustomTopicNeeded
+                ? customTopic.trim()
+                : customTopic.trim().length > 0
+                ? <>{selectedTopic} <span className="text-blue-500 dark:text-cyan-400">:</span> {customTopic.trim()}</>
+                : selectedTopic}
             </span>
           </div>
         )}
@@ -291,7 +332,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <User className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Full Name:
+              Name
             </span>
             <span className="text-[11px] text-slate-400 font-sans font-normal">Optional</span>
           </label>
@@ -310,7 +351,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
           <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
             <span className="flex items-center gap-1.5">
               <Building2 className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Organization / Institution:
+              Organization
             </span>
             <span className="text-[11px] text-slate-400 font-sans font-normal">Optional</span>
           </label>
@@ -319,11 +360,74 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
               type="text"
               value={organization}
               onChange={(e) => setOrganization(e.target.value)}
-              placeholder="e.g. Google, Max Planck Institute, or MIT"
+              placeholder="e.g. Google, Max Planck Institute"
               className="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs placeholder:text-slate-400 focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all"
             />
           </div>
         </div>
+      </div>
+
+      {/* Enterprise Context: Your Role, Budget Range, Timeline (optional — omitted when untouched) */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
+        <div>
+          <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            Your role
+          </label>
+          <select
+            value={senderRole}
+            onChange={(e) => setSenderRole(e.target.value)}
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
+          >
+            <option value="">Select (optional)</option>
+            {ROLE_OPTIONS.map((r) => (
+              <option key={r} value={r}>{r}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            Budget
+          </label>
+          <select
+            value={budgetRange}
+            onChange={(e) => setBudgetRange(e.target.value)}
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
+          >
+            <option value="">Select (optional)</option>
+            {BUDGET_OPTIONS.map((b) => (
+              <option key={b} value={b}>{b}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5">
+            Timeline
+          </label>
+          <select
+            value={timeline}
+            onChange={(e) => setTimeline(e.target.value)}
+            className="w-full px-3 py-2.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 text-xs focus:outline-hidden focus:ring-2 focus:ring-blue-500/40 focus:border-blue-500 transition-all cursor-pointer"
+          >
+            <option value="">Select (optional)</option>
+            {TIMELINE_OPTIONS.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </select>
+        </div>
+      </div>
+
+      {/* Honeypot — invisible to humans, traps bots that auto-fill every field */}
+      <div aria-hidden="true" className="absolute -left-[9999px] top-auto w-px h-px overflow-hidden">
+        <label htmlFor="cf-website">Website</label>
+        <input
+          id="cf-website"
+          type="text"
+          name="website"
+          value={honeypot}
+          onChange={(e) => setHoneypot(e.target.value)}
+          tabIndex={-1}
+          autoComplete="off"
+        />
       </div>
 
       {/* Work / Personal Email Input with Real-Time Validation */}
@@ -331,7 +435,7 @@ export default function ContactForm({ onCancel, isModal = false, initialTopic }:
         <label className="block text-xs font-mono font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-1.5 flex items-center justify-between">
           <span className="flex items-center gap-1.5">
             <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-            Your Email Address: <span className="text-rose-500">*</span>
+            Email <span className="text-rose-500">*</span>
           </span>
           {touchedEmail && (
             <span

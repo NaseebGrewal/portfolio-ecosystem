@@ -50,7 +50,7 @@ export default function ContactModal({
           <div>
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-cyan-300 text-xs font-mono mb-2">
               <Mail className="w-3.5 h-3.5 text-blue-600 dark:text-cyan-400" />
-              Direct Message
+              Direct message
             </div>
             <h2
               id="contact-modal-title"
@@ -59,7 +59,7 @@ export default function ContactModal({
               Get in Touch
             </h2>
             <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-light mt-1">
-              Direct channel for technical leadership, Staff/Principal AI architecture, and consulting.
+              Direct channel for technical leadership, Staff/Principal AI architecture, and consulting engagements. Every message receives a personal reply within 24 hours.
             </p>
           </div>
 

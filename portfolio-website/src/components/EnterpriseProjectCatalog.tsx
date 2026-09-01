@@ -5,26 +5,30 @@ import { ENTERPRISE_SYSTEMS_CATALOG, CatalogProject } from "@/data/portfolio_dat
 import {
   Layers,
   Search,
-  Filter,
   CheckCircle2,
-  ExternalLink,
   Github,
-  Sparkles,
-  Zap,
   FolderGit2,
-  Building2,
-  Award,
-  ShieldCheck,
   Cpu
 } from "lucide-react";
 
 type CategoryFilter = "All" | "GenAI & Multi-Agent" | "Full-Stack Cloud & R&D Platforms" | "High-Performance & ML" | "Enterprise Infrastructure";
 type DomainFilter = "All" | "Chemicals & Materials" | "Automotive & Industrial" | "Life Sciences & Pharma" | "FinTech & Compliance";
 
+const FLAGSHIP_OVERLAP_IDS = new Set([
+  "material-database-platform",
+  "chemagent-sds-compliance",
+  "rust-wasm-rheology-engine",
+  "enterprise-ai-gateway-finops",
+  "fintech-doc-extractor",
+  "patient-feedback-healthcare-system",
+  "master-thesis-rag-code-reviewer",
+]);
+
 export default function EnterpriseProjectCatalog() {
   const [selectedCategory, setSelectedCategory] = useState<CategoryFilter>("All");
   const [selectedDomain, setSelectedDomain] = useState<DomainFilter>("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [includeFlagship, setIncludeFlagship] = useState(false);
 
   const categories: CategoryFilter[] = [
     "All",
@@ -44,6 +48,9 @@ export default function EnterpriseProjectCatalog() {
 
   const filteredProjects = useMemo(() => {
     return ENTERPRISE_SYSTEMS_CATALOG.filter((project) => {
+      if (!includeFlagship && FLAGSHIP_OVERLAP_IDS.has(project.id)) {
+        return false;
+      }
       const matchesCategory =
         selectedCategory === "All" || project.category === selectedCategory;
       const matchesDomain =
@@ -56,7 +63,7 @@ export default function EnterpriseProjectCatalog() {
 
       return matchesCategory && matchesDomain && matchesSearch;
     });
-  }, [selectedCategory, selectedDomain, searchQuery]);
+  }, [selectedCategory, selectedDomain, searchQuery, includeFlagship]);
 
   const getDisciplineBadgeStyle = (category: CatalogProject["category"]) => {
     switch (category) {
@@ -82,10 +89,10 @@ export default function EnterpriseProjectCatalog() {
           Enterprise Systems & Delivery Portfolio
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
-          Projects
+          Additional Production Systems & Research
         </h2>
         <p className="text-slate-700 dark:text-slate-300 text-sm max-w-3xl font-light">
-          A comprehensive portfolio of production systems, research breakthroughs, and enterprise tools architected across <strong>Chemicals, Automotive Plants, Cement, and Life Sciences</strong>, categorized with architectural discipline tags.
+          Production systems, research breakthroughs, and enterprise tools delivered across Chemicals, Automotive, Cement, and Life Sciences. Flagship systems are hidden by default to avoid duplication; toggle them on to compare.
         </p>
       </div>
 
@@ -132,15 +139,28 @@ export default function EnterpriseProjectCatalog() {
             ))}
           </div>
 
-          <div className="relative min-w-[240px]">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search tech stack, problem, or title..."
-              className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-xs"
-            />
+          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 min-w-[240px]">
+            <button
+              type="button"
+              onClick={() => setIncludeFlagship((prev) => !prev)}
+              className={`px-3 py-1.5 rounded-xl text-[11px] font-mono font-semibold transition-all border ${
+                includeFlagship
+                  ? "bg-blue-600 text-white border-blue-600"
+                  : "bg-slate-50 dark:bg-slate-950 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-800"
+              }`}
+            >
+              {includeFlagship ? "Including flagship systems" : "Show flagship systems too"}
+            </button>
+            <div className="relative flex-1">
+              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search tech stack, problem, or title..."
+                className="w-full pl-9 pr-3 py-1.5 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-1 focus:ring-blue-500 shadow-xs"
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -180,7 +200,7 @@ export default function EnterpriseProjectCatalog() {
               {/* Architecture Highlights */}
               <div className="space-y-1.5 mb-5 p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800">
                 <span className="text-[10px] font-mono uppercase font-bold text-slate-500 dark:text-slate-400 tracking-wider block mb-1">
-                  Key System Architecture
+                  How it works
                 </span>
                 {project.architectureHighlights.map((hl, idx) => (
                   <div key={idx} className="flex items-start gap-1.5 text-[11px] text-slate-800 dark:text-slate-200">

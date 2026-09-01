@@ -32,23 +32,23 @@ interface ChatMessage {
 
 const QUICK_PROMPTS = [
   {
-    label: "€1.2M Continental Savings",
+    label: "€1.2M+ Vendor Savings",
     query: "How did you architect the in-house enterprise Material Database at Continental to eliminate €1.2M+ in vendor licensing?"
   },
   {
-    label: "Spar on Architect Role",
+    label: "Architect Role Fit",
     query: "How does your experience leading €1.2M+ R&D cloud migrations and multi-agent platforms position you for a Senior AI Solutions Architect or Product Owner leadership role?"
   },
   {
-    label: "REACH Multi-Agent Pipeline",
+    label: "REACH Compliance in 11.4 ms",
     query: "How does the ChemAgent multi-agent workflow enforce deterministic validation on strict REACH SVHC 0.1% w/w chemical thresholds?"
   },
   {
-    label: "Rust / WASM 1.8ms Engine",
+    label: "1.8 ms ISO 527 in the Browser",
     query: "Why compile Rust to client-side WebAssembly for ISO 527 tensile curves instead of running Python SciPy APIs on the server?"
   },
   {
-    label: "FinOps Token Quotas (42% Saved)",
+    label: "42% LLM Cost Reduction",
     query: "How does the Enterprise AI Gateway use Redis SHA256 semantic caching and departmental token quotas to cut LLM costs by 42%?"
   },
   {
@@ -178,14 +178,14 @@ export default function FloatingArchitectCopilot() {
       role: "assistant",
       content: `### Welcome to the AI Systems Copilot 👋
 
-I am your interactive architectural advisor and technical sparring partner. Live model streaming is enabled — choose between verified free models (**MiniMax M3 Free** @ 154 TPS, **Poolside Laguna** for code, **InclusionAI Ling** for FinOps) or Google's **Gemini 3.7 Flash / 3.5 Flash Lite**.
+I am your interactive architectural advisor and technical sparring partner. Live model streaming is enabled. Choose between verified free models (**MiniMax M3 Free** @ 154 TPS, **Poolside Laguna** for code, **InclusionAI Ling** for FinOps) or Google's **Gemini 3.7 Flash / 3.5 Flash Lite**.
 
 Ask me about:
 1. **Multi-Agent Systems**: LangGraph / CrewAI deterministic compliance workflows.
 2. **High-Performance Physics**: Client-side Rust & WebAssembly vs server Python.
 3. **Cloud FinOps**: Redis SHA256 semantic caching and €1.2M+ vendor cost elimination.
 4. **Leadership Fit**: R&D Digitalization Lead, Principal Architect, and Technical Product Owner.`,
-      engine: "Executive AI Systems Copilot • Ready",
+      engine: "AI Systems Copilot • Ready",
       timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     }
   ]);
@@ -222,7 +222,7 @@ Ask me about:
         id: "cleared-msg-" + Date.now(),
         role: "assistant",
         content: "Chat cleared. What technical architecture or strategic leadership topic would you like to explore?",
-        engine: "Executive AI Systems Copilot",
+        engine: "AI Systems Copilot",
         timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
       }
     ]);
@@ -273,7 +273,7 @@ Ask me about:
         signal: controller.signal,
         body: JSON.stringify({
           prompt,
-          domain: "Executive AI Architecture Advisory",
+          domain: "AI Architecture Advisory",
           model: selectedModel,
           stream: true
         })
@@ -397,13 +397,13 @@ Ask me about:
   };
 
   return (
-    <aside aria-label="Executive AI Systems Copilot" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 transform-gpu will-change-transform">
+    <aside aria-label="AI Systems Copilot" className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 transform-gpu will-change-transform">
       {/* Collapsed Floating Launcher Button */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
           className="group relative flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-3.5 rounded-full bg-slate-900/95 dark:bg-[#0c1220]/95 hover:bg-slate-800 dark:hover:bg-blue-950 text-white border border-blue-500/40 dark:border-cyan-500/40 shadow-2xl shadow-blue-600/30 backdrop-blur-md transform-gpu will-change-transform transition-transform duration-300 hover:scale-105 active:scale-95 cursor-pointer"
-          title="Open Executive AI Systems Copilot"
+          title="Open AI Systems Copilot"
         >
           {/* Animated Glow Halo */}
           <span className="absolute -inset-0.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-400 opacity-60 blur-xs group-hover:opacity-100 transition-opacity duration-300 -z-10 animate-pulse transform-gpu pointer-events-none" />
@@ -447,7 +447,7 @@ Ask me about:
               <div className="min-w-0">
                 <div className="flex items-center gap-1.5">
                   <h3 className="text-xs sm:text-sm font-bold text-white tracking-tight truncate">
-                    Executive AI Copilot
+                    AI Systems Copilot
                   </h3>
                   <span className="text-[10px] font-mono font-semibold px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
                     Live

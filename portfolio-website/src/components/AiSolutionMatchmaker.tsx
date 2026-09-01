@@ -36,50 +36,50 @@ const SCENARIOS: ChallengeScenario[] = [
   {
     id: "sc-01",
     industry: "Chemical & Polymer R&D",
-    bottleneck: "High €100k+ yearly licenses for legacy desktop formulation software & slow lab data ingestion",
-    recommendedPattern: "In-House Materials Intelligence Microservices (FastAPI + Next.js 15 + MongoDB on AWS ECS)",
-    techStack: ["FastAPI Async", "MongoDB Atlas", "Redis", "AWS ECS Fargate", "Next.js 15"],
-    projectedRoi: "Eliminates 100% of 3rd-party vendor SaaS licensing (€1.2M+ cumulative savings) with sub-45ms P99 query latency.",
-    architectureBlueprint: "AWS ECS Fargate autoscale cluster behind ALB with OIDC authentication and optimistic formulation versioning.",
+    bottleneck: "€100k+/year in legacy desktop formulation licenses and slow lab data ingestion",
+    recommendedPattern: "In-House Materials Intelligence Platform (FastAPI + Next.js 15 + MongoDB on AWS ECS)",
+    techStack: ["FastAPI", "MongoDB Atlas", "Redis", "AWS ECS Fargate", "Next.js 15"],
+    projectedRoi: "Eliminates 100% of third-party vendor SaaS licensing (€1.2M+ cumulative savings) with sub-45 ms P99 query latency.",
+    architectureBlueprint: "AWS ECS Fargate autoscaling behind an Application Load Balancer, with OIDC authentication and optimistic recipe versioning.",
     matchingProject: "Enterprise Materials Intelligence Platform",
     projectGithub: FLAGSHIP_PROJECTS[0]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/01-materials-intelligence-platform",
-    architecturalPillar: "Optimistic concurrency control and schema migration pipelines for 150+ chemical researchers across global manufacturing plants."
+    architecturalPillar: "150+ researchers across global plants share one formulation system with optimistic concurrency, so no one overwrites another team's batches."
   },
   {
     id: "sc-02",
-    industry: "ESH & Chemical Compliance",
-    bottleneck: "Manual SDS / REACH safety document reviews taking hours with risk of LLM hallucinations on strict SVHC limits",
+    industry: "Chemical Safety & Compliance",
+    bottleneck: "Manual SDS (Safety Data Sheet) reviews take hours, and LLMs hallucinate on SVHC (Substances of Very High Concern) limits",
     recommendedPattern: "Deterministic Multi-Agent Pipeline with Rule-Based Guardrails (LangGraph + Azure OpenAI)",
     techStack: ["LangGraph", "Python 3.12", "ECHA SVHC Registry", "Azure OpenAI", "Docker"],
-    projectedRoi: "Accelerates compliance verification from 2 hours to 11.4 ms per SDS with deterministic validation against statutory limits.",
-    architectureBlueprint: "Supervisor-worker LangGraph pipeline with CAS normalizer, deterministic rule engine, and Human-in-the-Loop CMR escalation.",
+    projectedRoi: "Compliance verification drops from 2 hours to 11.4 ms per SDS, enforced against the statutory 0.1% w/w limit.",
+    architectureBlueprint: "Supervisor-worker LangGraph agents: parse CAS numbers, apply deterministic rules, and escalate carcinogenic hazards (H350/H360) to a human safety officer.",
     matchingProject: "ChemAgent-Gov: Multi-Agent REACH Auditor",
     projectGithub: FLAGSHIP_PROJECTS[1]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/02-chemagent-sds-compliance",
-    architecturalPillar: "Deterministic verification boundary ensuring zero LLM errors when evaluating strict EU REACH Annex XVII thresholds."
+    architecturalPillar: "Legal limits are enforced as rules with a full audit trail, with zero invented concentrations."
   },
   {
     id: "sc-03",
     industry: "Laboratory Testing & Automation",
-    bottleneck: "Slow tensile, rheology, and mechanical curve-fitting algorithms freezing laboratory browser dashboards",
-    recommendedPattern: "Client-Side Rust + WebAssembly (WASM) Real-Time Math Solver",
-    techStack: ["Rust", "WebAssembly (WASM)", "Axum", "ISO 527-1", "FastAPI"],
-    projectedRoi: "Sub-2ms client-side execution for 100,000+ data points without server roundtrip latency or cloud compute bills.",
-    architectureBlueprint: "Compiled WASM binary executing directly in browser V8 engine for instant ISO 527 Young's Modulus and yield stress regression.",
+    bottleneck: "Slow tensile and rheology curve-fitting freezes laboratory dashboards",
+    recommendedPattern: "Client-Side Rust + WebAssembly (WASM) Math Engine",
+    techStack: ["Rust", "WebAssembly (WASM)", "Axum", "ISO 527", "FastAPI"],
+    projectedRoi: "Under 2 ms on 100,000+ data points, with no server round-trip and no additional cloud compute cost.",
+    architectureBlueprint: "Compiled WASM executes in the browser for instant ISO 527 Young's modulus and 0.2% offset yield stress regression.",
     matchingProject: "Ultra-Fast Lab Rheology & Mechanics Engine",
     projectGithub: FLAGSHIP_PROJECTS[2]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/03-rust-wasm-rheology-engine",
-    architecturalPillar: "Rust/WASM client-side compilation for zero-cloud latency and instant offline laboratory analytics."
+    architecturalPillar: "Computation stays on the laboratory laptop: instant, offline-capable, and free of cloud latency."
   },
   {
     id: "sc-04",
-    industry: "Enterprise AI & SaaS",
-    bottleneck: "Uncontrolled LLM API token costs, rate limits, and lack of departmental token governance under EU AI Act",
-    recommendedPattern: "Enterprise AI FinOps Gateway with Semantic Caching & Multi-Cloud Fallback",
-    techStack: ["Redis SHA256", "LiteLLM", "OpenTelemetry", "Azure OpenAI", "AWS Bedrock"],
-    projectedRoi: "Reduces enterprise LLM operational costs by 42% via exact & semantic prompt caching while enforcing departmental euro budgets.",
-    architectureBlueprint: "Reverse-proxy gateway with Redis in-memory cache, automated rate limiter, PII scrubber, and multi-cloud transparent fallback.",
+    industry: "Enterprise AI Cost Governance",
+    bottleneck: "Unbounded LLM bills, no departmental spend caps, and EU AI Act exposure",
+    recommendedPattern: "Enterprise AI Gateway with Semantic Caching & Spend Governance",
+    techStack: ["Redis", "LiteLLM", "OpenTelemetry", "Azure OpenAI", "AWS Bedrock"],
+    projectedRoi: "42% lower LLM operational cost via Redis answer caching and departmental euro budgets.",
+    architectureBlueprint: "Reverse-proxy gateway in front of all models: Redis cache, rate limiting, PII redaction, and Azure → AWS failover.",
     matchingProject: "Enterprise AI Gateway & FinOps Controller",
     projectGithub: FLAGSHIP_PROJECTS[3]?.githubUrl || "https://github.com/your-username/portfolio-ecosystem/tree/main/projects/04-enterprise-ai-gateway-finops",
-    architecturalPillar: "Redis semantic prompt hashing and multi-cloud failover routing guaranteeing 99.99% model uptime."
+    architecturalPillar: "Identical prompts return from cache in under 5 ms; multi-cloud failover sustains 99.99% model uptime."
   }
 ];
 
@@ -111,10 +111,10 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
           Architectural Solution Blueprints
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
-          System Design Blueprints & ROI
+          Solution Blueprints for Real Industrial Bottlenecks
         </h2>
         <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light">
-          Explore production blueprints, projected ROI, and concrete systems engineered to solve real-world industrial and enterprise bottlenecks.
+          Four production bottlenecks, the systems that solved them, and the savings delivered. Select one to inspect the architecture, then Get in Touch.
         </p>
       </div>
 
@@ -122,7 +122,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
         {/* Left: Challenge Selectors */}
         <div className="lg:col-span-5 space-y-3">
           <div className="text-xs font-mono text-slate-600 dark:text-slate-400 mb-2 uppercase tracking-wider font-semibold">
-            Select Industrial Context:
+            Select an Industrial Context:
           </div>
 
           {SCENARIOS.map((sc) => (
@@ -157,7 +157,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
             <div className="flex items-start justify-between gap-4 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
               <div>
                 <span className="text-[11px] font-mono text-cyan-700 dark:text-cyan-400 uppercase tracking-wide font-semibold">
-                  Architectural Solution
+                  Recommended Architecture
                 </span>
                 <h3 className="text-xl sm:text-2xl font-extrabold text-slate-950 dark:text-white tracking-tight mt-1">
                   {selectedScenario.recommendedPattern}
@@ -219,7 +219,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
           {/* Action Row */}
           <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-slate-100 dark:border-slate-800">
             <div className="text-xs text-slate-700 dark:text-slate-300">
-              Matching System: <strong className="text-slate-950 dark:text-white font-semibold">{selectedScenario.matchingProject}</strong>
+              Matching Production System: <strong className="text-slate-950 dark:text-white font-semibold">{selectedScenario.matchingProject}</strong>
             </div>
 
             <div className="flex items-center gap-2">
@@ -230,7 +230,7 @@ export default function AiSolutionMatchmaker({ onOpenContactModal }: AiSolutionM
                 className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-900 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 text-xs font-medium flex items-center gap-1.5 transition-all shadow-xs"
               >
                 <FileCode className="w-3.5 h-3.5 text-slate-500" />
-                <span>Monorepo Subfolder</span>
+                <span>Monorepo Source</span>
                 <ExternalLink className="w-3 h-3 text-slate-400" />
               </a>
 

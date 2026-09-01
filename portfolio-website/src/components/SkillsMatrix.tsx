@@ -2,10 +2,50 @@
 
 import React, { useState } from "react";
 import { CANDIDATE_PROFILE } from "@/data/portfolio_data";
-import { Bot, Code2, Cloud, Database, FlaskConical, CheckCircle2, Sparkles } from "lucide-react";
+import { Bot, Code2, Cloud, Database, FlaskConical, Sparkles, Info, X } from "lucide-react";
+
+// Compact, uniform proof codes so every skill chip stays the same visual weight.
+// Full project name remains available as hover tooltip on the chip.
+const PROOF_CODE_MAP: Record<string, string> = {
+  "01 Materials": "P1",
+  "02 ChemAgent": "P2",
+  "03 Rheology": "P3",
+  "04 AI Gateway": "P4",
+  "05 Doc Intelligence": "P5",
+  "All backends": "All",
+  "All services": "All",
+  "Portfolio site": "Web",
+  "Plant RCFA": "RCFA",
+  "Patent search": "IP",
+  "Monorepo": "Mono",
+  "Lab Orders": "Lab",
+  "Data Lake tab": "Lake",
+  "Predictive Maint.": "PdM",
+  "Cement ML": "Cem",
+  "Leadership": "Lead"
+};
+
+const PROOF_LEGEND: Array<{ code: string; meaning: string }> = [
+  { code: "P1", meaning: "Materials Intelligence Platform" },
+  { code: "P2", meaning: "ChemAgent SDS Compliance" },
+  { code: "P3", meaning: "Rust/WASM Rheology Engine" },
+  { code: "P4", meaning: "Enterprise AI Gateway (FinOps)" },
+  { code: "P5", meaning: "Multimodal Document Intelligence" },
+  { code: "All", meaning: "Every service in the monorepo" },
+  { code: "Web", meaning: "This portfolio website" },
+  { code: "RCFA", meaning: "Plant Root-Cause Failure Analysis" },
+  { code: "IP", meaning: "Patent & ontology search (MarkLogic)" },
+  { code: "Mono", meaning: "Monorepo CI/CD pipelines" },
+  { code: "Lab", meaning: "Lab Orders platform (Continental)" },
+  { code: "Lake", meaning: "AWS data lake (Glue, Athena, S3)" },
+  { code: "PdM", meaning: "Predictive maintenance pipelines" },
+  { code: "Cem", meaning: "Cement compressive-strength models" },
+  { code: "Lead", meaning: "Cross-functional leadership programs" }
+];
 
 export default function SkillsMatrix() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
+  const [showLegend, setShowLegend] = useState(false);
 
   const categoryIcons: Record<string, React.ReactNode> = {
     "Enterprise AI & Multi-Agent Systems": <Bot className="w-5 h-5 text-blue-600 dark:text-blue-400" />,
@@ -29,15 +69,15 @@ export default function SkillsMatrix() {
             Core Competencies & Architecture Matrix
           </div>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight">
-            Technical Architecture & Skills Matrix
+            Technical Skills & Architecture Matrix
           </h2>
           <p className="text-slate-700 dark:text-slate-300 text-sm max-w-2xl font-light mt-1">
-            Proven mastery across the entire digital lifecycle: from polymer physics and plant telemetry to multi-agent LLM systems and distributed cloud infrastructure.
+            Proven mastery across the full digital lifecycle, from polymer physics and plant telemetry to multi-agent LLM systems and distributed cloud infrastructure. Every chip maps to a shipped system; acronyms are expanded at first use: LangGraph (multi-agent graphs), FAISS (vector search), RAG (retrieval-augmented generation).
           </p>
         </div>
 
-        {/* Filter Pills */}
-        <div className="flex flex-wrap gap-2">
+        {/* Filter Pills + Badge Legend — full-width stacked row on mobile */}
+        <div className="relative flex flex-wrap items-center gap-2 max-md:w-full max-md:justify-start">
           <button
             onClick={() => setSelectedCategory("ALL")}
             className={`px-3 py-1.5 rounded-xl text-xs font-medium transition-all ${
@@ -61,6 +101,52 @@ export default function SkillsMatrix() {
               {cat.category.split(" ")[0]}
             </button>
           ))}
+
+          {/* Legend info toggle — explains the compact P1-P5 / context codes on each chip */}
+          <button
+            type="button"
+            onClick={() => setShowLegend((prev) => !prev)}
+            className={`p-1.5 rounded-lg transition-all ${
+              showLegend
+                ? "bg-blue-600 text-white shadow-sm"
+                : "bg-slate-100 dark:bg-slate-900 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 border border-slate-200 dark:border-slate-800"
+            }`}
+            title="What do the P1-P5 and short codes on each chip mean?"
+            aria-label="Toggle proof badge legend"
+            aria-expanded={showLegend}
+          >
+            <Info className="w-3.5 h-3.5" />
+          </button>
+
+          {showLegend && (
+            <div className="absolute right-0 top-full mt-2 z-30 w-72 sm:w-80 rounded-2xl bg-white dark:bg-[#0a1120] border border-slate-200 dark:border-slate-800 shadow-2xl p-4">
+              <div className="flex items-center justify-between mb-2.5">
+                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-blue-700 dark:text-cyan-300">
+                  Badge legend
+                </span>
+                <button
+                  type="button"
+                  onClick={() => setShowLegend(false)}
+                  className="p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-500 dark:text-slate-400 transition-colors"
+                  aria-label="Close legend"
+                >
+                  <X className="w-3.5 h-3.5" />
+                </button>
+              </div>
+              <div className="grid grid-cols-1 gap-1 max-h-64 overflow-y-auto pr-1">
+                {PROOF_LEGEND.map((item, lIdx) => (
+                  <div key={lIdx} className="flex items-center gap-2.5 px-2 py-1 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-900/60">
+                    <span className="inline-flex items-center justify-center min-w-[2.4rem] px-1 py-0.5 rounded text-[9px] font-mono font-semibold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60 flex-shrink-0">
+                      {item.code}
+                    </span>
+                    <span className="text-[11px] text-slate-700 dark:text-slate-300 font-light leading-snug">
+                      {item.meaning}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -83,28 +169,25 @@ export default function SkillsMatrix() {
                 </div>
               </div>
 
-              <p className="text-xs text-slate-700 dark:text-slate-300 mb-5 leading-relaxed font-light">
-                {cat.description}
-              </p>
-
-              {/* Skills List */}
-              <div className="space-y-2">
+              {/* Full-width rows: text flexes, badge pins right on desktop and wraps below on very small screens */}
+              <div className="flex flex-col gap-1.5">
                 {cat.skills.map((skill, sIdx) => (
-                  <div
+                  <span
                     key={sIdx}
-                    className={`flex items-center gap-2 p-2.5 rounded-xl text-xs transition-colors ${
+                    className={`flex w-full flex-wrap sm:flex-nowrap items-center justify-between gap-x-2 gap-y-1 px-2.5 py-1.5 rounded-lg text-[11px] font-medium border ${
                       skill.highlight
-                        ? "bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900/60 text-blue-950 dark:text-blue-200 font-medium shadow-xs"
-                        : "bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-slate-800/80 text-slate-800 dark:text-slate-200"
+                        ? "bg-blue-50 dark:bg-blue-950/40 border-blue-200 dark:border-blue-900/60 text-blue-950 dark:text-blue-200"
+                        : "bg-slate-50 dark:bg-slate-900/50 border-slate-100 dark:border-slate-800/80 text-slate-800 dark:text-slate-200"
                     }`}
+                    title={skill.proof ? `Proven in: ${skill.proof}` : skill.name}
                   >
-                    <CheckCircle2
-                      className={`w-3.5 h-3.5 flex-shrink-0 ${
-                        skill.highlight ? "text-blue-600 dark:text-cyan-400" : "text-slate-400 dark:text-slate-500"
-                      }`}
-                    />
-                    <span className="truncate font-medium">{skill.name}</span>
-                  </div>
+                    <span className="flex-1 min-w-0 basis-full sm:basis-auto leading-snug">{skill.name}</span>
+                    {skill.proof && (
+                      <span className="inline-flex w-auto sm:w-[3.2rem] flex-shrink-0 items-center justify-center px-1.5 sm:px-1 py-0.5 rounded text-[9px] font-mono font-semibold text-center bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-400 border border-emerald-200 dark:border-emerald-800/60">
+                        {PROOF_CODE_MAP[skill.proof] ?? skill.proof}
+                      </span>
+                    )}
+                  </span>
                 ))}
               </div>
             </div>
