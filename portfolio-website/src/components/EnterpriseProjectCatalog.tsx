@@ -82,10 +82,10 @@ export default function EnterpriseProjectCatalog() {
           Enterprise Systems & Delivery Portfolio
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-950 dark:text-white tracking-tight mb-3">
-          Complete Systems & Engineering Catalog
+          Projects
         </h2>
         <p className="text-slate-700 dark:text-slate-300 text-sm max-w-3xl font-light">
-          A comprehensive catalog of production systems, research breakthroughs, and enterprise tools architected across <strong>Chemicals, Automotive Plants, Cement, and Life Sciences</strong>, categorized with architectural discipline tags.
+          A comprehensive portfolio of production systems, research breakthroughs, and enterprise tools architected across <strong>Chemicals, Automotive Plants, Cement, and Life Sciences</strong>, categorized with architectural discipline tags.
         </p>
       </div>
 
@@ -228,7 +228,7 @@ export default function EnterpriseProjectCatalog() {
                       className="px-3 py-1 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-[11px] font-semibold flex items-center gap-1 transition-colors shadow-xs"
                     >
                       <Cpu className="w-3 h-3" />
-                      <span>Live Sandbox</span>
+                      <span>Interactive Demo</span>
                     </a>
                   )}
                   {project.githubUrl && (

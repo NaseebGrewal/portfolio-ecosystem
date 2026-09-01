@@ -87,6 +87,14 @@ git push -u origin main
 
 Vercel natively supports **FastAPI** as a serverless backend preset alongside **Next.js 15**. You can deploy all services from the single `portfolio-ecosystem` GitHub repository.
 
+> **⚠️ Troubleshooting: `{"detail":"Not Found"}` on every route (`/`, `/docs`, `/health`, `/openapi.json`)**
+> This symptom means the Vercel project is **not** deploying the monorepo backend at all — it is serving a stale deployment or a different source (e.g., an old standalone repository) whose FastAPI app exposes no public routes. The in-repo `vercel.json` + `api/index.py` configuration is identical across all 7 backends, so the fix is entirely in the Vercel project settings:
+> 1. **Settings → Git**: ensure the project is connected to `NaseebGrewal/portfolio-ecosystem` (branch `main`) — **not** an old standalone repository.
+> 2. **Settings → General → Root Directory**: must be `projects/0X-.../backend` for the respective service.
+> 3. **Framework Preset:** `Other` (or `FastAPI` auto-detect); no custom build/output overrides.
+> 4. **Deployments → Redeploy** with "Use existing Build Cache" **unchecked**.
+> Verification: `curl https://<project>.vercel.app/openapi.json` must return the OpenAPI schema (HTTP 200).
+
 ### Deployment Matrix on Vercel:
 
 #### 1. Main Portfolio Website

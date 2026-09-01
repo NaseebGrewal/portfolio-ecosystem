@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from typing import List, Optional
 from app.schemas import Material
 from app.database import init_db, get_materials, get_material_by_id_from_db
@@ -14,6 +15,9 @@ app = FastAPI(
     title="Materials Intelligence & Formulation Platform API",
     description="Enterprise API for Polymer Formulation, Dynamic Mechanical Property Filtering & Compliance",
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
     lifespan=lifespan
 )
 
@@ -24,6 +28,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 @app.get("/health", tags=["Monitoring"])
 async def health_check():

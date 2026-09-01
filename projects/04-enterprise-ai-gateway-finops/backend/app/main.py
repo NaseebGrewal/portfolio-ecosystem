@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, HTTPException, Header
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List, Optional
 from app.gateway import init_redis, hash_prompt, check_cache, store_cache, track_token_spend, get_finops_summary
@@ -14,6 +15,9 @@ app = FastAPI(
     title="Enterprise AI Gateway & FinOps Proxy API",
     description="LLM Semantic Caching, Departmental Budget Controls & Model Routing",
     version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
     lifespan=lifespan
 )
 
@@ -24,6 +28,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 class ChatMessage(BaseModel):
     role: str

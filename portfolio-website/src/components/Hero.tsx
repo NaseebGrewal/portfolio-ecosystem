@@ -146,7 +146,7 @@ export default function Hero({ onOpenContactModal }: HeroProps) {
                 className="px-4 py-3 rounded-xl bg-white dark:bg-surface hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-surfaceBorder font-medium text-xs sm:text-sm flex items-center gap-2 transition-all"
               >
                 <Layers className="w-4 h-4" />
-                <span>Catalog (14)</span>
+                <span>Projects (14)</span>
               </a>
 
               <button

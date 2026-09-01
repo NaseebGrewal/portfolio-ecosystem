@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List, Optional
 import time
@@ -10,7 +11,10 @@ from app.rheology_engine import compute_tensile_invariants, is_rust_native_activ
 app = FastAPI(
     title="Lab Rheology & Tensile Mechanics Engine API",
     description="High-Speed Tensile Curve Fitting, Young's Modulus & Toughness Invariant Solver with Native Rust Core",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
 
 app.add_middleware(
@@ -20,6 +24,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 CURVES_PATH = Path(__file__).parent / "data" / "sample_curves.json"
 

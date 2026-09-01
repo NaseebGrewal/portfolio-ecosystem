@@ -31,7 +31,7 @@ const NAV_ITEMS = [
   { id: "pedigree", label: "Experience", href: "#pedigree" },
   { id: "core-systems", label: "Core Systems", href: "#core-systems" },
   { id: "interactive-demo", label: "Live Sandboxes", href: "#interactive-demo" },
-  { id: "catalog", label: "Systems Catalog", href: "#catalog" },
+  { id: "catalog", label: "Projects", href: "#catalog" },
   { id: "skills", label: "Skills & Architecture", href: "#skills" },
   { id: "credentials", label: "Credentials", href: "#credentials" },
   { id: "contact", label: "Contact", href: "#contact" },
@@ -224,7 +224,7 @@ export default function Home() {
       {/* Interactive AI Architecture Matchmaker */}
       <AiSolutionMatchmaker onOpenContactModal={handleOpenContactModal} />
 
-      {/* Full Filterable Systems Catalog (14 Systems) */}
+      {/* Full Filterable Projects Catalog (14 Systems) */}
       <EnterpriseProjectCatalog />
 
       {/* Technical Architecture & Skills Matrix */}

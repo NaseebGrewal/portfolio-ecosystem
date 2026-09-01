@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 from typing import List, Optional
 from app.agents.graph import run_compliance_agent_pipeline
@@ -10,7 +11,10 @@ from app.agents.llm_client import get_gemini_api_key
 app = FastAPI(
     title="ChemAgent-Gov: Multi-Agent Chemical Compliance API",
     description="Automated ECHA REACH SVHC Verification and SDS Hazard Auditor powered by LangGraph and Google Gemini 3.5/3.1 Flash-Lite Cascade",
-    version="1.0.0"
+    version="1.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json"
 )
 
 app.add_middleware(
@@ -20,6 +24,10 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+@app.get("/", include_in_schema=False)
+def root_redirect():
+    return RedirectResponse(url="/docs")
 
 class ChemicalComponent(BaseModel):
     chemical_name: str
